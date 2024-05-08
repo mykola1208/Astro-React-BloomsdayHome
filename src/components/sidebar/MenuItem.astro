@@ -1,0 +1,45 @@
+---
+import { Icon } from "astro-icon/components";
+import { Dropdown, DropdownItems } from "astro-navbar";
+const { title, icon, href = "#", items = [] } = Astro.props;
+---
+
+{
+  items.length == 0 ? (
+    <a
+      href={href}
+      class="flex items-center space-x-2 focus:bg-ecruwhite hover:bg-ecruwhite cursor-pointer rounded px-2 py-3"
+    >
+      <Icon name={icon} width={24} height={24} class="shrink-0" />
+      <span class="text-everglade leading-4 grow font-medium">{title}</span>
+    </a>
+  ) : (
+    <Dropdown class="group">
+      <button class="flex items-center space-x-2 focus:bg-ecruwhite hover:bg-ecruwhite cursor-pointer rounded px-2 py-3 w-full">
+        <Icon name={icon} width={24} height={24} class="shrink-0" />
+        <span class="text-everglade text-left leading-4 grow font-medium">
+          {title}
+        </span>
+        <Icon
+          name="chevron"
+          width={24}
+          height={24}
+          class="shrink-0 group-open:rotate-180"
+        />
+      </button>
+      <DropdownItems>
+        <ul>
+          {items.map((item) => (
+            <li class="pt-3 pr-2 pb-3 pl-10">
+              <a href={item.href}>
+                <span class="text-everglade text-sm hover:underline">
+                  {item.title}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </DropdownItems>
+    </Dropdown>
+  )
+}

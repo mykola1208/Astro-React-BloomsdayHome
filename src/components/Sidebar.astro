@@ -1,0 +1,86 @@
+---
+import { Astronav, MenuItems } from "astro-navbar";
+import MenuItem from "./sidebar/MenuItem.astro";
+
+const menuItems = [
+  {
+    title: "Home",
+    href: "#home",
+    icon: "home",
+  },
+  {
+    title: "Tasks",
+    icon: "tasks",
+    items: [
+      {
+        title: "Get Approved",
+        href: "#get-approved",
+      },
+      {
+        title: "Make an Offer",
+        href: "#make-an-offer",
+      },
+      {
+        title: "Escrow",
+        href: "#escrow",
+      },
+      {
+        title: "Closing",
+        href: "#closing",
+      },
+      {
+        title: "Moving in",
+        href: "#moving-in",
+      },
+    ],
+  },
+  {
+    title: "Documents",
+    icon: "documents",
+    items: [
+      {
+        title: "Document 1",
+        href: "#document-1",
+      },
+      {
+        title: "Document 2",
+        href: "#document-2",
+      },
+      {
+        title: "Document 3",
+        href: "#document-3",
+      },
+    ],
+  },
+  {
+    title: "Notes",
+    href: "#notes",
+    icon: "notes",
+  },
+  {
+    title: "Photos",
+    href: "#photos",
+    icon: "photos",
+  },
+];
+---
+
+<div class="h-screen w-full bg-springwood py-6 px-4">
+  <Astronav>
+    <MenuItems class="flex">
+      <ul class="flex flex-col w-full">
+        {
+          menuItems.map((item) => (
+            <li>
+              <MenuItem
+                title={item.title}
+                icon={item.icon}
+                items={item.items || []}
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </MenuItems>
+  </Astronav>
+</div>

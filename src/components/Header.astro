@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import SearchBox from "./SearchBox.astro";
+---
+
+<div class="flex flex-row py-4 px-8">
+  <div class="basis-1/5 flex items-center">
+    <Icon name="logo" width={185} height={34} />
+  </div>
+  <div class="basis-3/5">
+    <SearchBox />
+  </div>
+  <div class="basis-1/5 flex items-center justify-end gap-x-3">
+    <button type="button" class="inline-flex items-center p-3.5">
+      <Icon name="settings" width={24} height={25} />
+    </button>
+    <button type="button" class="inline-flex items-center p-3.5">
+      <Icon name="alert" width={25} height={25} />
+    </button>
+    <Image src="/avatar.png" alt="Bloomsday" width="50" height="50" />
+  </div>
+</div>
