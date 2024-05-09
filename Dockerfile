@@ -30,7 +30,11 @@ RUN yarn install --frozen-lockfile --production=false
 COPY --link . .
 
 # Build application
-RUN yarn run build
+RUN --mount=type=secret,id=CLERK_SECRET_KEY \
+    --mount=type=secret,id=PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY \
+    CLERK_SECRET_KEY="$(cat /run/secrets/CLERK_SECRET_KEY)" \
+    PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY="$(cat /run/secrets/PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY)" \
+    yarn run build
 
 # Remove development dependencies
 RUN yarn install --production=true

@@ -1,5 +1,5 @@
 import { defineConfig } from "astro/config";
-
+import clerk from "astro-clerk-auth";
 import node from "@astrojs/node";
 import react from "@astrojs/react";
 import icon from "astro-icon";
@@ -11,5 +11,13 @@ export default defineConfig({
   adapter: node({
     mode: "standalone",
   }),
-  integrations: [react(), tailwind(), icon()],
+  integrations: [
+    clerk({
+      afterSignInUrl: "/",
+      afterSignUpUrl: "/",
+    }),
+    react(),
+    tailwind(),
+    icon(),
+  ],
 });
