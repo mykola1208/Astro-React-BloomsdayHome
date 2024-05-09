@@ -14,3 +14,6 @@ jobs:
       - run: flyctl deploy --remote-only --build-secret CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} --build-secret PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY=${{ secrets.PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY }}
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          FLY_REGION: iad
+          FLY_ORG: bloomsday
+
