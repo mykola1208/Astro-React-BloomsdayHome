@@ -8,16 +8,16 @@ const { title, icon, href = "#", items = [] } = Astro.props;
   items.length == 0 ? (
     <a
       href={href}
-      class="flex items-center space-x-2 focus:bg-ecruwhite hover:bg-ecruwhite cursor-pointer rounded px-2 py-3"
+      class="flex items-center space-x-2 focus:bg-cream hover:bg-cream cursor-pointer rounded px-2 py-3"
     >
       <Icon name={icon} width={24} height={24} class="shrink-0" />
-      <span class="text-everglade leading-4 grow font-medium">{title}</span>
+      <span class="text-darkgreen leading-4 grow font-medium">{title}</span>
     </a>
   ) : (
     <Dropdown class="group">
-      <button class="flex items-center space-x-2 focus:bg-ecruwhite hover:bg-ecruwhite cursor-pointer rounded px-2 py-3 w-full">
+      <button class="flex items-center space-x-2 focus:bg-cream hover:bg-cream cursor-pointer rounded px-2 py-3 w-full">
         <Icon name={icon} width={24} height={24} class="shrink-0" />
-        <span class="text-everglade text-left leading-4 grow font-medium">
+        <span class="text-darkgreen text-left leading-4 grow font-medium">
           {title}
         </span>
         <Icon
@@ -32,7 +32,7 @@ const { title, icon, href = "#", items = [] } = Astro.props;
           {items.map((item) => (
             <li class="pt-3 pr-2 pb-3 pl-10">
               <a href={item.href}>
-                <span class="text-everglade text-sm hover:underline">
+                <span class="text-darkgreen text-sm hover:underline font-medium">
                   {item.title}
                 </span>
               </a>

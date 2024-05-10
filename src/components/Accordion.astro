@@ -1,0 +1,143 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface AccordionItem {
+  headerPrefix: string;
+  header: string;
+  body: string;
+  isExpanded?: boolean;
+}
+
+interface Props {
+  headerClasses?: string;
+  bodyClasses?: string;
+  items: AccordionItem[];
+}
+
+const {
+  headerClasses = "py-5 px-3 border border-0 border-t-2 border-darkgreen h-12.5",
+  bodyClasses = "pb-4 pl-3 pr-10 text-darkgreen",
+  items = [],
+} = Astro.props;
+---
+
+<xe-accordion>
+  <div class="accordion" role="presentation">
+    {
+      items.map(({ headerPrefix, header, body, isExpanded = false }) => {
+        const randomId = Math.floor(Math.random() * 9999);
+
+        return (
+          <div class="accordion-item group">
+            <button
+              class:list={[
+                "button expandable heading w-full flex items-center",
+                headerClasses,
+                "group-open:border-completed group-open:border-t-4",
+              ]}
+              aria-controls={`accordion${randomId}`}
+              aria-expanded={isExpanded ? "true" : "false"}
+            >
+              <span class="text-darkgreen text-left leading-4 grow font-medium">
+                {headerPrefix ? <span class="mr-1">{headerPrefix}</span> : null}
+
+                <span class="group-open:font-bold">{header}</span>
+              </span>
+              <Icon
+                name="chevron"
+                width={24}
+                height={24}
+                class="shrink-0 group-open:rotate-180"
+              />
+            </button>
+            <div
+              class:list={["body", bodyClasses]}
+              id={`accordion${randomId}`}
+              hidden
+            >
+              <p class="text-base leading-7.5">{body}</p>
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+</xe-accordion>
+
+<script>
+  class Accordion extends HTMLElement {
+    constructor() {
+      super();
+
+      const headers = this.querySelectorAll(
+        "button[aria-expanded]"
+      ) as NodeListOf<HTMLButtonElement>;
+
+      if (headers && headers.length) {
+        headers.forEach((header: HTMLButtonElement, index: number) => {
+          const body = this.querySelector(
+            `#${header.getAttribute("aria-controls")}`
+          ) as HTMLElement;
+          const isInitiallyExpanded =
+            header.getAttribute("aria-expanded") === "true";
+
+          header.addEventListener("click", () =>
+            this.onButtonClick(header, body)
+          );
+
+          if (isInitiallyExpanded || index == 0) {
+            this.open(header, body);
+          }
+        });
+      }
+    }
+
+    onButtonClick(header: HTMLButtonElement, body: HTMLElement) {
+      const open = header.getAttribute("aria-expanded") === "true";
+
+      if (open) {
+        return this.close(header, body);
+      }
+
+      return this.open(header, body);
+    }
+
+    toggle(open: boolean, header: HTMLButtonElement, body: HTMLElement) {
+      header.setAttribute("aria-expanded", `${open}`);
+      const accordionItem: HTMLElement = body.closest(".accordion-item");
+
+      if (open) {
+        // close already open accordion item
+        const accordion: HTMLElement = body.closest(".accordion");
+        const openAccordionItem = accordion.querySelector(
+          ".accordion-item[open]"
+        );
+
+        if (openAccordionItem) {
+          const openHeader: HTMLButtonElement = openAccordionItem.querySelector(
+            "button[aria-expanded]"
+          );
+          const openBody: HTMLElement = this.querySelector(
+            `#${openHeader.getAttribute("aria-controls")}`
+          );
+          this.close(openHeader, openBody);
+        }
+
+        accordionItem.setAttribute("open", "");
+        body.removeAttribute("hidden");
+      } else {
+        accordionItem.removeAttribute("open");
+        body.setAttribute("hidden", "");
+      }
+    }
+
+    open(header: HTMLButtonElement, body: HTMLElement) {
+      this.toggle(true, header, body);
+    }
+
+    close(header: HTMLButtonElement, body: HTMLElement) {
+      this.toggle(false, header, body);
+    }
+  }
+  customElements.define("xe-accordion", Accordion);
+</script>

@@ -4,26 +4,20 @@ export default {
   theme: {
     extend: {},
     colors: {
-      everglade: "#1C4835",
-      springwood: "#F8F5F1",
-      ecruwhite: "#F5F2E1",
+      darkgreen: "#1C4835",
+      putty: "#F8F5F1",
+      cream: "#F5F2E1",
+      completed: "#208459",
+      sage: "#9FBCAD",
     },
     fontFamily: {
-      neue: ['NeueMontreal', 'sans-serif'],
+      neue: ["NeueMontreal", "sans-serif"],
     },
-    fontSize: {
-      sm: "16px",
-      md: "18px",
-      normal: "22px",
-    },
-    fontWeight: {
-      sm: "500",
-      normal: "700",
+    height: {
+      12.5: "50px",
     },
     lineHeight: {
-      sm: "16px",
-      md: "19.8px",
-      normal: "24.2px",
+      7.5: "30px",
     },
   },
   plugins: [],
