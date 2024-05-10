@@ -30,11 +30,12 @@ const { title, icon, href = "#", items = [] } = Astro.props;
       <DropdownItems>
         <ul>
           {items.map((item) => (
-            <li class="pt-3 pr-2 pb-3 pl-10">
-              <a href={item.href}>
-                <span class="text-darkgreen text-sm hover:underline font-medium">
-                  {item.title}
-                </span>
+            <li class="py-2 pr-2 pl-10">
+              <a
+                href={item.href}
+                class="text-darkgreen text-sm leading-none font-medium block"
+              >
+                {item.title}
               </a>
             </li>
           ))}

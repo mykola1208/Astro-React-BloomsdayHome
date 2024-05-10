@@ -14,10 +14,8 @@ export default {
       neue: ["NeueMontreal", "sans-serif"],
     },
     height: {
-      12.5: "50px",
-    },
-    lineHeight: {
       7.5: "30px",
+      12.5: "50px",
     },
   },
   plugins: [],
