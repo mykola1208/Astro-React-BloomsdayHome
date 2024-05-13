@@ -13,8 +13,8 @@ export default defineConfig({
   }),
   integrations: [
     clerk({
-      afterSignInUrl: "/",
-      afterSignUpUrl: "/",
+      afterSignInUrl: "/progress-tracker",
+      afterSignUpUrl: "/progress-tracker",
     }),
     react(),
     tailwind(),

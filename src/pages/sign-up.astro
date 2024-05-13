@@ -1,0 +1,37 @@
+---
+import OnboardingLayout from "../layouts/OnboardingLayout.astro";
+import { SignUp } from "astro-clerk-auth/components/interactive";
+---
+
+<OnboardingLayout title="Bloomsday: Sign-Up">
+    <section class="justify-end border border-solid border-black border-opacity-20">
+        <div class="flex max-md:flex-col max-md:gap-0">
+          <div class="flex flex-col w-6/12 max-md:ml-0 max-md:w-full bg-[#F5F2E1]">
+            <div class="flex flex-col grow justify-center items-center px-20 pb-16 w-full text-base font-medium leading-6 text-green-900 bg-lime-50 max-md:px-5 max-md:max-w-full">
+              <h1 class="mt-20 text-4xl leading-10 text-center max-md:mt-10">Welcome to Bloomsday</h1>
+              <p class="mt-5 text-center text-black">Get started today for free!</p>
+              <div class="flex justify-center items-center px-4 py-3.5 mt-11 max-w-full text-center rounded-xl bg-stone-50 w-[404px] max-md:px-5 max-md:mt-10">
+                <div class="flex gap-4">
+                    <SignUp />
+                </div>
+              </div>
+              <p class="mt-7 text-sm text-center underline">
+                <span class="text-xs leading-4 text-green-900">By proceeding, you agree to the </span>
+                <a href="#" class="text-xs leading-4 text-green-900 underline">Terms of Service</a>
+                <span class="text-xs leading-4 text-green-900"> and </span>
+                <a href="#" class="text-xs leading-4 text-green-900 underline">Privacy Policy</a>
+              </p>
+              <p class="mt-48 text-base text-center underline max-md:mt-10">
+                <span class="text-green-900">Already have an account? </span>
+                <a href="/sign-in" class="text-green-900 underline">Sign-in</a>
+              </p>
+            </div>
+          </div>
+          <div class="flex flex-col w-6/12 bg-green-900 max-md:ml-0 max-md:w-full bg-[#1C4835]">
+            <div class="flex grow justify-center items-center px-16 py-20 w-full max-md:px-5 max-md:max-w-full">
+              <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/642fa7dacda68b28c4ae90f8ce2b26498ecd7a6997ed9110d8d929713686651f?apiKey=3bf7af20e2da4e639676747cf20951bb&" alt="Bloomsday logo" class="max-w-full aspect-square w-[108px] max-md:mt-10" />
+            </div>
+          </div>
+        </div>
+      </section>
+    </OnboardingLayout>
