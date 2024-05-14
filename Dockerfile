@@ -32,8 +32,14 @@ COPY --link . .
 # Build application
 RUN --mount=type=secret,id=CLERK_SECRET_KEY \
     --mount=type=secret,id=PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY \
+    --mount=type=secret,id=PUBLIC_GETSTREAM_APP_ID \
+    --mount=type=secret,id=PUBLIC_GETSTREAM_FEED_KEY \
+    --mount=type=secret,id=GETSTREAM_FEED_SECRET \
     CLERK_SECRET_KEY="$(cat /run/secrets/CLERK_SECRET_KEY)" \
     PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY="$(cat /run/secrets/PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY)" \
+    PUBLIC_GETSTREAM_APP_ID="$(cat /run/secrets/PUBLIC_GETSTREAM_APP_ID)" \
+    PUBLIC_GETSTREAM_FEED_KEY="$(cat /run/secrets/PUBLIC_GETSTREAM_FEED_KEY)" \
+    GETSTREAM_FEED_SECRET="$(cat /run/secrets/GETSTREAM_FEED_SECRET)" \
     yarn run build
 
 # Remove development dependencies

@@ -2,6 +2,20 @@
 import { Icon } from "astro-icon/components";
 import SearchBox from "./SearchBox.astro";
 import { UserButton } from "astro-clerk-auth/components/interactive";
+import stream from "getstream";
+import NotificationBell from "../components/react/NotificationBell.jsx"
+
+const user = await Astro.locals.currentUser();
+const userToken =
+  user.publicMetadata.streamToken ||
+  stream
+    .connect(
+      import.meta.env.PUBLIC_GETSTREAM_FEED_KEY,
+      import.meta.env.GETSTREAM_FEED_SECRET,
+      import.meta.env.PUBLIC_GETSTREAM_APP_ID
+    )
+    .createUserToken(user.id);
+
 ---
 
 <div class="flex flex-row py-4 px-8">
@@ -16,8 +30,14 @@ import { UserButton } from "astro-clerk-auth/components/interactive";
       <Icon name="settings" width={24} height={25} />
     </button>
     <button type="button" class="inline-flex items-center p-3.5">
-      <Icon name="alert" width={25} height={25} />
+      <!-- <Icon name="alert" width={25} height={25} /> -->
+      <NotificationBell token={userToken} client:only />
     </button>
     <UserButton />
   </div>
 </div>
+
+<script>
+  window.global = window;
+</script>
+
