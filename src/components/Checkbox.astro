@@ -1,0 +1,38 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  checked: boolean;
+  label: string;
+}
+
+const { checked, label } = Astro.props;
+const randomId = Math.floor(Math.random() * 9999);
+---
+
+<div class="flex items-center my-[5px]" id={`div${randomId}`}>
+  <input
+    class="appearance-none relative peer shrink-0 w-5 min-h-5"
+    type="checkbox"
+    checked={checked}
+    id={`checkbox${randomId}`}
+  />
+  <Icon
+    name="checkbox-off"
+    width={20}
+    height={20}
+    class="absolute shrink-0 peer-checked:hidden pointer-events-none"
+  />
+  <Icon
+    name="checkbox-on"
+    width={20}
+    height={20}
+    class="absolute shrink-0 hidden peer-checked:inline pointer-events-none"
+  />
+  <label
+    for={`checkbox${randomId}`}
+    class="ml-1 text-sm text-sage peer-checked:text-darkgreen"
+  >
+    {label}
+  </label>
+</div>

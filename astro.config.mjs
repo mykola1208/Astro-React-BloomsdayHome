@@ -20,4 +20,7 @@ export default defineConfig({
     tailwind(),
     icon(),
   ],
+  redirects: {
+    "/progress-tracker": "/progress-tracker/get-approved",
+  },
 });

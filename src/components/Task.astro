@@ -1,0 +1,88 @@
+---
+import { Icon } from "astro-icon/components";
+import Checkbox from "./Checkbox.astro";
+
+interface CheckListItem {
+  status: boolean;
+  label: string;
+}
+
+interface CheckListGroup {
+  title: string;
+  checkList: CheckListItem[];
+}
+
+interface Props {
+  headerIcon: string;
+  header: string;
+  checkList?: CheckListItem[];
+  hasGroups?: boolean;
+  checkListGroups?: CheckListGroup[];
+}
+
+const {
+  headerIcon,
+  header,
+  hasGroups = false,
+  checkList = [],
+  checkListGroups = [],
+} = Astro.props;
+
+const flag =
+  (hasGroups &&
+    checkListGroups.some(({ checkList }) =>
+      checkList.some(({ status }) => status)
+    )) ||
+  (!hasGroups && checkList.some(({ status }) => status));
+---
+
+<div
+  class="flex flex-col gap-2 min-h-full border border-sage rounded-xl py-3 px-4"
+>
+  <div class="flex items-center gap-1.5">
+    <Icon name={headerIcon} width={25} height={25} class="shrink-0" />
+    <span class="text-darkgreen leading-4 grow font-medium text-xl">
+      {header}
+    </span>
+  </div>
+
+  <div class="grow">
+    <div>
+      {
+        hasGroups ? (
+          checkListGroups.map(({ title, checkList }) => (
+            <div class="flex flex-col">
+              <p class="text-darkgreen text-sm">{title}</p>
+              <ul>
+                {checkList.map(({ status, label }) => (
+                  <li>
+                    <Checkbox checked={status} label={label} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        ) : (
+          <ul>
+            {checkList.map(({ status, label }) => (
+              <li>
+                <Checkbox checked={status} label={label} />
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </div>
+  {
+    flag ? (
+      <button class="px-4 py-3 bg-darkgreen text-[#ffffff] rounded-lg">
+        View Documents
+      </button>
+    ) : (
+      <button class="px-4 py-3 bg-mint text-sage rounded-lg">
+        View Documents
+      </button>
+    )
+  }
+</div>

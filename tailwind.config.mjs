@@ -9,6 +9,7 @@ export default {
       cream: "#F5F2E1",
       completed: "#208459",
       sage: "#9FBCAD",
+      mint: "#EAF1E6",
     },
     fontFamily: {
       neue: ["NeueMontreal", "sans-serif"],
