@@ -67,3 +67,125 @@ html {
 .hidden {
   display: none;
 }
+
+.ais-SearchBox-border {
+  border-radius: 2px;
+}
+
+.ais-SearchBox-form,
+.ais-SearchBox-input,
+.ais-SearchBox-submit,
+.ais-SearchBox-submitIcon,
+.ais-SearchBox-reset,
+.ais-SearchBox-resetIcon,
+.ais-SearchBox-loadingIndicator,
+.ais-SearchBox-loadingIcon {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.ais-SearchBox-resetIcon,
+.ais-SearchBox-loadingIcon {
+  display: none !important;
+}
+
+.ais-SearchBox-input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+.ais-SearchBox-submit .ais-SearchBox-submitIcon path {
+  fill: var(--placeholder-darkgreen);
+}
+
+.ais-SearchBox-input:focus {
+  outline: none;
+  border-color: transparent;
+}
+
+.ais-SearchBox {
+  display: flex;
+  align-items: center;
+}
+
+.ais-SearchBox-input {
+  flex: 1;
+  width: 97%;
+}
+
+.ais-SearchBox-form {
+  width: 100%;
+}
+
+.ais-SearchBox-submitIcon {
+  margin-left: auto;
+}
+
+.ais-SearchBox-input::placeholder {
+  color: #1C4835;
+}
+
+.ais-Hits {
+  background-color: white;
+  z-index: 999 !important;
+  position: absolute;
+  width: calc(100% + 20px);
+  left: -10px;
+  margin-top: -5px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.ais-SearchBox-form {
+  position: relative;
+}
+
+.ais-Hits-item {
+  margin: 5px 20px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  transition: background-color 0.3s, width 0.3s;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.ais-Hits-item:hover {
+  background-color: rgb(248, 245, 241);
+  width: calc(100% - 40px);
+  margin: 5px 20px;
+}
+
+.ais-Hits-item .icon {
+  width: 30px;
+  height: 30px;
+  background-color: gray;
+  margin-right: 10px;
+}
+
+.ais-Hits-item .name {
+  flex-grow: 1;
+}
+
+.hit-container {
+  display: flex;
+  align-items: center;
+}
+
+.hit-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  color: #1C4835;
+}
+
+.hit-filename {
+  color: #1C4835;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+.hit-iname {
+  padding-top: 3px;
+  font-size: 0.8em;
+  color: gray;
+}

@@ -1,16 +1,22 @@
 ---
-import { Icon } from "astro-icon/components";
+import SearchComponent from "../components/react/SearchComponent.jsx";
+import algoliasearch from "algoliasearch/lite";
+
+const user = await Astro.locals.currentUser();
+const userId = user.id;
+
+const algoliaSearchKey = import.meta.env.ALGOLIA_SEARCH_KEY;
+const client: any = algoliasearch(
+  import.meta.env.PUBLIC_ALGOLIA_APP_ID,
+  import.meta.env.ALGOLIA_ADMIN_KEY
+);
+const expiresIn = Math.floor(Date.now() / 1000) + 24 * 60 * 60;
+const securedApiKey = client.generateSecuredApiKey(algoliaSearchKey, {
+  filters: `user_id:${userId}`,
+  validUntil: expiresIn,
+});
 ---
 
 <div class="relative">
-  <input
-    type="text"
-    class="bg-putty placeholder-darkgreen rounded-lg block w-full pe-10 pl-9 py-3.5"
-    placeholder="What can we help you with...."
-  />
-  <div
-    class="absolute inset-y-0 end-0 flex items-center pe-3.5 pointer-events-none"
-  >
-    <Icon name="wizard" width={24} height={25} />
-  </div>
+    <SearchComponent {securedApiKey} client:only />
 </div>

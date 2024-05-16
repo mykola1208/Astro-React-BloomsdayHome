@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only --build-secret CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} --build-secret PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY=${{ secrets.PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY }} --build-secret PUBLIC_GETSTREAM_APP_ID=${{ secrets.PUBLIC_GETSTREAM_APP_ID }} --build-secret PUBLIC_GETSTREAM_FEED_KEY=${{ secrets.PUBLIC_GETSTREAM_FEED_KEY }} --build-secret GETSTREAM_FEED_SECRET=${{ secrets.GETSTREAM_FEED_SECRET }}
+      - run: flyctl deploy --remote-only --build-secret CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} --build-secret PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY=${{ secrets.PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY }} --build-secret PUBLIC_GETSTREAM_APP_ID=${{ secrets.PUBLIC_GETSTREAM_APP_ID }} --build-secret PUBLIC_GETSTREAM_FEED_KEY=${{ secrets.PUBLIC_GETSTREAM_FEED_KEY }} --build-secret GETSTREAM_FEED_SECRET=${{ secrets.GETSTREAM_FEED_SECRET }} --build-secret ALGOLIA_ADMIN_KEY=${{ secrets.ALGOLIA_ADMIN_KEY }} --build-secret ALGOLIA_SEARCH_KEY=${{ secrets.ALGOLIA_SEARCH_KEY }} --build-secret PUBLIC_ALGOLIA_APP_ID=${{ secrets.PUBLIC_ALGOLIA_APP_ID }} 
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
           FLY_REGION: iad

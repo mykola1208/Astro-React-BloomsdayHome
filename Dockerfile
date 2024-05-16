@@ -35,11 +35,17 @@ RUN --mount=type=secret,id=CLERK_SECRET_KEY \
     --mount=type=secret,id=PUBLIC_GETSTREAM_APP_ID \
     --mount=type=secret,id=PUBLIC_GETSTREAM_FEED_KEY \
     --mount=type=secret,id=GETSTREAM_FEED_SECRET \
+    --mount=type=secret,id=ALGOLIA_ADMIN_KEY \
+    --mount=type=secret,id=ALGOLIA_SEARCH_KEY \
+    --mount=type=secret,id=PUBLIC_ALGOLIA_APP_ID \
     CLERK_SECRET_KEY="$(cat /run/secrets/CLERK_SECRET_KEY)" \
     PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY="$(cat /run/secrets/PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY)" \
     PUBLIC_GETSTREAM_APP_ID="$(cat /run/secrets/PUBLIC_GETSTREAM_APP_ID)" \
     PUBLIC_GETSTREAM_FEED_KEY="$(cat /run/secrets/PUBLIC_GETSTREAM_FEED_KEY)" \
     GETSTREAM_FEED_SECRET="$(cat /run/secrets/GETSTREAM_FEED_SECRET)" \
+    ALGOLIA_ADMIN_KEY="$(cat /run/secrets/ALGOLIA_ADMIN_KEY)" \
+    ALGOLIA_SEARCH_KEY="$(cat /run/secrets/ALGOLIA_SEARCH_KEY)" \
+    PUBLIC_ALGOLIA_APP_ID="$(cat /run/secrets/PUBLIC_ALGOLIA_APP_ID)" \
     yarn run build
 
 # Remove development dependencies
