@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
 import Accordion from "../../components/Accordion.astro";
 import Task from "../../components/Task.astro";
+import ActivityFeed from "../../components/ActivityFeed.astro";
 
 const { id } = Astro.params;
 
@@ -222,7 +223,7 @@ const steps = {
 
 <Layout title="Bloomsday">
   <div class="pt-5 px-6 pb-2">
-    <p class="neue text-darkgreen text-lg font-bold leading-5">
+    <p class="neue text-darkgreen text-1.5xl font-bold leading-5">
       Home > Progress Tracker
     </p>
     <div class="pr-4 pb-4 gap-4 mt-9 flex">
@@ -281,4 +282,5 @@ const steps = {
       </div>
     </div>
   </div>
+  <ActivityFeed />
 </Layout>

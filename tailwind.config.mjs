@@ -14,6 +14,10 @@ export default {
     fontFamily: {
       neue: ["NeueMontreal", "sans-serif"],
     },
+    fontSize: {
+      "0.5xs": "10px",
+      "1.5xl": "22px",
+    },
     height: {
       7.5: "30px",
       12.5: "50px",
