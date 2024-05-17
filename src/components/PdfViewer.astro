@@ -1,0 +1,143 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+---
+
+<bd-pdf-viewer data-url={url}>
+  <div class="p-2">
+    <div class="flex justify-center gap-14 p-4">
+      <div class="basis-1/3">
+        <p class="text-xl font-bold text-darkgreen">2023 W-2 Form</p>
+        <p class="text-sm font-normal text-darkgreen">Uploaded on 2/19/24</p>
+      </div>
+      <div class="basis-1/3 flex justify-center items-center gap-2">
+        <button type="button" class="prev">
+          <Icon name="arrow-left" width={24} height={24} class="shrink-0" />
+        </button>
+        <span class="text-sm font-normal text-darkgreen"
+          >Page: <span id="page_num"></span> / <span id="page_count"
+          ></span></span
+        >
+        <button type="button" class="next">
+          <Icon name="arrow-right" width={24} height={24} class="shrink-0" />
+        </button>
+      </div>
+      <div class="basis-1/3 justify-end flex gap-3">
+        <button type="button" class="zoom-in">
+          <Icon name="zoom-in" width={24} height={24} class="shrink-0" />
+        </button>
+        <button type="button" class="zoom-out">
+          <Icon name="zoom-out" width={24} height={24} class="shrink-0" />
+        </button>
+        <button>
+          <Icon name="expand" width={24} height={24} class="shrink-0" />
+        </button>
+        <button>
+          <Icon name="download" width={24} height={24} class="shrink-0" />
+        </button>
+        <button>
+          <Icon name="upload" width={24} height={24} class="shrink-0" />
+        </button>
+        <button>
+          <Icon name="trash" width={24} height={24} class="shrink-0" />
+        </button>
+      </div>
+    </div>
+    <div class="flex justify-center">
+      <canvas></canvas>
+    </div>
+  </div>
+</bd-pdf-viewer>
+
+<script>
+  import { getDocument } from "pdfjs-dist";
+  await import("pdfjs-dist/build/pdf.worker.min.mjs");
+
+  class PdfViewer extends HTMLElement {
+    _pdfDoc: any;
+    _scale: number = 1;
+    _canvas: HTMLCanvasElement;
+    _page: number = 1;
+    _rendering: boolean = false;
+    _pagePending: number;
+
+    constructor() {
+      super();
+
+      getDocument(this.dataset.url).promise.then((pdfDoc) => {
+        // Initial/first page rendering
+        this.querySelector("#page_count").textContent = `${pdfDoc.numPages}`;
+        this.renderPage(pdfDoc, this._page);
+        this.querySelector(".prev").addEventListener("click", () =>
+          this.onPrevPage(pdfDoc)
+        );
+        this.querySelector(".next").addEventListener("click", () =>
+          this.onNextPage(pdfDoc)
+        );
+        this.querySelector(".zoom-in").addEventListener("click", () => {
+          this._scale += 0.1;
+          this.renderPage(pdfDoc, this._page, this._scale);
+        });
+        this.querySelector(".zoom-out").addEventListener("click", () => {
+          this._scale -= 0.1;
+          this.renderPage(pdfDoc, this._page, this._scale);
+        });
+      });
+
+      this._canvas = this.querySelector("canvas");
+    }
+
+    renderPage(pdfDoc, num, scale = 1) {
+      console.log("num:", num);
+      pdfDoc.getPage(num).then((page) => {
+        const viewport = page.getViewport({ scale: scale });
+        this._canvas.height = viewport.height;
+        this._canvas.width = viewport.width;
+
+        // Render PDF page into canvas context
+        const renderContext = {
+          canvasContext: this._canvas.getContext("2d"),
+          viewport: viewport,
+        };
+
+        this._rendering = true;
+        page.render(renderContext).promise.then(() => {
+          this._rendering = false;
+        });
+      });
+
+      // Update page counters
+      document.getElementById("page_num").textContent = num;
+    }
+
+    queueRenderPage(pdfDoc, page) {
+      if (this._rendering) {
+        this._pagePending = page;
+      } else {
+        this.renderPage(pdfDoc, page);
+      }
+    }
+
+    onPrevPage(pdfDoc) {
+      if (this._page <= 1) {
+        return;
+      }
+      this._page--;
+      this.queueRenderPage(pdfDoc, this._page);
+    }
+
+    onNextPage(pdfDoc) {
+      if (this._page >= pdfDoc.numPages) {
+        return;
+      }
+      this._page++;
+      this.queueRenderPage(pdfDoc, this._page);
+    }
+  }
+  customElements.define("bd-pdf-viewer", PdfViewer);
+</script>

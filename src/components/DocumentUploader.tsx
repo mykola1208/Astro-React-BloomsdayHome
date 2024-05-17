@@ -88,7 +88,7 @@ const DocumentUploader = () => {
           <ul className="flex flex-col py-2 gap-3">{fileList}</ul>
           <button className="flex justify-center gap-4 bg-darkgreen rounded-lg py-2 mr-8 mb-3">
             <span className="text-white">Submit</span>
-            <ReactSVG src="../src/icons/arrow-right.svg" />
+            <ReactSVG src="../src/icons/submit.svg" />
           </button>
         </div>
       </div>

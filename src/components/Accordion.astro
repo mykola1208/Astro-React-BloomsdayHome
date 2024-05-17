@@ -24,47 +24,44 @@ const {
 const step = Astro.params.id;
 ---
 
-<xe-accordion>
-  <div class="accordion" role="presentation">
-    {
-      items.map(({ id, headerPrefix, header, body, isExpanded = false }) => {
-        const randomId = Math.floor(Math.random() * 9999);
+<div class="accordion" role="presentation">
+  {
+    items.map(({ id, headerPrefix, header, body, isExpanded = false }) => {
+      const randomId = Math.floor(Math.random() * 9999);
 
-        return (
-          <div class="accordion-item group" open={step == id ? true : false}>
-            <a
-              class:list={[
-                "button expandable heading w-full flex items-center",
-                headerClasses,
-                "group-open:border-completed group-open:border-t-4",
-              ]}
-              aria-controls={`accordion${randomId}`}
-              aria-expanded={step == id ? "true" : "false"}
-              href={`/progress-tracker/${id}`}
-            >
-              <span class="text-darkgreen text-left text-lg leading-4 grow font-medium">
-                {headerPrefix ? <span class="mr-1">{headerPrefix}</span> : null}
+      return (
+        <div class="accordion-item group">
+          <a
+            class:list={[
+              "button expandable heading w-full flex items-center",
+              headerClasses,
+              "group-open:border-completed group-open:border-t-4",
+            ]}
+            aria-controls={`accordion${randomId}`}
+            aria-expanded={step == id ? "true" : "false"}
+            href={`/progress-tracker/${id}`}
+          >
+            <span class="text-darkgreen text-left text-lg leading-4 grow font-medium">
+              {headerPrefix ? <span class="mr-1">{headerPrefix}</span> : null}
 
-                <span class="group-open:font-bold">{header}</span>
-              </span>
-              <Icon
-                name="chevron"
-                width={24}
-                height={24}
-                class="shrink-0 group-open:rotate-180"
-              />
-            </a>
-            <div
-              class:list={["body", bodyClasses]}
-              id={`accordion${randomId}`}
-              hidden={step == id ? false : true}
-            >
-              <p class="text-base leading-6">{body}</p>
-            </div>
+              <span class="group-open:font-bold">{header}</span>
+            </span>
+            <Icon
+              name="chevron"
+              width={24}
+              height={24}
+              class="shrink-0 group-open:rotate-180"
+            />
+          </a>
+          <div
+            class:list={["body", bodyClasses]}
+            id={`accordion${randomId}`}
+            hidden={step == id ? false : true}
+          >
+            <p class="text-base leading-6">{body}</p>
           </div>
-        );
-      })
-    }
-  </div>
-</xe-accordion>
-
+        </div>
+      );
+    })
+  }
+</div>
