@@ -42,7 +42,7 @@ const step = Astro.params.id;
               aria-expanded={step == id ? "true" : "false"}
               href={`/progress-tracker/${id}`}
             >
-              <span class="text-darkgreen text-left leading-4 grow font-medium">
+              <span class="text-darkgreen text-left text-lg leading-4 grow font-medium">
                 {headerPrefix ? <span class="mr-1">{headerPrefix}</span> : null}
 
                 <span class="group-open:font-bold">{header}</span>

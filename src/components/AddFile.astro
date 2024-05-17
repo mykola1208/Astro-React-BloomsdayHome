@@ -1,0 +1,26 @@
+---
+import AddFileDropupButton from "./AddFileDropupButton.astro";
+import Dialog from "./Dialog.astro";
+import DocumentUploader from "./DocumentUploader.tsx";
+---
+
+<div id="add-file">
+  <AddFileDropupButton />
+  <Dialog
+    id="add-document-dialog"
+    title="Upload Your Documents"
+    description="Upload your files and we’ll determine where they belong in your portal. You can always resort them later if you wish."
+  >
+    <div class="py-4">
+      <DocumentUploader client:only="react" />
+    </div>
+  </Dialog>
+</div>
+
+<script>
+  const addDocumentDialog = document.querySelector("#add-document-dialog");
+  const addFileRoot = document.querySelector("#add-file");
+  addFileRoot.addEventListener("add-file:document", () => {
+    addDocumentDialog.setAttribute("open", "true");
+  });
+</script>

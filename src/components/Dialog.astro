@@ -1,0 +1,99 @@
+---
+import { Icon } from "astro-icon/components";
+interface Props {
+  id: string;
+  title: string;
+  description: string;
+}
+
+const { id, title, description } = Astro.props;
+---
+
+<bd-dialog id={id} open="false">
+  <div
+    class="relative z-10 rounded-xl"
+    aria-labelledby="modal-title"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    hidden
+  >
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity">
+    </div>
+
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div
+        class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
+      >
+        <div
+          class="modal-content relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg min-w-[900px] min-h-[560px] py-16 px-12"
+        >
+          <div class="absolute bg-white top-8 right-8">
+            <button type="button" class="close" aria-label="Close">
+              <Icon name="circle-x" width={24} height={24} class="shrink-0" />
+            </button>
+          </div>
+          <p class="text-darkgreen text-4xl font-normal">
+            {title}
+          </p>
+          <p class="text-lg font-medium leading-6 mt-3">
+            {description}
+          </p>
+          <slot />
+        </div>
+      </div>
+    </div>
+  </div>
+</bd-dialog>
+
+<script>
+  class Dialog extends HTMLElement {
+    static observedAttributes = ["open"];
+
+    constructor() {
+      super();
+
+      const dialog = this.querySelector('[aria-modal="true"]') as HTMLElement;
+      const closeButton = this.querySelector(
+        'button[aria-label="Close"]'
+      ) as HTMLButtonElement;
+      const content = dialog.querySelector(".modal-content") as HTMLElement;
+
+      closeButton.addEventListener("click", () => this.close(dialog));
+      dialog.addEventListener("click", (event) => {
+        if (
+          event.target != content &&
+          !content.contains(event.target as HTMLElement)
+        )
+          this.close(dialog);
+      });
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+      if (name === "open" && oldValue !== newValue) {
+        const dialog = this.querySelector('[aria-modal="true"]') as HTMLElement;
+        this.toggle(newValue === "true", dialog);
+      }
+    }
+
+    toggle(open: boolean, dialog: HTMLElement) {
+      this.setAttribute("open", `${open}`);
+      dialog.setAttribute("aria-hidden", `${open}`);
+
+      if (open) {
+        dialog.removeAttribute("hidden");
+      } else {
+        dialog.setAttribute("hidden", "");
+      }
+    }
+
+    open(dialog: HTMLElement) {
+      this.toggle(true, dialog);
+    }
+
+    close(dialog: HTMLElement) {
+      this.toggle(false, dialog);
+    }
+  }
+  customElements.define("bd-dialog", Dialog);
+</script>

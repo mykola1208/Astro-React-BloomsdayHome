@@ -1,0 +1,158 @@
+---
+import { Icon } from "astro-icon/components";
+
+const randomId = Math.floor(Math.random() * 9999);
+---
+
+<div class="fixed bottom-6 right-6">
+  <bd-dropdown>
+    <div class="relative dropdown">
+      <button
+        type="button"
+        id={`menu-button-${randomId}`}
+        aria-expanded="false"
+        aria-haspopup="true"
+      >
+        <Icon name="add-file-button" width={63} height={63} class="shrink-0" />
+      </button>
+      <div
+        class="dropdown-menu absolute right-1 bottom-[90px] z-10 pt-5 pb-6 pl-4 pr-6 origin-bottom-right rounded-xl bg-white text-darkgreen"
+        role="menu"
+        hidden
+        aria-orientation="vertical"
+        aria-labelledby={`menu-button-${randomId}`}
+        tabindex="-1"
+      >
+        <div class="flex items-center hover:bg-cream py-2 px-3 gap-3">
+          <Icon name="document" width={24} height={24} class="shrink-0" />
+          <button
+            type="button"
+            class="text-gray-700 block text-sm"
+            role="menuitem"
+            data-event-type="add-file:document"
+            tabindex="-1"
+          >
+            Document
+          </button>
+        </div>
+        <div class="flex items-center hover:bg-cream py-2 px-3 gap-3">
+          <Icon name="note" width={24} height={24} class="shrink-0" />
+          <button
+            type="button"
+            class="text-gray-700 block text-sm"
+            role="menuitem"
+            tabindex="-1"
+          >
+            Note
+          </button>
+        </div>
+        <div class="flex items-center hover:bg-cream py-2 px-3 gap-3">
+          <Icon name="image" width={24} height={24} class="shrink-0" />
+          <button
+            type="button"
+            class="text-gray-700 block text-sm"
+            role="menuitem"
+            tabindex="-1"
+          >
+            Photo
+          </button>
+        </div>
+      </div>
+    </div>
+  </bd-dropdown>
+</div>
+
+<script>
+  class Dropdown extends HTMLElement {
+    constructor() {
+      super();
+
+      const button = this.querySelector(
+        'button[aria-haspopup="true"]'
+      ) as HTMLButtonElement;
+
+      button.addEventListener("click", () =>
+        this.onButtonClick(button, dropdownMenu)
+      );
+
+      const dropdownMenu = this.querySelector(
+        `[aria-labelledby="${button.getAttribute("id")}"]`
+      ) as HTMLElement;
+
+      const dropdownMenuItems = dropdownMenu.querySelectorAll(
+        'button[role="menuitem"]'
+      ) as NodeListOf<HTMLButtonElement>;
+
+      dropdownMenuItems.forEach((menuItem) => {
+        menuItem.addEventListener("click", () => {
+          this.dispatchEvent(
+            new CustomEvent(menuItem.dataset.eventType, {
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+          this.close(button, dropdownMenu);
+        });
+      });
+    }
+
+    onButtonClick(button: HTMLButtonElement, dropdownMenu: HTMLElement) {
+      const open = button.getAttribute("aria-expanded") === "true";
+
+      if (open) {
+        return this.close(button, dropdownMenu);
+      }
+
+      return this.open(button, dropdownMenu);
+    }
+
+    toggle(
+      open: boolean,
+      button: HTMLButtonElement,
+      dropdownMenu: HTMLElement
+    ) {
+      button.setAttribute("aria-expanded", `${open}`);
+
+      if (open) {
+        dropdownMenu.removeAttribute("hidden");
+      } else {
+        dropdownMenu.setAttribute("hidden", "");
+      }
+    }
+
+    open(button: HTMLButtonElement, dropdownMenu: HTMLElement) {
+      this.toggle(true, button, dropdownMenu);
+    }
+
+    close(button: HTMLButtonElement, dropdownMenu: HTMLElement) {
+      this.toggle(false, button, dropdownMenu);
+    }
+  }
+  customElements.define("bd-dropdown", Dropdown);
+</script>
+
+<style>
+  .dropdown-menu {
+    box-shadow: 0px 0px 20px 0px rgba(28, 72, 53, 0.24);
+  }
+  .dropdown-menu::before {
+    border-top: 15px solid rgba(0, 0, 0, 0.2);
+    border-left: 9px solid rgba(0, 0, 0, 0);
+    border-right: 9px solid rgba(0, 0, 0, 0);
+    content: "";
+    display: inline-block;
+    right: 20px;
+    position: absolute;
+    bottom: -14px;
+  }
+  .dropdown-menu::after {
+    border-top: 14px solid #ffffff;
+    border-left: 9px solid rgba(0, 0, 0, 0);
+    border-right: 9px solid rgba(0, 0, 0, 0);
+    content: "";
+    display: inline-block;
+    right: 20px;
+    position: absolute;
+    bottom: -13px;
+  }
+</style>
