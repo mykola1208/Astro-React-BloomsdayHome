@@ -1,28 +1,14 @@
 ---
-import { Icon } from "astro-icon/components";
 import Layout from "../layouts/Layout.astro";
+import EditAddressForm from "../components/react/EditAddressForm.tsx";
 ---
 
 <Layout title="Bloomsday">
-  <div class="py-9 px-6">
-    <p class="neue text-darkgreen text-lg font-bold leading-5">
-      Home > ProcessName
-    </p>
-    <div class="pr-4 pt-2 pb-4 gap-4 mt-9 flex">
-      <Icon name="myhouse" width={58} height={55} />
-      <div class="flex flex-col items-baseline">
-        <div class="flex">
-          <p class="text-base leading-4 text-darkgreen mt-3.5 font-medium">
-            My Home
-          </p>
-          <div class="flex ml-2 mt-2">
-            <Icon name="edit" width={20} height={21} />
-          </div>
-        </div>
-        <p class="text-1.5xl font-medium text-darkgreen">
-          Street, City, State 00000
-        </p>
-      </div>
-    </div>
-  </div>
+  <EditAddressForm
+    client:only="react"
+    breadcrumbs={[
+      { title: "Home", url: "#" },
+      { title: "Process Name", url: "#" },
+    ]}
+  />
 </Layout>

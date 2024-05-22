@@ -190,6 +190,33 @@ html {
   color: gray;
 }
 
+.dropdown-menu {
+  box-shadow: 0px 0px 20px 0px rgba(28, 72, 53, 0.24);
+  margin-top: -33px;
+}
+
+.dropdown-menu::before {
+  border-bottom: 15px solid rgba(0, 0, 0, 0);
+  border-left: 9px solid rgba(0, 0, 0, 0);
+  border-right: 9px solid rgba(0, 0, 0, 0);
+  content: "";
+  display: inline-block;
+  left: 140px;
+  position: absolute;
+  top: -14px;
+}
+
+.dropdown-menu::after {
+  border-bottom: 14px solid #ffffff;
+  border-left: 9px solid rgba(0, 0, 0, 0);
+  border-right: 9px solid rgba(0, 0, 0, 0);
+  content: "";
+  display: inline-block;
+  left: 140px;
+  position: absolute;
+  top: -14px;
+}
+
 .raf-icon-badge svg {
   fill: none !important;
 }

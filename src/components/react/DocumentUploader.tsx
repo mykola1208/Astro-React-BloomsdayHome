@@ -32,14 +32,14 @@ const DocumentUploader = () => {
     <li key={file.path}>
       <div className="flex">
         <div className="grow flex border border-1 bg-cream-light rounded-lg gap-2">
-          <ReactSVG src="../src/icons/image.svg" className="mt-3 ml-2" />
+          <ReactSVG src="icons/image.svg" className="mt-3 ml-2" />
           <p className="grow text-lg font-medium text-darkgreen my-3">
             {file.path}
           </p>
-          <ReactSVG src="../src/icons/completed.svg" className="mt-3 mr-4" />
+          <ReactSVG src="icons/completed.svg" className="mt-3 mr-4" />
         </div>
         <div className="shrink-0 ml-2">
-          <ReactSVG src="../src/icons/trash.svg" className="mt-3" />
+          <ReactSVG src="icons/trash.svg" className="mt-3" />
         </div>
       </div>
     </li>
@@ -60,7 +60,7 @@ const DocumentUploader = () => {
           >
             <input {...getInputProps()} />
             <div className="flex flex-col items-center gap-3 ">
-              <ReactSVG src="../src/icons/plus.svg" />
+              <ReactSVG src="icons/plus.svg" />
               <p className="text-xl font-medium text-darkgreen">
                 Drag & drop your files here
               </p>
@@ -88,7 +88,7 @@ const DocumentUploader = () => {
           <ul className="flex flex-col py-2 gap-3">{fileList}</ul>
           <button className="flex justify-center gap-4 bg-darkgreen rounded-lg py-2 mr-8 mb-3">
             <span className="text-white">Submit</span>
-            <ReactSVG src="../src/icons/submit.svg" />
+            <ReactSVG src="icons/submit.svg" />
           </button>
         </div>
       </div>

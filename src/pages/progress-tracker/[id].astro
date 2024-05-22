@@ -1,9 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { Icon } from "astro-icon/components";
 import Accordion from "../../components/Accordion.astro";
 import Task from "../../components/Task.astro";
 import ActivityFeed from "../../components/ActivityFeed.astro";
+import EditAddressForm from "../../components/react/EditAddressForm";
 
 const { id } = Astro.params;
 
@@ -223,34 +223,22 @@ const steps = {
 
 <Layout title="Bloomsday">
   <div class="mt-4">
-    <div class="pt-5 px-6 pb-2">
-      <p class="neue text-darkgreen text-1.5xl font-bold leading-5">
-        Home > Progress Tracker
-      </p>
-      <div class="pr-4 pb-4 gap-4 mt-9 flex">
-        <Icon name="myhouse" width={58} height={55} />
-        <div class="flex flex-col">
-          <div class="flex">
-            <p class="text-base leading-4 text-darkgreen mt-3.5 font-medium">
-              My Home
-            </p>
-            <div class="flex mt-2 ml-2">
-              <Icon name="edit" width={20} height={21} />
-            </div>
-          </div>
-          <p class="text-1.5xl font-medium text-darkgreen">
-            Street, City, State 00000
-          </p>
-        </div>
-      </div>
-    </div>
+    <EditAddressForm
+      client:only="react"
+      breadcrumbs={[
+        { title: "Home", url: "#" },
+        { title: "Progress Tracker", url: "#" },
+      ]}
+    />
   </div>
   <div class="flex flex-row mx-6 py-8 px-6 border border-sage rounded-md">
     <div class="basis-1/4">
       <Accordion items={accordionItems} />
     </div>
     <div class="flex flex-col basis-3/4 pl-9">
-      <p class="text-lg text-darkgreen font-medium">{steps[id].description}</p>
+      <p class="text-lg text-darkgreen font-medium">
+        {steps[id].description}
+      </p>
       <div class="flex grow gap-3.5 mt-5">
         {
           id == "moving-in" ? (

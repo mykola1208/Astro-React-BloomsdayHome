@@ -16,7 +16,7 @@ const randomId = Math.floor(Math.random() * 9999);
         <Icon name="add-file-button" width={63} height={63} class="shrink-0" />
       </button>
       <div
-        class="dropdown-menu absolute right-1 bottom-[90px] z-10 pt-5 pb-6 pl-4 pr-6 origin-bottom-right rounded-xl bg-white text-darkgreen"
+        class="add-file-dropdown-menu absolute right-1 bottom-[90px] z-10 pt-5 pb-6 pl-4 pr-6 origin-bottom-right rounded-xl bg-white text-darkgreen"
         role="menu"
         hidden
         aria-orientation="vertical"
@@ -132,10 +132,10 @@ const randomId = Math.floor(Math.random() * 9999);
 </script>
 
 <style>
-  .dropdown-menu {
+  .add-file-dropdown-menu {
     box-shadow: 0px 0px 20px 0px rgba(28, 72, 53, 0.24);
   }
-  .dropdown-menu::before {
+  .add-file-dropdown-menu::before {
     border-top: 15px solid rgba(0, 0, 0, 0.2);
     border-left: 9px solid rgba(0, 0, 0, 0);
     border-right: 9px solid rgba(0, 0, 0, 0);
@@ -145,7 +145,7 @@ const randomId = Math.floor(Math.random() * 9999);
     position: absolute;
     bottom: -14px;
   }
-  .dropdown-menu::after {
+  .add-file-dropdown-menu::after {
     border-top: 14px solid #ffffff;
     border-left: 9px solid rgba(0, 0, 0, 0);
     border-right: 9px solid rgba(0, 0, 0, 0);

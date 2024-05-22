@@ -93,7 +93,6 @@ const { url } = Astro.props;
     }
 
     renderPage(pdfDoc, num, scale = 1) {
-      console.log("num:", num);
       pdfDoc.getPage(num).then((page) => {
         const viewport = page.getViewport({ scale: scale });
         this._canvas.height = viewport.height;
