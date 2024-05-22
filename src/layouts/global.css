@@ -121,7 +121,7 @@ html {
 }
 
 .ais-SearchBox-input::placeholder {
-  color: #1C4835;
+  color: #1c4835;
 }
 
 .ais-Hits {
@@ -175,11 +175,11 @@ html {
   width: 20px;
   height: 20px;
   margin-right: 10px;
-  color: #1C4835;
+  color: #1c4835;
 }
 
 .hit-filename {
-  color: #1C4835;
+  color: #1c4835;
   font-size: 14px;
   margin-right: 5px;
 }
@@ -188,4 +188,8 @@ html {
   padding-top: 3px;
   font-size: 0.8em;
   color: gray;
+}
+
+.raf-icon-badge svg {
+  fill: none !important;
 }

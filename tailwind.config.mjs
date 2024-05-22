@@ -27,6 +27,10 @@ export default {
         7.5: "30px",
         12.5: "50px",
       },
+      width: {
+        12.5: "50px",
+        65: "260px",
+      },
     },
   },
   plugins: [],

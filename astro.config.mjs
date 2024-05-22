@@ -18,7 +18,9 @@ export default defineConfig({
     }),
     react(),
     tailwind(),
-    icon(),
+    icon({
+      iconDir: "public/icons",
+    }),
   ],
   redirects: {
     "/progress-tracker": "/progress-tracker/get-approved",

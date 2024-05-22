@@ -2,15 +2,13 @@ import React from "react";
 import algoliasearch from "algoliasearch/lite";
 import { FiFile } from "react-icons/fi";
 import { InstantSearch, SearchBox, Hits } from "react-instantsearch";
+import { ReactSVG } from "react-svg";
 
 const appId = import.meta.env.PUBLIC_ALGOLIA_APP_ID;
 
 function SearchComponent({ securedApiKey }) {
   console.log(securedApiKey);
-  const algoliaClient = algoliasearch(
-    appId,
-    securedApiKey
-  );
+  const algoliaClient = algoliasearch(appId, securedApiKey);
   const searchClient = {
     ...algoliaClient,
     search(requests) {
@@ -33,24 +31,30 @@ function SearchComponent({ securedApiKey }) {
     },
   };
   return (
-    <InstantSearch
-      searchClient={searchClient}
-      indexName="staging_document_text"
-    >
-      <SearchBox
-        placeholder="What can we help you find...."
-        className="bg-putty placeholder-darkgreen ais-SearchBox-border block w-full pe-10 pl-9 py-3.5"
-      />
-      <Hits
-        hitComponent={({ hit }) => (
-          <div className="hit-container">
-            <FiFile className="hit-icon" />
-            <span className="hit-filename">{hit.filename}</span>
-            <span className="hit-iname">Documents</span>
-          </div>
-        )}
-      />
-    </InstantSearch>
+    <div className="flex items-center">
+      <InstantSearch
+        searchClient={searchClient}
+        indexName="staging_document_text"
+      >
+        <SearchBox
+          submitIconComponent={() => <ReactSVG src="icons/search.svg" />}
+          placeholder="What can we help you find...."
+          className="bg-putty placeholder-darkgreen ais-SearchBox-border w-full pe-5 pl-9 py-3.5"
+          classNames={{
+            form: "flex ",
+          }}
+        />
+        <Hits
+          hitComponent={({ hit }) => (
+            <div className="hit-container">
+              <FiFile className="hit-icon" />
+              <span className="hit-filename">{hit.filename}</span>
+              <span className="hit-iname">Documents</span>
+            </div>
+          )}
+        />
+      </InstantSearch>
+    </div>
   );
 }
 
