@@ -63,11 +63,11 @@ const EditAddressForm: React.FC<EditAdressFormProps> = ({ breadcrumbs }) => {
   return (
     <div className="relative dropdown">
       <div className="py-7 px-6">
-        <p className="neue text-darkgreen text-lg font-bold leading-5">
+        <div className="neue text-darkgreen text-lg font-bold leading-5">
           <Breadcrumbs breadcrumbs={breadcrumbs} />
-        </p>
+        </div>
         <div className="pr-4 pt-2 gap-4 mt-4 flex">
-          <ReactSVG src="icons/myhouse.svg" />
+          <ReactSVG src="/icons/myhouse.svg" />
           <div className="flex flex-col items-baseline">
             <div className="flex">
               <p className="text-base leading-4 text-darkgreen mt-3.5 font-medium">
@@ -78,7 +78,7 @@ const EditAddressForm: React.FC<EditAdressFormProps> = ({ breadcrumbs }) => {
                 ref={buttonRef}
                 onClick={handleButtonClick}
               >
-                <ReactSVG src="icons/edit.svg" width={20} height={21} />
+                <ReactSVG src="/icons/edit.svg" width={20} height={21} />
               </button>
             </div>
             <p className="text-1.5xl font-medium text-darkgreen">

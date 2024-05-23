@@ -15,6 +15,10 @@ export default {
         gray: colors.gray,
         white: colors.white,
         mint: "#EAF1E6",
+        "gray-20": "#DDE1E6",
+      },
+      padding: {
+        22.5: "90px",
       },
       fontFamily: {
         neue: ["NeueMontreal", "sans-serif"],
@@ -26,6 +30,10 @@ export default {
       height: {
         7.5: "30px",
         12.5: "50px",
+      },
+
+      maxHeight: {
+        102: "408px",
       },
       width: {
         12.5: "50px",

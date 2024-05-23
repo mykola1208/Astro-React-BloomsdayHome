@@ -2,14 +2,16 @@
 import { Icon } from "astro-icon/components";
 interface Props {
   id: string;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
+  width?: string;
+  height?: string;
 }
 
-const { id, title, description } = Astro.props;
+const { id, title, description, width, height } = Astro.props;
 ---
 
-<bd-dialog id={id} open="false">
+<bd-dialog id={id} data-id={id} open="false">
   <div
     class="relative z-10 rounded-xl"
     aria-labelledby="modal-title"
@@ -26,7 +28,8 @@ const { id, title, description } = Astro.props;
         class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
       >
         <div
-          class="modal-content relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg min-w-[900px] min-h-[560px] py-16 px-12"
+          class="modal-content relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all py-16 px-12"
+          style=`width:${width}; height:${height}`
         >
           <div class="absolute bg-white top-8 right-8">
             <button type="button" class="close" aria-label="Close">
@@ -52,8 +55,9 @@ const { id, title, description } = Astro.props;
 
     constructor() {
       super();
-
-      const dialog = this.querySelector('[aria-modal="true"]') as HTMLElement;
+      const dialog = this.querySelector(
+        `#${this.dataset.id} [aria-modal="true"]`
+      ) as HTMLElement;
       const closeButton = this.querySelector(
         'button[aria-label="Close"]'
       ) as HTMLButtonElement;
@@ -71,7 +75,9 @@ const { id, title, description } = Astro.props;
 
     attributeChangedCallback(name, oldValue, newValue) {
       if (name === "open" && oldValue !== newValue) {
-        const dialog = this.querySelector('[aria-modal="true"]') as HTMLElement;
+        const dialog = this.querySelector(
+          `#${this.dataset.id} [aria-modal="true"]`
+        ) as HTMLElement;
         this.toggle(newValue === "true", dialog);
       }
     }

@@ -37,7 +37,7 @@ function SearchComponent({ securedApiKey }) {
         indexName="staging_document_text"
       >
         <SearchBox
-          submitIconComponent={() => <ReactSVG src="icons/search.svg" />}
+          submitIconComponent={() => <ReactSVG src="/icons/search.svg" />}
           placeholder="What can we help you find...."
           className="bg-putty placeholder-darkgreen ais-SearchBox-border w-full pe-5 pl-9 py-3.5"
           classNames={{

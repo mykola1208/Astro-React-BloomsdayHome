@@ -3,6 +3,9 @@ import { Icon } from "astro-icon/components";
 import Layout from "../../layouts/Layout.astro";
 import PdfViewer from "../../components/PdfViewer.astro";
 import Accordion from "../../components/documents/Accordion.astro";
+import SharePackageForm from "../../components/react/SharePackageForm";
+import Dialog from "../../components/Dialog.astro";
+import SuccessConfirmation from "../../components/react/SuccessConfirmation";
 import EditAddressForm from "../../components/react/EditAddressForm";
 
 const accordionItems = [
@@ -73,6 +76,7 @@ const accordionItems = [
     <div class="col-span-2">
       <button
         class="flex justify-center bg-darkgreen rounded-lg gap-5 py-3 w-full"
+        id="share"
       >
         <Icon name="share" width={24} height={24} class="shrink-0" />
         <span class="text-white">Share Document Package</span>
@@ -86,5 +90,43 @@ const accordionItems = [
         url="https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf"
       />
     </div>
+    <div id="share-package">
+      <Dialog
+        id="share-package-dialog"
+        title="Share Document Package"
+        description="Select the documents you wish to share."
+        width="1200px"
+        height="855px"
+      >
+        <div class="py-4">
+          <SharePackageForm client:only="react" />
+        </div>
+      </Dialog>
+    </div>
+    <div id="success-confirmation">
+      <Dialog id="success-confirmation-dialog" width="1200px" height="855px">
+        <div class="flex items-center justify-center h-full">
+          <SuccessConfirmation client:only="react" />
+        </div>
+      </Dialog>
+    </div>
   </div>
 </Layout>
+<script>
+  const button = document.querySelector("#share");
+  const sharePackageDialog = document.querySelector("#share-package-dialog");
+  button.addEventListener("click", () => {
+    sharePackageDialog.setAttribute("open", "true");
+    const sharePackageButton = document.querySelector("#share-package-button");
+    console.log("button: ", sharePackageButton);
+    const successConfirmationDialog = document.querySelector(
+      "#success-confirmation-dialog"
+    );
+    sharePackageButton.addEventListener("click", () => {
+      console.log("click");
+      sharePackageDialog.setAttribute("open", "false");
+      successConfirmationDialog.setAttribute("open", "true");
+    });
+  });
+  
+</script>

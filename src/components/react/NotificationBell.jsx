@@ -10,7 +10,7 @@ function NotificationBell({ token }) {
     <StreamApp appId={appId} apiKey={apiKey} token={token}>
       <NotificationDropdown
         notify
-        Icon={() => <ReactSVG src="icons/alert.svg" />}
+        Icon={() => <ReactSVG src="/icons/alert.svg" />}
       />
     </StreamApp>
   );

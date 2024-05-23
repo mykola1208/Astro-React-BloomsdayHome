@@ -10,9 +10,9 @@ const { checked, label } = Astro.props;
 const randomId = Math.floor(Math.random() * 9999);
 ---
 
-<div class="flex items-center my-[5px]" id={`div${randomId}`}>
+<div class="flex items-center gap-2" id={`div${randomId}`}>
   <input
-    class="appearance-none relative peer shrink-0 w-5 min-h-5"
+    class="appearance-none relative peer shrink-0 w-5 min-h-5 cursor-pointer"
     type="checkbox"
     checked={checked}
     id={`checkbox${randomId}`}
@@ -31,7 +31,7 @@ const randomId = Math.floor(Math.random() * 9999);
   />
   <label
     for={`checkbox${randomId}`}
-    class="ml-1 text-sm text-sage peer-checked:text-darkgreen"
+    class="text-sm text-sage peer-checked:text-darkgreen"
   >
     {label}
   </label>
