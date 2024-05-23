@@ -222,15 +222,13 @@ const steps = {
 ---
 
 <Layout title="Bloomsday">
-  <div class="mt-4">
-    <EditAddressForm
-      client:only="react"
-      breadcrumbs={[
-        { title: "Home", url: "#" },
-        { title: "Progress Tracker", url: "#" },
-      ]}
-    />
-  </div>
+  <EditAddressForm
+    client:only="react"
+    breadcrumbs={[
+      { title: "Home", url: "#" },
+      { title: "Progress Tracker", url: "#" },
+    ]}
+  />
   <div class="flex flex-row mx-6 py-8 px-6 border border-sage rounded-md">
     <div class="basis-1/4">
       <Accordion items={accordionItems} />

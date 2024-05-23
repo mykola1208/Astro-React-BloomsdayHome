@@ -27,7 +27,6 @@ const initialValues = {
   zip_code: "",
 };
 
-
 const schema = yup.object().shape({
   street: yup.string().required("Street is required"),
   city: yup.string().required("City is required"),
@@ -35,7 +34,7 @@ const schema = yup.object().shape({
   zip_code: yup.string().required("Zip Code is required"),
 });
 
-const EditAddressForm:React.FC<EditAdressFormProps> = ({breadcrumbs}) => {
+const EditAddressForm: React.FC<EditAdressFormProps> = ({ breadcrumbs }) => {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
@@ -63,13 +62,11 @@ const EditAddressForm:React.FC<EditAdressFormProps> = ({breadcrumbs}) => {
 
   return (
     <div className="relative dropdown">
-      <div className="py-9 px-6">
+      <div className="py-7 px-6">
         <p className="neue text-darkgreen text-lg font-bold leading-5">
-          <Breadcrumbs
-            breadcrumbs={breadcrumbs}
-          />
+          <Breadcrumbs breadcrumbs={breadcrumbs} />
         </p>
-        <div className="pr-4 pt-2 pb-4 gap-4 mt-9 flex">
+        <div className="pr-4 pt-2 gap-4 mt-4 flex">
           <ReactSVG src="icons/myhouse.svg" />
           <div className="flex flex-col items-baseline">
             <div className="flex">
