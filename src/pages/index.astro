@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import EditAddressForm from "../components/react/EditAddressForm.tsx";
+import DeleteButton from "../components/react/DeleteButton.jsx";
 ---
 
 <Layout title="Bloomsday">
@@ -11,4 +12,5 @@ import EditAddressForm from "../components/react/EditAddressForm.tsx";
       { title: "Process Name", url: "#" },
     ]}
   />
+  <DeleteButton client:only="react" />
 </Layout>
