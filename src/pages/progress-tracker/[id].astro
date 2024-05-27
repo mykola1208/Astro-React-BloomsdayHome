@@ -183,13 +183,38 @@ const steps = {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.",
     tasks: [
       {
-        headerIcon: "key",
-        header: "Closing",
+        headerIcon: "disclosure",
+        header: "Disclosures",
         checkList: [
           { status: false, label: "Closing Disclosure" },
-          { status: false, label: "Check or Wire Transfer" },
+          { status: false, label: "Escrow Disclosure" },
+        ],
+      },
+      {
+        headerIcon: "agreement",
+        header: "Agreements",
+        checkList: [
+          { status: false, label: "Buyer / Agent" },
+          { status: false, label: "Bill of Sale" },
+          { status: false, label: "Purchase Agreement" },
+          { status: false, label: "Occupancy Certificate" },
+        ],
+      },
+      {
+        headerIcon: "deed",
+        header: "Deeds",
+        checkList: [
+          { status: false, label: "Deed of Trust" },
+          { status: false, label: "House Title" },
+        ],
+      },
+      {
+        headerIcon: "insurance",
+        header: "Insurance",
+        checkList: [
           { status: false, label: "Homeowner's Insurance" },
-          { status: false, label: "Property Survey" },
+          { status: false, label: "Companion Policy" },
+          { status: false, label: "Mortgage" },
         ],
       },
     ],
@@ -200,20 +225,35 @@ const steps = {
     tasks: [
       {
         headerIcon: "moving-in",
-        header: "Moving In",
+        header: "Pre-Move In",
         checkList: [
-          { status: false, label: "Schedule a  Deep Clean" },
-          { status: false, label: "Schedule Moving Company" },
+          { status: false, label: "Schedule Deep Clean" },
+          { status: false, label: "Schedule Movers" },
           { status: false, label: "Set up HOA Account" },
-          { status: false, label: "Change Locks" },
-          { status: false, label: "Replace Smoke Detectors" },
           { status: false, label: "Transfer Utilities" },
           { status: false, label: "Update Mailing Address" },
-          { status: false, label: "Update Account Addresses" },
-          { status: false, label: "Update Driver's License" },
-          { status: false, label: "Update Car Registration" },
-          { status: false, label: "Register with School District" },
-          { status: false, label: "Schedule Home Improvements" },
+          { status: false, label: "Update Accounts" },
+        ],
+      },
+      {
+        headerIcon: "key",
+        header: "Moving Day",
+        checkList: [
+          { status: false, label: "Organize Valuables" },
+          { status: false, label: "Pack Essentials" },
+          { status: false, label: "Direct the Movers" },
+          { status: false, label: "Clean Old Home" },
+          { status: false, label: "Verify Inventory" },
+        ],
+      },
+      {
+        headerIcon: "living",
+        header: "Post Move In",
+        checkList: [
+          { status: false, label: "Unpack" },
+          { status: false, label: "Change Locks" },
+          { status: false, label: "Meet Your Neighbors" },
+          { status: false, label: "Celebrate!" },
         ],
       },
     ],
@@ -239,33 +279,17 @@ const steps = {
       </p>
       <div class="flex grow gap-3.5 mt-5">
         {
-          id == "moving-in" ? (
-            <div class="basis-1/2">
-              <Task
-                headerIcon={steps[id].tasks[0].headerIcon}
-                header={steps[id].tasks[0].header}
-                checkList={steps[id].tasks[0].checkList}
-              />
-            </div>
-          ) : (
-            steps[id].tasks.map(
-              ({
-                headerIcon,
-                header,
-                hasGroups,
-                checkList,
-                checkListGroups,
-              }) => (
-                <div class="basis-1/4">
-                  <Task
-                    headerIcon={headerIcon}
-                    header={header}
-                    hasGroups={hasGroups}
-                    checkList={checkList}
-                    checkListGroups={checkListGroups}
-                  />
-                </div>
-              )
+          steps[id].tasks.map(
+            ({ headerIcon, header, hasGroups, checkList, checkListGroups }) => (
+              <div class="basis-1/4">
+                <Task
+                  headerIcon={headerIcon}
+                  header={header}
+                  hasGroups={hasGroups}
+                  checkList={checkList}
+                  checkListGroups={checkListGroups}
+                />
+              </div>
             )
           )
         }
