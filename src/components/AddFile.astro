@@ -1,7 +1,8 @@
 ---
 import AddFileDropupButton from "./AddFileDropupButton.astro";
 import Dialog from "./Dialog.astro";
-import DocumentUploader from "./react/DocumentUploader.tsx";
+import DocumentUploader from "./react/DocumentUploader";
+const user = await Astro.locals.currentUser();
 ---
 
 <div id="add-file">
@@ -14,7 +15,7 @@ import DocumentUploader from "./react/DocumentUploader.tsx";
     height="574px"
   >
     <div class="py-4">
-      <DocumentUploader client:only="react" />
+      <DocumentUploader currentUser={user} client:only="react" />
     </div>
   </Dialog>
 </div>

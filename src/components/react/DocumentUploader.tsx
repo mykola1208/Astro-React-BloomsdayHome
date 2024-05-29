@@ -1,12 +1,13 @@
 import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { ReactSVG } from "react-svg";
+import { useFilesUploader } from "../../hooks/useFilesUploader";
 
 interface FileWithPath extends File {
   path: string;
 }
 
-const DocumentUploader = () => {
+const DocumentUploader = ({ currentUser }) => {
   const [files, setFiles] = useState([]);
   const onDrop = useCallback((acceptedFiles) => {
     setFiles((prevState) => [...prevState, ...acceptedFiles]);
@@ -27,6 +28,10 @@ const DocumentUploader = () => {
     onDragOver: undefined,
     onDragLeave: undefined,
   });
+
+  const {
+    uploadFiles
+  } = useFilesUploader({files, currentUser})
 
   const fileList = files.map((file: FileWithPath) => (
     <li key={file.path}>
@@ -86,7 +91,7 @@ const DocumentUploader = () => {
         </div>
         <div className="basis-1/2 flex flex-col justify-between">
           <ul className="flex flex-col py-2 gap-3">{fileList}</ul>
-          <button className="flex justify-center gap-4 bg-darkgreen rounded-lg py-2 mr-8 mb-3">
+          <button className="flex justify-center gap-4 bg-darkgreen rounded-lg py-2 mr-8 mb-3" onClick={uploadFiles}>
             <span className="text-white">Submit</span>
             <ReactSVG src="/icons/submit.svg" />
           </button>
