@@ -1,9 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ReactSVG } from "react-svg";
 import Breadcrumbs from "./Breadcrumbs";
+import { GET_PROPERTY } from "../../apollo/queries/getProperty";
+import { createApolloClient } from "../../apollo/client";
 
 interface Inputs {
   street: string;
@@ -25,6 +27,7 @@ const initialValues = {
   city: "",
   state: "",
   zip_code: "",
+  id: "",
 };
 
 const schema = yup.object().shape({
@@ -38,6 +41,36 @@ const EditAddressForm: React.FC<EditAdressFormProps> = ({ breadcrumbs }) => {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
+
+  const [address, setAddress] = useState(initialValues);
+  const { createClient } = createApolloClient();
+
+  useEffect(() => {
+    const getUserAddress = async () => {
+      const client = await createClient();
+      const response = await client.query({
+        query: GET_PROPERTY,
+      });      
+
+      const {
+        address1: street,
+        city,
+        state,
+        zip5: zip_code,
+        id,
+      } = response?.data?.properties[0] || {};
+
+      setAddress({
+        street,
+        city,
+        state,
+        zip_code,
+        id,
+      });
+    };
+
+    getUserAddress();
+  }, []);
 
   const handleButtonClick = () => {
     setOpen(!open);
@@ -82,7 +115,9 @@ const EditAddressForm: React.FC<EditAdressFormProps> = ({ breadcrumbs }) => {
               </button>
             </div>
             <p className="text-1.5xl font-medium text-darkgreen">
-              Street, City, State 00000
+              {address.street
+                ? `${address.street}, ${address.city}, ${address.state} ${address.zip_code}`
+                : "Street, City, State 00000"}
             </p>
           </div>
         </div>
