@@ -6,6 +6,8 @@ import { ReactSVG } from "react-svg";
 import Breadcrumbs from "./Breadcrumbs";
 import { GET_PROPERTY } from "../../apollo/queries/getProperty";
 import { createApolloClient } from "../../apollo/client";
+import { useCreateAddress } from "../../hooks/useCreateAddress";
+import { useUpdateAddress } from "../../hooks/useUpdateAddress";
 
 interface Inputs {
   street: string;
@@ -26,7 +28,7 @@ const initialValues = {
   street: "",
   city: "",
   state: "",
-  zip_code: "",
+  zip_code: null,
   id: "",
 };
 
@@ -45,12 +47,23 @@ const EditAddressForm: React.FC<EditAdressFormProps> = ({ breadcrumbs }) => {
   const [address, setAddress] = useState(initialValues);
   const { createClient } = createApolloClient();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm<Inputs>({
+    initialValues,
+    mode: "onChange",
+    resolver: yupResolver(schema),
+  });
+
   useEffect(() => {
     const getUserAddress = async () => {
       const client = await createClient();
       const response = await client.query({
         query: GET_PROPERTY,
-      });      
+      });
 
       const {
         address1: street,
@@ -67,10 +80,19 @@ const EditAddressForm: React.FC<EditAdressFormProps> = ({ breadcrumbs }) => {
         zip_code,
         id,
       });
+
+      setValue("street", street || "");
+      setValue("city", city || "");
+      setValue("state", state || "");
+      setValue("zip_code", zip_code || null);
     };
 
     getUserAddress();
   }, []);
+
+  const { createAddress } = useCreateAddress();
+
+  const { updateAddress } = useUpdateAddress();
 
   const handleButtonClick = () => {
     setOpen(!open);
@@ -78,19 +100,26 @@ const EditAddressForm: React.FC<EditAdressFormProps> = ({ breadcrumbs }) => {
 
   const randomId = Math.floor(Math.random() * 9999);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>({
-    initialValues,
-    mode: "onChange",
-    resolver: yupResolver(schema),
-  });
+  const onSubmit = async (data: Inputs) => {
+    let addressId = null;
 
-  const onSubmit = (data: Inputs) => {
-    console.log(errors);
-    console.log(data);
+    if (address.id) {
+      addressId = await updateAddress(address.id, data);
+    } else {
+      addressId = await createAddress(data);
+    }
+
+    if (addressId) {
+      setAddress({
+        street: data.street,
+        city: data.city,
+        state: data.state,
+        zip_code: data.zip_code,
+        id: addressId,
+      });
+    }
+
+    setOpen(!open);
   };
 
   return (
