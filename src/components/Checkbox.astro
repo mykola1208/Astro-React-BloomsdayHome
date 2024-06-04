@@ -10,7 +10,7 @@ const { checked, label } = Astro.props;
 const randomId = Math.floor(Math.random() * 9999);
 ---
 
-<div class="flex items-center gap-2" id={`div${randomId}`}>
+<div class="flex gap-2" id={`div${randomId}`}>
   <input
     class="appearance-none relative peer shrink-0 w-5 min-h-5 cursor-pointer"
     type="checkbox"
