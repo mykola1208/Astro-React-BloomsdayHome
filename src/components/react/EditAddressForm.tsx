@@ -41,6 +41,7 @@ const schema = yup.object().shape({
 
 const EditAddressForm: React.FC<EditAdressFormProps> = ({ breadcrumbs }) => {
   const [open, setOpen] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
 
@@ -88,6 +89,10 @@ const EditAddressForm: React.FC<EditAdressFormProps> = ({ breadcrumbs }) => {
     };
 
     getUserAddress();
+
+    setTimeout(() => {
+      setLoaded(true);
+    }, 100);
   }, []);
 
   const { createAddress } = useCreateAddress();
@@ -123,7 +128,7 @@ const EditAddressForm: React.FC<EditAdressFormProps> = ({ breadcrumbs }) => {
   };
 
   return (
-    <div className="relative dropdown">
+    <div className="relative dropdown" style={{ visibility: loaded ? 'visible' : 'hidden' }}>
       <div className="py-7 px-6">
         <div className="neue text-darkgreen text-lg font-bold leading-5">
           <Breadcrumbs breadcrumbs={breadcrumbs} />

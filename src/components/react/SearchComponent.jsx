@@ -1,13 +1,14 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import algoliasearch from "algoliasearch/lite";
 import { FiFile } from "react-icons/fi";
 import { InstantSearch, SearchBox, Hits } from "react-instantsearch";
 import { ReactSVG } from "react-svg";
 
+
 const appId = import.meta.env.PUBLIC_ALGOLIA_APP_ID;
 
 function SearchComponent({ securedApiKey }) {
-  console.log(securedApiKey);
+  const [loaded, setLoaded] = useState(false);
   const algoliaClient = algoliasearch(appId, securedApiKey);
   const searchClient = {
     ...algoliaClient,
@@ -30,8 +31,14 @@ function SearchComponent({ securedApiKey }) {
       return algoliaClient.search(requests);
     },
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoaded(true);
+    },100);
+  },[]);
   return (
-    <div className="flex items-center">
+    <div className="flex items-center" style={{ visibility: loaded ? 'visible' : 'hidden' }}>
       <InstantSearch
         searchClient={searchClient}
         indexName="staging_document_text"

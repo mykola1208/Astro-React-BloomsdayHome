@@ -25,12 +25,8 @@ const userToken =
     <SearchBox />
   </div>
   <div class="ml-6 w-50 flex items-center justify-end gap-x-6">
-    <button
-      type="button"
-      class="inline-flex items-center p-3.5"
-    >
-      <!-- <Icon name="alert" width={25} height={25} /> -->
-      <NotificationBell token={userToken} client:only="react" />
+    <button type="button" class="inline-flex items-center p-3.5">
+      <NotificationBell token={userToken} client:load />
     </button>
     <div>
       <div>
