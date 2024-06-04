@@ -16,23 +16,29 @@ interface Props {
 }
 
 const { accordionItems = [] } = Astro.props;
+let index = 0;
 ---
 
 <bd-accordion>
-  <div class="accordion" role="presentation">
+  <div
+    class="accordion border-x border-b border-sage rounded-lg"
+    role="presentation"
+    id="document-accordion"
+  >
     {
-      accordionItems.map(({ title, items, isExpanded = false }) => {
+      accordionItems.map(({ title, items, isExpanded = false }, itemIndex) => {
         const randomId = Math.floor(Math.random() * 9999);
-
         return (
-          <div class="accordion-item group bg-cream-light border border-sage first:rounded-t-lg last:rounded-b-lg">
+          <div
+            class={`accordion-item group bg-cream-light border-t border-sage ${itemIndex == 0 && "rounded-t-lg"} ${itemIndex == accordionItems.length - 1 && "rounded-b-lg"}`}
+          >
             <button
-              class="flex items-center space-x-2 focus:bg-cream hover:bg-cream cursor-pointer rounded-lg px-2 py-3 w-full"
+              class={`flex items-center space-x-2 focus:bg-cream cursor-pointer px-2 py-3 w-full ${itemIndex == 0 && "rounded-t-lg"} ${itemIndex == accordionItems.length - 1 && "rounded-b-lg"}`}
               aria-controls={`accordion${randomId}`}
               aria-expanded={isExpanded ? "true" : "false"}
             >
               <span class="text-darkgreen text-left text-lg leading-4 grow font-medium">
-                <span class="group-open:font-bold">{title}</span>
+                <span>{title}</span>
               </span>
               <Icon
                 name="chevron"
@@ -41,10 +47,13 @@ const { accordionItems = [] } = Astro.props;
                 class="shrink-0 group-open:rotate-180"
               />
             </button>
-            <div id={`accordion${randomId}`} hidden={isExpanded ? false : true}>
+            <div id={`accordion${randomId}`} hidden={!isExpanded}>
               <ul>
                 {items.map((item) => (
-                  <li class="py-3 pl-8 bg-white border border-sage">
+                  <li
+                    class="py-3 pl-8 bg-white border-t border-sage text-darkgreen hover:underline hover:underline-offset-2 cursor-pointer"
+                    id={`item-${index++}`}
+                  >
                     {item.title}
                   </li>
                 ))}
@@ -57,6 +66,19 @@ const { accordionItems = [] } = Astro.props;
   </div>
 </bd-accordion>
 <script>
+  import { kind } from "../../store.js";
+
+  const accordion = document.getElementById("document-accordion");
+  const buttons = accordion.querySelectorAll("button");
+  buttons[0].classList.add("rounded-t-lg");
+  const lis = accordion.querySelectorAll("li");
+  lis[lis.length - 1].classList.add("rounded-b-lg");
+  lis.forEach((li, index) => {
+    li.addEventListener("click", () => {
+      const content = document.getElementById(`item-${index}`).textContent;
+      kind.set(content);
+    });
+  });
   class Accordion extends HTMLElement {
     constructor() {
       super();
@@ -64,8 +86,6 @@ const { accordionItems = [] } = Astro.props;
       const headers = this.querySelectorAll(
         "button[aria-expanded]"
       ) as NodeListOf<HTMLButtonElement>;
-
-      console.log(headers);
 
       if (headers && headers.length) {
         headers.forEach((header: HTMLButtonElement, index: number) => {

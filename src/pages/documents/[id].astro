@@ -1,0 +1,435 @@
+---
+import { Icon } from "astro-icon/components";
+import Layout from "../../layouts/Layout.astro";
+import PdfViewer from "../../components/PdfViewer.astro";
+import Accordion from "../../components/documents/Accordion.astro";
+import SharePackageForm from "../../components/react/SharePackageForm";
+import Dialog from "../../components/Dialog.astro";
+import SuccessConfirmation from "../../components/react/SuccessConfirmation";
+import EditAddressForm from "../../components/react/EditAddressForm";
+
+const { id } = Astro.params;
+
+const transformString = (inputString) => {
+  // Split the input string into an array of words using the '-' character as the delimiter
+  const words = inputString.split("-");
+
+  // Capitalize the first character of each word and concatenate them with a space
+  const transformedString = words
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
+  return transformedString;
+};
+
+const breadcrumbs_title = transformString(id);
+
+const getSectionsWithKey = (data, key) => {
+  const item = data.find((item) => item.key === key);
+  return item ? item.sections : [];
+};
+
+const totalAccordionItems = [
+  {
+    key: "get-approved",
+    sections: [
+      {
+        title: "Assets",
+        items: [
+          {
+            title: "Bank Statement",
+            href: "#get-approved",
+          },
+          {
+            title: "2023 W-2 Form",
+            href: "#make-an-offer",
+          },
+        ],
+      },
+      {
+        title: "Income",
+        items: [
+          {
+            title: "Bank Statement",
+            href: "#get-approved",
+          },
+          {
+            title: "2023 W-2 Form",
+            href: "#make-an-offer",
+          },
+        ],
+      },
+      {
+        title: "Debts",
+        items: [
+          {
+            title: "Bank Statement",
+            href: "#get-approved",
+          },
+          {
+            title: "2023 W-2 Form",
+            href: "#make-an-offer",
+          },
+        ],
+      },
+      {
+        title: "Reports",
+        items: [
+          {
+            title: "Bank Statement",
+            href: "#get-approved",
+          },
+          {
+            title: "2023 W-2 Form",
+            href: "#make-an-offer",
+          },
+        ],
+      },
+      {
+        title: "Uncategorized",
+        items: [
+          {
+            title: "Bank Statement",
+            href: "#get-approved",
+          },
+          {
+            title: "2023 W-2 Form",
+            href: "#make-an-offer",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    key: "make-an-offer",
+    sections: [
+      {
+        title: "Prepare Offer",
+        items: [
+          {
+            title: "Offer Letter",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Offer Accepted",
+        items: [
+          {
+            title: "Offer Letter",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Offer Rejected",
+        items: [
+          {
+            title: "Offer Letter",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Counteroffer",
+        items: [
+          {
+            title: "Offer Letter",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Uncategorized",
+        items: [
+          {
+            title: "Offer Letter",
+            href: "#",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    key: "escrow",
+    sections: [
+      {
+        title: "Inspections",
+        items: [
+          {
+            title: "Home Inspection Report",
+            href: "#",
+          },
+          {
+            title: "Mold Inspection",
+            href: "#",
+          },
+          {
+            title: "Septic Inspection",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Appraisals",
+        items: [
+          {
+            title: "Home Inspection Report",
+            href: "#",
+          },
+          {
+            title: "Mold Inspection",
+            href: "#",
+          },
+          {
+            title: "Septic Inspection",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Repairs",
+        items: [
+          {
+            title: "Home Inspection Report",
+            href: "#",
+          },
+          {
+            title: "Mold Inspection",
+            href: "#",
+          },
+          {
+            title: "Septic Inspection",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Uncategorized",
+        items: [
+          {
+            title: "Home Inspection Report",
+            href: "#",
+          },
+          {
+            title: "Mold Inspection",
+            href: "#",
+          },
+          {
+            title: "Septic Inspection",
+            href: "#",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    key: "closing",
+    sections: [
+      {
+        title: "Disclosures",
+        items: [
+          {
+            title: "Closing Disclosure",
+            href: "#",
+          },
+          {
+            title: "Escrow Disclosure",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Agreements",
+        items: [
+          {
+            title: "Closing Disclosure",
+            href: "#",
+          },
+          {
+            title: "Escrow Disclosure",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Deeds",
+        items: [
+          {
+            title: "Closing Disclosure",
+            href: "#",
+          },
+          {
+            title: "Escrow Disclosure",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Insurance",
+        items: [
+          {
+            title: "Closing Disclosure",
+            href: "#",
+          },
+          {
+            title: "Escrow Disclosure",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Uncategorized",
+        items: [
+          {
+            title: "Closing Disclosure",
+            href: "#",
+          },
+          {
+            title: "Escrow Disclosure",
+            href: "#",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    key: "moving-in",
+    sections: [
+      {
+        title: "Pre Move In",
+        items: [
+          {
+            title: "Moving Company ",
+            href: "#",
+          },
+          {
+            title: "Cleaning Company Contract",
+            href: "#",
+          },
+          {
+            title: "HOA Agreement",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Moving Day",
+        items: [
+          {
+            title: "Moving Company ",
+            href: "#",
+          },
+          {
+            title: "Cleaning Company Contract",
+            href: "#",
+          },
+          {
+            title: "HOA Agreement",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Post Move In",
+        items: [
+          {
+            title: "Moving Company ",
+            href: "#",
+          },
+          {
+            title: "Cleaning Company Contract",
+            href: "#",
+          },
+          {
+            title: "HOA Agreement",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Uncategorized",
+        items: [
+          {
+            title: "Moving Company ",
+            href: "#",
+          },
+          {
+            title: "Cleaning Company Contract",
+            href: "#",
+          },
+        ],
+      },
+    ],
+  },
+];
+
+const accordionItems = getSectionsWithKey(totalAccordionItems, id);
+---
+
+<Layout title="Bloomsday">
+  <EditAddressForm
+    client:only="react"
+    breadcrumbs={[
+      { title: "Documents", url: "#" },
+      { title: breadcrumbs_title, url: "#" },
+    ]}
+  />
+  <div class="grid grid-cols-7 gap-x-12 pl-3 pr-3">
+    <div class="col-span-2">
+      <button
+        class="flex justify-center bg-darkgreen rounded-lg gap-5 py-3 w-full"
+        id="share"
+      >
+        <Icon name="share" width={24} height={24} class="shrink-0" />
+        <span class="text-white">Share Document Package</span>
+      </button>
+      <div class="mt-8">
+        <Accordion accordionItems={accordionItems} />
+      </div>
+    </div>
+    <div class="col-span-5 border border-sage rounded-lg">
+      <PdfViewer
+        url="https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf"
+      />
+    </div>
+    <div id="share-package">
+      <Dialog
+        id="share-package-dialog"
+        title="Share Document Package"
+        description="Select the documents you wish to share."
+        width="1200px"
+        height="855px"
+      >
+        <div class="py-4">
+          <SharePackageForm client:only="react" />
+        </div>
+      </Dialog>
+    </div>
+    <div id="success-confirmation">
+      <Dialog id="success-confirmation-dialog" width="1200px" height="855px">
+        <div class="flex items-center justify-center h-full">
+          <SuccessConfirmation client:only="react" />
+        </div>
+      </Dialog>
+    </div>
+  </div>
+</Layout>
+<script>
+  const button = document.querySelector("#share");
+  const sharePackageDialog = document.querySelector("#share-package-dialog");
+  button.addEventListener("click", () => {
+    sharePackageDialog.setAttribute("open", "true");
+    const sharePackageButton = document.querySelector("#share-package-button");
+    console.log("button: ", sharePackageButton);
+    const successConfirmationDialog = document.querySelector(
+      "#success-confirmation-dialog"
+    );
+    sharePackageButton.addEventListener("click", () => {
+      console.log("click");
+      sharePackageDialog.setAttribute("open", "false");
+      successConfirmationDialog.setAttribute("open", "true");
+    });
+  });
+</script>
+

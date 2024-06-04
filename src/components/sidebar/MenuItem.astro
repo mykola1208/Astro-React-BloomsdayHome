@@ -3,6 +3,9 @@ import { Icon } from "astro-icon/components";
 import { Dropdown, DropdownItems } from "astro-navbar";
 
 const { title, icon, href = "#", items = [] } = Astro.props;
+const currentPath = Astro.url.pathname;
+const segments = currentPath.split('/');
+const selectedMenu = segments[1];
 ---
 
 {
@@ -15,33 +18,48 @@ const { title, icon, href = "#", items = [] } = Astro.props;
       <span class="text-darkgreen leading-4 grow font-medium">{title}</span>
     </a>
   ) : (
-    <Dropdown class="group">
-      <button class="flex items-center space-x-2 focus:bg-cream hover:bg-cream cursor-pointer rounded px-2 py-3 w-full">
-        <Icon name={icon} width={24} height={24} class="shrink-0" />
-        <span class="text-darkgreen text-left leading-4 grow font-medium">
-          {title}
-        </span>
-        <Icon
-          name="chevron"
-          width={24}
-          height={24}
-          class="shrink-0 group-open:rotate-180"
-        />
-      </button>
-      <DropdownItems>
-        <ul>
-          {items.map((item) => (
-            <li class="py-2 pr-2 pl-10">
-              <a
-                href={item.href}
-                class="text-darkgreen text-sm leading-none font-medium block"
-              >
-                {item.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </DropdownItems>
-    </Dropdown>
+    <bd-sidebar-dropdown id={selectedMenu} data-id={selectedMenu}>
+      <Dropdown class={`group ${icon} ${selectedMenu == icon && 'open'}`} aria-expanded={selectedMenu == icon ? "true" : "false"} open={selectedMenu === icon}>
+        <button class="flex items-center space-x-2 focus:bg-cream hover:bg-cream cursor-pointer rounded px-2 py-3 w-full">
+          <Icon name={icon} width={24} height={24} class="shrink-0" />
+          <span class="text-darkgreen text-left leading-4 grow font-medium">
+            {title}
+          </span>
+          <Icon
+            name="chevron"
+            width={24}
+            height={24}
+            class="shrink-0 group-open:rotate-180"
+          />
+        </button>
+        <DropdownItems class="dropdown-items" aria-expanded={selectedMenu == icon ? "true" : "false"}>
+          <ul>
+            {items.map((item) => (
+              <li class="py-2 pr-2 pl-10">
+                <a
+                  href={item.href}
+                  class="text-darkgreen text-sm leading-none font-medium block"
+                >
+                  {item.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </DropdownItems>
+      </Dropdown>
+    </bd-sidebar-dropdown>
   )
 }
+
+<script>
+  class SidebarDropdown extends HTMLElement {
+    constructor() {
+      super();
+      const dropdown = this.querySelector(`#${this.dataset.id} .${this.dataset.id}`) as HTMLElement;
+      const dropdownToggle = dropdown?.querySelector('.dropdown-items');
+      dropdownToggle?.classList.remove('hidden');
+    }
+  }
+  customElements.define("bd-sidebar-dropdown", SidebarDropdown);
+
+</script>

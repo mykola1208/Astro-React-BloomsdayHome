@@ -12,7 +12,7 @@ const { url } = Astro.props;
   <div class="p-2">
     <div class="flex justify-center gap-14 p-4">
       <div class="basis-1/3">
-        <p class="text-xl font-bold text-darkgreen">2023 W-2 Form</p>
+        <p class="text-xl font-bold text-darkgreen" id="kind">Bank Statement</p>
         <p class="text-sm font-normal text-darkgreen">Uploaded on 2/19/24</p>
       </div>
       <div class="basis-1/3 flex justify-center items-center gap-2">
@@ -56,7 +56,13 @@ const { url } = Astro.props;
 
 <script>
   import { getDocument } from "pdfjs-dist";
+  import { kind } from "../store.js";
   await import("pdfjs-dist/build/pdf.worker.min.mjs");
+
+  kind.subscribe((content) => {
+    console.log("content:", content);
+    document.getElementById("kind").textContent = content;
+  });
 
   class PdfViewer extends HTMLElement {
     _pdfDoc: any;
