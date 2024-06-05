@@ -6,9 +6,10 @@ interface Props {
   description?: string;
   width?: string;
   height?: string;
+  titleClass?: string;
 }
 
-const { id, title, description, width, height } = Astro.props;
+const { id, title, description, width, height, titleClass } = Astro.props;
 ---
 
 <bd-dialog id={id} data-id={id} open="false">
@@ -36,7 +37,9 @@ const { id, title, description, width, height } = Astro.props;
               <Icon name="circle-x" width={24} height={24} class="shrink-0" />
             </button>
           </div>
-          <p class="text-darkgreen text-4xl font-normal">
+          <p
+            class={`text-darkgreen font-normal ${titleClass ? titleClass : "text-4xl"}`}
+          >
             {title}
           </p>
           <p class="text-lg font-medium leading-6 mt-3">

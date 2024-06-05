@@ -29,7 +29,7 @@ const address = await getAddress(graphqlEndpoint, token);
 
       <p id="showAddress" class="text-1.5xl font-medium text-darkgreen">
         {
-          address.address1
+          address
             ? `${address.address1}, ${address.city}, ${address.state} ${address.zip5}`
             : "Street, City, State 00000"
         }

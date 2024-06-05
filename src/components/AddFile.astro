@@ -1,29 +1,29 @@
 ---
 import AddFileDropupButton from "./AddFileDropupButton.astro";
 import Dialog from "./Dialog.astro";
-import DocumentUploader from "./react/DocumentUploader";
+import DocumentsUploader from "./react/DocumentsUploader";
 const user = await Astro.locals.currentUser();
 ---
 
-<div id="add-file">
+<div id="add-files">
   <AddFileDropupButton />
   <Dialog
-    id="add-document-dialog"
+    id="add-documents-dialog"
     title="Upload Your Documents"
     description="Upload your files and we’ll determine where they belong in your portal. You can always resort them later if you wish."
     width="900px"
     height="574px"
   >
     <div class="py-4">
-      <DocumentUploader currentUser={user} client:only="react" />
+      <DocumentsUploader currentUser={user} client:only="react" />
     </div>
   </Dialog>
 </div>
 
 <script>
-  const addDocumentDialog = document.querySelector("#add-document-dialog");
-  const addFileRoot = document.querySelector("#add-file");
-  addFileRoot.addEventListener("add-file:document", () => {
-    addDocumentDialog.setAttribute("open", "true");
+  const addDocumentsDialog = document.querySelector("#add-documents-dialog");
+  const addFilesRoot = document.querySelector("#add-files");
+  addFilesRoot.addEventListener("add-files:document", () => {
+    addDocumentsDialog.setAttribute("open", "true");
   });
 </script>

@@ -30,10 +30,10 @@ const {
 
 const flag =
   (hasGroups &&
-    checkListGroups.some(({ checkList }) =>
-      checkList.some(({ status }) => status)
+    checkListGroups.every(({ checkList }) =>
+      checkList.every(({ status }) => status)
     )) ||
-  (!hasGroups && checkList.some(({ status }) => status));
+  (!hasGroups && checkList.every(({ status }) => status));
 ---
 
 <div
@@ -52,7 +52,7 @@ const flag =
         hasGroups ? (
           checkListGroups.map(({ title, checkList }) => (
             <div class="flex flex-col">
-              <p class="text-darkgreen text-sm">{title}</p>
+              <p class="text-darkgreen font-medium text-sm">{title}</p>
               <ul>
                 {checkList.map(({ status, label }) => (
                   <li>
@@ -75,13 +75,13 @@ const flag =
     </div>
   </div>
   {
-    flag ? (
-      <button class="px-4 py-3 bg-darkgreen text-[#ffffff] rounded-lg">
-        View Documents
+    !flag ? (
+      <button class="px-4 py-3 text-base font-medium bg-darkgreen text-[#ffffff] rounded-lg">
+        Work On It
       </button>
     ) : (
-      <button class="px-4 py-3 bg-mint text-sage rounded-lg">
-        View Documents
+      <button class="px-4 py-3 text-base font-medium bg-mint text-sage rounded-lg">
+        Completed
       </button>
     )
   }

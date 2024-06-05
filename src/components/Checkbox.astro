@@ -1,5 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
+import Dialog from "./Dialog.astro";
+import DocumentUploader from "./react/DocumentUploader";
 
 interface Props {
   checked: boolean;
@@ -7,32 +9,80 @@ interface Props {
 }
 
 const { checked, label } = Astro.props;
+const user = await Astro.locals.currentUser();
 const randomId = Math.floor(Math.random() * 9999);
 ---
 
 <div class="flex gap-2" id={`div${randomId}`}>
   <input
-    class="appearance-none relative peer shrink-0 w-5 min-h-5 cursor-pointer"
+    class="appearance-none relative shrink-0 w-5 min-h-5 cursor-pointer"
     type="checkbox"
     checked={checked}
     id={`checkbox${randomId}`}
+    disabled
   />
-  <Icon
-    name="checkbox-off"
-    width={20}
-    height={20}
-    class="absolute shrink-0 peer-checked:hidden pointer-events-none"
-  />
-  <Icon
-    name="checkbox-on"
-    width={20}
-    height={20}
-    class="absolute shrink-0 hidden peer-checked:inline pointer-events-none"
-  />
-  <label
-    for={`checkbox${randomId}`}
-    class="text-sm text-sage peer-checked:text-darkgreen"
-  >
-    {label}
-  </label>
+  {
+    checked ? (
+      <Icon
+        name="checkbox-on"
+        width={20}
+        height={20}
+        class="absolute shrink-0 pointer-events-none"
+      />
+    ) : (
+      <Icon
+        name="checkbox-off"
+        width={20}
+        height={20}
+        class="absolute shrink-0 pointer-events-none"
+      />
+    )
+  }
+  {
+    checked ? (
+      <a
+        class="text-sm font-medium text-darkgreen text-left hover:underline hover:decoration-darkgreen"
+        href="/documents/get-approved"
+      >
+        {label}
+      </a>
+    ) : (
+      <button
+        type="button"
+        class="add-file-button"
+        id={`add-file-button-${randomId}`}
+        data-random-id={randomId}
+        class="cursor-pointer"
+      >
+        <p class="text-sm font-medium text-darkgreen text-left hover:underline hover:decoration-darkgreen">
+          {label}
+        </p>
+      </button>
+    )
+  }
+
+  <div id="add-file">
+    <Dialog
+      id="add-document-dialog"
+      title="Upload Your Document"
+      width="449px"
+      height="593px"
+      titleClass="text-3xl"
+    >
+      <div class="py-4">
+        <DocumentUploader currentUser={user} client:only="react" />
+      </div>
+    </Dialog>
+  </div>
 </div>
+<script>
+  const addFileButtons = document.querySelectorAll(
+    ".add-file-button"
+  ) as NodeListOf<HTMLButtonElement>;
+  const addDocumentDialog = document.querySelector("#add-document-dialog");
+  addFileButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      addDocumentDialog.setAttribute("open", "true");
+    });
+  });
+</script>

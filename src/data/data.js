@@ -100,32 +100,35 @@ export const steps = {
         headerIcon: "write",
         header: "Prepare Offer",
         checkList: [
-          { status: false, label: "List Item" },
-          { status: false, label: "List Item" },
+          { status: false, label: "Offer Letter" },
+          { status: false, label: "Personalized Letter to Seller" },
         ],
       },
       {
         headerIcon: "accept",
         header: "Offer Accepted",
         checkList: [
-          { status: false, label: "List Item" },
-          { status: false, label: "List Item" },
+          { status: false, label: "Sign Purchase Agreement" },
+          { status: false, label: "Deposit Earnest Money" },
+          { status: false, label: "Secure Mortgage with Pre-Approval Lender" },
+          { status: false, label: "Title Report Review" },
         ],
       },
       {
         headerIcon: "reject",
         header: "Offer Rejected",
         checkList: [
-          { status: false, label: "List Item" },
-          { status: false, label: "List Item" },
+          { status: false, label: "Offer Expired" },
+          { status: false, label: "No Counteroffer" },
+          { status: false, label: "Revise Offer (based on Counteroffer)" },
         ],
       },
       {
         headerIcon: "counter",
         header: "Counter Offer",
         checkList: [
-          { status: false, label: "List Item" },
-          { status: false, label: "List Item" },
+          { status: false, label: "Accept Counteroffer" },
+          { status: false, label: "Reject Counteroffer" },
         ],
       },
     ],

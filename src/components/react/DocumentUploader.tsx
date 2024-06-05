@@ -2,15 +2,16 @@ import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { ReactSVG } from "react-svg";
 import { useFilesUploader } from "../../hooks/useFilesUploader";
+import Dropzone from "./Dropzone";
 
 interface FileWithPath extends File {
   path: string;
 }
 
 const DocumentUploader = ({ currentUser }) => {
-  const [files, setFiles] = useState([]);
+  const [file, setFile] = useState<FileWithPath | null>(null);
   const onDrop = useCallback((acceptedFiles) => {
-    setFiles((prevState) => [...prevState, ...acceptedFiles]);
+    setFile(acceptedFiles[0] || null);
   }, []);
 
   const { getRootProps, getInputProps, open } = useDropzone({
@@ -23,17 +24,15 @@ const DocumentUploader = ({ currentUser }) => {
     onDrop,
     noClick: true,
     noKeyboard: true,
-    multiple: true,
-    onDragEnter: undefined,
-    onDragOver: undefined,
-    onDragLeave: undefined,
+    multiple: false, // Only one file at a time
   });
 
-  const {
-    uploadFiles
-  } = useFilesUploader({files, currentUser})
+  const { uploadFiles } = useFilesUploader({
+    files: file ? [file] : [],
+    currentUser,
+  });
 
-  const fileList = files.map((file: FileWithPath) => (
+  const fileList = file ? (
     <li key={file.path}>
       <div className="flex">
         <div className="grow flex border border-1 bg-cream-light rounded-lg gap-2">
@@ -44,59 +43,36 @@ const DocumentUploader = ({ currentUser }) => {
           <ReactSVG src="/icons/completed.svg" className="mt-3 mr-4" />
         </div>
         <div className="shrink-0 ml-2">
-          <ReactSVG src="/icons/trash.svg" className="mt-3" />
+          <button onClick={() => setFile(null)}>
+            <ReactSVG src="/icons/trash.svg" className="mt-3" />
+          </button>
         </div>
       </div>
     </li>
-  ));
+  ) : null;
 
   return (
-    <div className="flex flex-col">
-      <div className="text-darkgreen text-sm text-right gap-2">
-        2 of 4 files uploaded
+    <div className="flex flex-col justify-between">
+      <div className="flex flex-col gap-4">
+        <Dropzone
+          getRootProps={getRootProps}
+          getInputProps={getInputProps}
+          open={open}
+          type="single"
+        />
+        <ul className="flex flex-col py-2 gap-3 grow h-12.5">{fileList}</ul>
       </div>
-      <div className="flex gap-5">
-        <div className="basis-1/2 flex flex-col">
-          <div
-            {...getRootProps({
-              className:
-                "dropzone border border-sage bg-cream-light px-10 py-14 rounded-lg",
-            })}
-          >
-            <input {...getInputProps()} />
-            <div className="flex flex-col items-center gap-3 ">
-              <ReactSVG src="/icons/plus.svg" />
-              <p className="text-xl font-medium text-darkgreen">
-                Drag & drop your files here
-              </p>
-              <p className="text-sm font-medium text-darkgreen">
-                Acceptable File Types: JPG, PNG, PDF, DOC
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-1 mt-4 mb-2">
-            <hr className="grow border-t border-sage" />
-            <span className="text-darkgreen">Or</span>
-            <hr className="grow border-t border-sage" />
-          </div>
-
-          <button
-            type="button"
-            className="font-medium text-darkgreen text-xl"
-            onClick={open}
-          >
-            Browse Your Computer
-          </button>
-        </div>
-        <div className="basis-1/2 flex flex-col justify-between">
-          <ul className="flex flex-col py-2 gap-3">{fileList}</ul>
-          <button className="flex justify-center gap-4 bg-darkgreen rounded-lg py-2 mr-8 mb-3" onClick={uploadFiles}>
-            <span className="text-white">Submit</span>
-            <ReactSVG src="/icons/submit.svg" />
-          </button>
-        </div>
-      </div>
+      <button
+        className={`flex justify-center items-center ${
+          file ? "bg-darkgreen" : "bg-mint"
+        } rounded-lg py-2 h-12.5 mt-14`}
+        onClick={uploadFiles}
+        disabled={!file}
+      >
+        <span className={`${file ? "text-white" : "text-sage"}`}>
+          Upload File
+        </span>
+      </button>
     </div>
   );
 };
