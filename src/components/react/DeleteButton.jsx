@@ -4,7 +4,6 @@ import { confirmWrapper } from "./confirm.js";
 const DeleteButton = () => {
   const [message, setMessage] = useState("");
   const handleDelete = async () => {
-    console.log("delete");
     if (
       await confirmWrapper({
         title: "Are you sure?",

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import { ReactSVG } from "react-svg";
 import Accordion from "./Accordion";
 import Checkbox from "./Checkbox";
+import { packageAccordionItems } from "../../data/data";
 
 interface AccordionMenuItem {
   id: string;
@@ -15,87 +16,11 @@ interface AccordionItem {
   items: AccordionMenuItem[];
 }
 
-const accordionItems: AccordionItem[] = [
-  {
-    title: "Assets",
-    items: [
-      {
-        id: "bank_statement",
-        title: "Bank Statement",
-        checked: true,
-        type: "PDF",
-      },
-      {
-        id: "tax_returns",
-        title: "2023 Tax Returns",
-        checked: true,
-        type: "PDF",
-      },
-      {
-        id: "w_2_form",
-        title: "2023 W-2 Form",
-        checked: true,
-        type: "PDF",
-      },
-    ],
-  },
-  {
-    title: "Income",
-    items: [
-      {
-        id: "pay_stubs",
-        title: "Pay Stubs",
-        checked: false,
-        type: "PDF",
-      },
-      {
-        id: "employment_letter",
-        title: "Employment Letter",
-        checked: true,
-        type: "PDF",
-      },
-    ],
-  },
-  {
-    title: "Debts",
-    items: [
-      {
-        id: "pay_stubs1",
-        title: "Pay Stubs",
-        checked: false,
-        type: "PDF",
-      },
-      {
-        id: "employment_letter1",
-        title: "Employment Letter",
-        checked: true,
-        type: "PDF",
-      },
-    ],
-  },
-  {
-    title: "Reports",
-    items: [
-      {
-        id: "pay_stubs2",
-        title: "Pay Stubs",
-        checked: false,
-        type: "PDF",
-      },
-      {
-        id: "employment_letter2",
-        title: "Employment Letter",
-        checked: true,
-        type: "PDF",
-      },
-    ],
-  },
-];
 const SharePackageForm = () => {
   const [isChecked, setIsChecked] = useState<{
     [key: string]: boolean;
   }>(
-    accordionItems.reduce((result, { items }) => {
+    packageAccordionItems.reduce((result, { items }) => {
       items.map(({ id, checked }) => (result[id] = checked));
       return result;
     }, {})
@@ -170,7 +95,7 @@ const SharePackageForm = () => {
           </div>
         </div>
         <div>
-          {accordionItems.map((accordion, index) => (
+          {packageAccordionItems.map((accordion, index) => (
             <Accordion title={accordion.title} key={index}>
               <ul>
                 {accordion.items.map((item, itemIndex) => (

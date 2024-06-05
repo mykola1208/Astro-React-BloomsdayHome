@@ -1,76 +1,7 @@
 ---
 import { Astronav, MenuItems } from "astro-navbar";
 import MenuItem from "./sidebar/MenuItem.astro";
-
-const menuItems = [
-  {
-    title: "Home",
-    href: "#home",
-    icon: "home",
-  },
-  {
-    title: "Tasks",
-    icon: "tasks",
-    items: [
-      {
-        title: "Get Approved",
-        href: "#get-approved",
-      },
-      {
-        title: "Make an Offer",
-        href: "#make-an-offer",
-      },
-      {
-        title: "Escrow",
-        href: "#escrow",
-      },
-      {
-        title: "Closing",
-        href: "#closing",
-      },
-      {
-        title: "Moving in",
-        href: "#moving-in",
-      },
-    ],
-  },
-  {
-    title: "Documents",
-    icon: "documents",
-    items: [
-      {
-        title: "Get Approved",
-        href: "/documents/get-approved",
-      },
-      {
-        title: "Make an Offer",
-        href: "/documents/make-an-offer",
-      },
-      {
-        title: "Escrow",
-        href: "/documents/escrow",
-      },
-      {
-        title: "Closing",
-        href: "/documents/closing",
-      },
-      {
-        title: "Moving in",
-        href: "/documents/moving-in",
-      },
-    ],
-  },
-  {
-    title: "Notes",
-    href: "#notes",
-    icon: "notes",
-  },
-  {
-    title: "Photos",
-    href: "#photos",
-    icon: "photos",
-  },
-];
+import { sidebarMenuItems } from "../data/data.js";
 ---
 
 <div class="min-h-screen h-[100%] bg-putty py-6 px-4 w-65">
@@ -78,7 +9,7 @@ const menuItems = [
     <MenuItems class="flex">
       <ul class="flex flex-col w-full">
         {
-          menuItems.map((item) => (
+          sidebarMenuItems.map((item) => (
             <li>
               <MenuItem
                 title={item.title}

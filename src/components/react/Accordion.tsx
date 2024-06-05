@@ -1,17 +1,5 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  type PropsWithChildren,
-} from "react";
+import React, { useState, type PropsWithChildren } from "react";
 import { ReactSVG } from "react-svg";
-import Checkbox from "./Checkbox";
-
-interface AccordionMenuItem {
-  title: string;
-  checked: boolean;
-  type: string;
-}
 
 const Accordion: React.FC<PropsWithChildren<{ title: string }>> = ({
   children,

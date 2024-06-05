@@ -1,0 +1,32 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import TaskListContent from "../../components/react/kanban/TaskListContent";
+import ShowAddress from "../../components/ShowAddress.astro";
+
+const { id } = Astro.params;
+const transformString = (inputString) => {
+  // Split the input string into an array of words using the '-' character as the delimiter
+  const words = inputString.split("-");
+  // Capitalize the first character of each word and concatenate them with a space
+  const transformedString = words
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+  return transformedString;
+};
+const breadcrumbs_title = transformString(id);
+---
+
+<Layout title="Bloomsday">
+  <div class="relative dropdown">
+    <div class="py-9.5 px-6 flex gap-7 flex-col">
+      <div class="neue text-darkgreen text-lg font-bold leading-5">
+        <ShowAddress
+          breadcrumbs={[
+            { title: "Tasks", url: "#" },
+            { title: breadcrumbs_title, url: "#" },
+          ]}
+        />
+      <TaskListContent client:only="react" />
+    </div>
+  </div>
+</Layout>

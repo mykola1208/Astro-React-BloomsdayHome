@@ -1,7 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import EditAddressForm from "../components/react/EditAddressForm.tsx";
-import DeleteButton from "../components/react/DeleteButton.jsx";
 import ShowAddress from "../components/ShowAddress.astro";
 ---
 
@@ -12,5 +10,4 @@ import ShowAddress from "../components/ShowAddress.astro";
     { title: "Process Name", url: "#" },
   ]}
 />
-  <DeleteButton client:only="react" />
 </Layout>
