@@ -2,15 +2,15 @@
 import Layout from "../layouts/Layout.astro";
 import EditAddressForm from "../components/react/EditAddressForm.tsx";
 import DeleteButton from "../components/react/DeleteButton.jsx";
+import ShowAddress from "../components/ShowAddress.astro";
 ---
 
 <Layout title="Bloomsday">
-  <EditAddressForm
-    client:only="react"
-    breadcrumbs={[
-      { title: "Home", url: "#" },
-      { title: "Process Name", url: "#" },
-    ]}
-  />
+  <ShowAddress
+  breadcrumbs={[
+    { title: "Home", url: "#" },
+    { title: "Process Name", url: "#" },
+  ]}
+/>
   <DeleteButton client:only="react" />
 </Layout>

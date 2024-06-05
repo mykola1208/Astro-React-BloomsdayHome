@@ -4,6 +4,7 @@ import Accordion from "../../components/Accordion.astro";
 import Task from "../../components/Task.astro";
 import ActivityFeed from "../../components/ActivityFeed.astro";
 import EditAddressForm from "../../components/react/EditAddressForm";
+import ShowAddress from "../../components/ShowAddress.astro";
 
 const { id } = Astro.params;
 
@@ -262,13 +263,12 @@ const steps = {
 ---
 
 <Layout title="Bloomsday">
-  <EditAddressForm
-    client:only="react"
-    breadcrumbs={[
-      { title: "Home", url: "#" },
-      { title: "Progress Tracker", url: "#" },
-    ]}
-  />
+  <ShowAddress
+  breadcrumbs={[
+    { title: "Home", url: "#" },
+    { title: "Process Name", url: "#" },
+  ]}
+/>
   <div class="flex flex-row mx-6 py-8 px-6 border border-sage rounded-md">
     <div class="basis-1/4">
       <Accordion items={accordionItems} />

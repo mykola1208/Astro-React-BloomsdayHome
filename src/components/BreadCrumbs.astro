@@ -1,0 +1,18 @@
+---
+const { breadcrumbs } = Astro.props;
+---
+
+<nav class="flex" aria-label="Breadcrumb">
+  <ol
+    class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
+  >
+    {
+      breadcrumbs.map(({ title, url }, index) => (
+        <li class="inline-flex items-center text-1.5xl font-bold text-darkgreen gap-1">
+          <a href={url}>{title}</a>
+          {index != breadcrumbs.length - 1 && <span>{`>`}</span>}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
