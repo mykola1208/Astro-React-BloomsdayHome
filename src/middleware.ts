@@ -1,6 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from "astro-clerk-auth/server";
 
-const isPublicPage = createRouteMatcher(['/sign-in','/sign-up'])
+const isPublicPage = createRouteMatcher(['/sign-in', '/sign-up', '/privacy', '/terms'])
 
 export const onRequest = clerkMiddleware((auth, context, next) => {
   if (!isPublicPage(context.request) && !auth().userId) {

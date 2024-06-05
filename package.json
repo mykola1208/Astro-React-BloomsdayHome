@@ -17,6 +17,7 @@
     "@hello-pangea/dnd": "^16.6.0",
     "@hookform/resolvers": "^3.4.0",
     "@nanostores/react": "^0.7.2",
+    "@tailwindcss/typography": "^0.5.13",
     "@types/react-icons": "^3.0.0",
     "algoliasearch": "^4.23.3",
     "astro": "^4.7.1",
