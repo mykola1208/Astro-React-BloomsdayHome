@@ -7,14 +7,14 @@ import TaskCard from "./TaskCard";
 import Dropdown from "./Dropdown";
 
 interface TaskColumnProps {
-  status: ITask["status"];
+  state: ITask["state"];
   tasks: ITask[];
-  onStatusChange: (id: number, newStatus: ITask["status"]) => void;
+  onStatusChange: (id: number, newStatus: ITask["state"]) => void;
 }
 
 const sorts = ["Sort by Category", "Sort A-Z", "Sort Z-A"];
 
-const TaskColumn = ({ status, tasks, onStatusChange }: TaskColumnProps) => {
+const TaskColumn = ({ state, tasks, onStatusChange }: TaskColumnProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const handleDropdownToggle = () => {
     setDropdownOpen(!dropdownOpen);
@@ -23,7 +23,7 @@ const TaskColumn = ({ status, tasks, onStatusChange }: TaskColumnProps) => {
     <div className="basis-1/4 border rounded-lg border-sage p-3 flex flex-col h-[787px]">
       <div className="flex justify-between text-darkgreen text-xl font-bold">
         <p className="text-xl font-bold">
-          {statusNames[status]} / {tasks.length}
+          {statusNames[state]} / {tasks.length}
         </p>
         <div className="relative">
           <button onClick={handleDropdownToggle}>
@@ -35,7 +35,7 @@ const TaskColumn = ({ status, tasks, onStatusChange }: TaskColumnProps) => {
                 <ul className="py-2 text-sm text-gray-700 flex flex-col  gap-3">
                   {sorts.map((sort, index) => (
                     <li
-                      key={`sort-dropdown-${status}-${index}`}
+                      key={`sort-dropdown-${state}-${index}`}
                       className="w-full"
                     >
                       <button className="py-3 px-4 w-full">
@@ -51,7 +51,7 @@ const TaskColumn = ({ status, tasks, onStatusChange }: TaskColumnProps) => {
           )}
         </div>
       </div>
-      <Droppable droppableId={status}>
+      <Droppable droppableId={state}>
         {(droppableProvided, snapshot) => (
           <div
             ref={droppableProvided.innerRef}

@@ -1,25 +1,25 @@
 import type { ITask } from ".";
 
-export const statusNames: Record<ITask["status"], string> = {
-  "not-started": "Not Started",
-  "working-on-it": "Working On It",
+export const statusNames: Record<ITask["state"], string> = {
+  "not_started": "Not Started",
+  "working_on_it": "Working On It",
   "completed": "Completed",
   "hidden": "Hidden",
 };
 
-export const statuses: ITask["status"][] = [
-  "not-started",
-  "working-on-it",
+export const statuses: ITask["state"][] = [
+  "not_started",
+  "working_on_it",
   "completed",
   "hidden",
 ];
 
-export type TasksByStatus = Record<ITask["status"], ITask[]>;
+export type TasksByStatus = Record<ITask["state"], ITask[]>;
 
 export const getTasksByStatus = (unorderedTasks: ITask[]) => {
   const tasksByStatus: TasksByStatus = unorderedTasks.reduce(
     (acc, task) => {
-      acc[task.status].push(task);
+      acc[task.state].push(task);
       return acc;
     },
     statuses.reduce(
@@ -27,11 +27,5 @@ export const getTasksByStatus = (unorderedTasks: ITask[]) => {
       {} as TasksByStatus
     )
   );
-
-  statuses.forEach((status) => {
-    tasksByStatus[status] = tasksByStatus[status].sort(
-      (recordA: ITask, recordB: ITask) => recordA.index - recordB.index
-    );
-  });
   return tasksByStatus;
 };

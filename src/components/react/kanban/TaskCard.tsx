@@ -10,12 +10,12 @@ import ColoredSVG from "../ColoredSVG";
 interface TaskCardProps {
   task: ITask;
   position: number;
-  onStatusChange: (id: number, newStatus: ITask["status"]) => void;
+  onStatusChange: (id: number, newStatus: ITask["state"]) => void;
 }
 
 const buttonClasses = {
-  "not-started": "bg-alert-light text-alert",
-  "working-on-it": "bg-warning-light text-darkgreen",
+  "not_started": "bg-alert-light text-alert",
+  "working_on_it": "bg-warning-light text-darkgreen",
   completed: "bg-completed-light text-darkgreen",
   hidden: "bg-gray-20 text-gray-50",
 };
@@ -32,7 +32,7 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
     setDropdownOpen(!dropdownOpen);
   };
 
-  const handleStatusChange = (newStatus: ITask["status"]) => {
+  const handleStatusChange = (newStatus: ITask["state"]) => {
     onStatusChange(task.id, newStatus);
     setDropdownOpen(false); // Close dropdown after selection
   };
@@ -48,10 +48,10 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
           <div
             className={clsx(
               "max-w-sm bg-white border-l-4 shadow-inner pt-3 pr-2 pb-4 pl-4",
-              task.status == "not-started" && "border-l-alert",
-              task.status == "working-on-it" && "border-l-warning",
-              task.status == "completed" && "border-l-completed",
-              task.status == "hidden" && "border-l-gray-50"
+              task.state == "not_started" && "border-l-alert",
+              task.state == "working_on_it" && "border-l-warning",
+              task.state == "completed" && "border-l-completed",
+              task.state == "hidden" && "border-l-gray-50"
             )}
             style={{
               opacity: snapshot.isDragging ? 0.9 : 1,
@@ -69,14 +69,14 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                 <div className="w-full flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <ReactSVG
-                      src={`/icons/${task.status}.svg`}
+                      src={`/icons/${task.state}.svg`}
                       width={24}
                       height={24}
                       className="shrink-0"
                     />
                     <span className="text-darkgreen text-left text-lg leading-4 font-medium">
                       <span className="text-sm font-medium">
-                        {task.category}
+                        {task.task_category}
                       </span>
                     </span>
                   </div>
@@ -94,7 +94,7 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                 </p>
                 {open && (
                   <p className="font-normal text-base text-darkgreen">
-                    {task.content}
+                    {task.description}
                   </p>
                 )}
               </div>
@@ -103,17 +103,17 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
               <button
                 className={clsx(
                   `ml-10 py-3 px-4 rounded-lg`,
-                  task.status == "not-started" && "bg-alert-light text-alert",
-                  task.status == "working-on-it" &&
+                  task.state == "not_started" && "bg-alert-light text-alert",
+                  task.state == "working_on_it" &&
                     "bg-warning-light text-darkgreen",
-                  task.status == "completed" &&
+                  task.state == "completed" &&
                     "bg-completed-light text-darkgreen",
-                  task.status == "hidden" && "bg-gray-20 text-gray-50"
+                  task.state == "hidden" && "bg-gray-20 text-gray-50"
                 )}
                 type="button"
                 onClick={handleDropdownToggle}
               >
-                <p className="px-4 font-medium">{statusNames[task.status]}</p>
+                <p className="px-4 font-medium">{statusNames[task.state]}</p>
               </button>
               {dropdownOpen && (
                 <div className="absolute ml-6">
@@ -143,11 +143,11 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                   <ColoredSVG
                     src="/icons/view.svg"
                     color={`${clsx(
-                      (task.status == "not-started" ||
-                        task.status == "working-on-it") &&
+                      (task.state == "not_started" ||
+                        task.state == "working_on_it") &&
                         "#9FBCAD",
-                      task.status == "completed" && "#1C4835",
-                      task.status == "hidden" && "#C1C7CD"
+                      task.state == "completed" && "#1C4835",
+                      task.state == "hidden" && "#C1C7CD"
                     )}`}
                   />
                 </button>
@@ -155,10 +155,10 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                   <ColoredSVG
                     src="/icons/upload.svg"
                     color={`${clsx(
-                      task.status == "not-started" && "#9FBCAD",
-                      task.status == "hidden" && "#C1C7CD",
-                      (task.status == "completed" ||
-                        task.status == "working-on-it") &&
+                      task.state == "not_started" && "#9FBCAD",
+                      task.state == "hidden" && "#C1C7CD",
+                      (task.state == "completed" ||
+                        task.state == "working_on_it") &&
                         "#1C4835"
                     )}`}
                   />
@@ -167,11 +167,11 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                   <ColoredSVG
                     src="/icons/download.svg"
                     color={`${clsx(
-                      (task.status == "not-started" ||
-                        task.status == "working-on-it") &&
+                      (task.state == "not_started" ||
+                        task.state == "working_on_it") &&
                         "#9FBCAD",
-                      task.status == "completed" && "#1C4835",
-                      task.status == "hidden" && "#C1C7CD"
+                      task.state == "completed" && "#1C4835",
+                      task.state == "hidden" && "#C1C7CD"
                     )}`}
                   />
                 </button>
@@ -179,11 +179,11 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                   <ColoredSVG
                     src="/icons/share.svg"
                     color={`${clsx(
-                      (task.status == "not-started" ||
-                        task.status == "working-on-it") &&
+                      (task.state == "not_started" ||
+                        task.state == "working_on_it") &&
                         "#9FBCAD",
-                      task.status == "completed" && "#1C4835",
-                      task.status == "hidden" && "#C1C7CD"
+                      task.state == "completed" && "#1C4835",
+                      task.state == "hidden" && "#C1C7CD"
                     )}`}
                   />
                 </button>
@@ -191,11 +191,11 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                   <ColoredSVG
                     src="/icons/trash.svg"
                     color={`${clsx(
-                      (task.status == "not-started" ||
-                        task.status == "working-on-it") &&
+                      (task.state == "not_started" ||
+                        task.state == "working_on_it") &&
                         "#9FBCAD",
-                      task.status == "completed" && "#1C4835",
-                      task.status == "hidden" && "#C1C7CD"
+                      task.state == "completed" && "#1C4835",
+                      task.state == "hidden" && "#C1C7CD"
                     )}`}
                   />
                 </button>
@@ -204,17 +204,17 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                 <ColoredSVG
                   src="/icons/calendar.svg"
                   color={`${clsx(
-                    (task.status == "not-started" ||
-                      task.status == "working-on-it" ||
-                      task.status == "completed") &&
+                    (task.state == "not_started" ||
+                      task.state == "working_on_it" ||
+                      task.state == "completed") &&
                       "#1C4835",
-                    task.status == "hidden" && "#C1C7CD"
+                    task.state == "hidden" && "#C1C7CD"
                   )}`}
                 />
                 <p
                   className={`text-base font-medium ${clsx(
-                    task.status == "hidden" && "text-gray-30",
-                    task.status != "hidden" && "text-darkgreen"
+                    task.state == "hidden" && "text-gray-30",
+                    task.state != "hidden" && "text-darkgreen"
                   )}`}
                 >
                   Due

@@ -1,8 +1,7 @@
 export interface ITask {
   id: number;
-  status: "not-started" | "working-on-it" | "completed" | "hidden";
-  category: string;
+  state: "not_started" | "working_on_it" | "completed" | "hidden";
+  task_category: string;
   title: string;
-  content: string;
-  index: number;
+  description: string;
 }
