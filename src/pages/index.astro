@@ -4,10 +4,14 @@ import ShowAddress from "../components/ShowAddress.astro";
 ---
 
 <Layout title="Bloomsday">
-  <ShowAddress
-  breadcrumbs={[
-    { title: "Home", url: "#" },
-    { title: "Process Name", url: "#" },
-  ]}
-/>
+  <div class="relative dropdown">
+    <div class="py-3 px-6 flex gap-7 flex-col">
+      <ShowAddress
+        breadcrumbs={[
+          { title: "Home", url: "#" },
+          { title: "Process Name", url: "#" },
+        ]}
+      />
+    </div>
+  </div>
 </Layout>

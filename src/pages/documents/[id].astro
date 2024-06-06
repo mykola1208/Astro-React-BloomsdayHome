@@ -7,6 +7,8 @@ import SharePackageForm from "../../components/react/SharePackageForm";
 import Dialog from "../../components/Dialog.astro";
 import SuccessConfirmation from "../../components/react/SuccessConfirmation";
 import EditAddressForm from "../../components/react/EditAddressForm";
+import { documentsAccordionItems } from "../../data/data.js";
+import ShowAddress from "../../components/ShowAddress.astro";
 
 const { id } = Astro.params;
 
@@ -29,389 +31,61 @@ const getSectionsWithKey = (data, key) => {
   return item ? item.sections : [];
 };
 
-const totalAccordionItems = [
-  {
-    key: "get-approved",
-    sections: [
-      {
-        title: "Assets",
-        items: [
-          {
-            title: "Bank Statement",
-            href: "#get-approved",
-          },
-          {
-            title: "2023 W-2 Form",
-            href: "#make-an-offer",
-          },
-        ],
-      },
-      {
-        title: "Income",
-        items: [
-          {
-            title: "Bank Statement",
-            href: "#get-approved",
-          },
-          {
-            title: "2023 W-2 Form",
-            href: "#make-an-offer",
-          },
-        ],
-      },
-      {
-        title: "Debts",
-        items: [
-          {
-            title: "Bank Statement",
-            href: "#get-approved",
-          },
-          {
-            title: "2023 W-2 Form",
-            href: "#make-an-offer",
-          },
-        ],
-      },
-      {
-        title: "Reports",
-        items: [
-          {
-            title: "Bank Statement",
-            href: "#get-approved",
-          },
-          {
-            title: "2023 W-2 Form",
-            href: "#make-an-offer",
-          },
-        ],
-      },
-      {
-        title: "Uncategorized",
-        items: [
-          {
-            title: "Bank Statement",
-            href: "#get-approved",
-          },
-          {
-            title: "2023 W-2 Form",
-            href: "#make-an-offer",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    key: "make-an-offer",
-    sections: [
-      {
-        title: "Prepare Offer",
-        items: [
-          {
-            title: "Offer Letter",
-            href: "#",
-          },
-        ],
-      },
-      {
-        title: "Offer Accepted",
-        items: [
-          {
-            title: "Offer Letter",
-            href: "#",
-          },
-        ],
-      },
-      {
-        title: "Offer Rejected",
-        items: [
-          {
-            title: "Offer Letter",
-            href: "#",
-          },
-        ],
-      },
-      {
-        title: "Counteroffer",
-        items: [
-          {
-            title: "Offer Letter",
-            href: "#",
-          },
-        ],
-      },
-      {
-        title: "Uncategorized",
-        items: [
-          {
-            title: "Offer Letter",
-            href: "#",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    key: "escrow",
-    sections: [
-      {
-        title: "Inspections",
-        items: [
-          {
-            title: "Home Inspection Report",
-            href: "#",
-          },
-          {
-            title: "Mold Inspection",
-            href: "#",
-          },
-          {
-            title: "Septic Inspection",
-            href: "#",
-          },
-        ],
-      },
-      {
-        title: "Appraisals",
-        items: [
-          {
-            title: "Home Inspection Report",
-            href: "#",
-          },
-          {
-            title: "Mold Inspection",
-            href: "#",
-          },
-          {
-            title: "Septic Inspection",
-            href: "#",
-          },
-        ],
-      },
-      {
-        title: "Repairs",
-        items: [
-          {
-            title: "Home Inspection Report",
-            href: "#",
-          },
-          {
-            title: "Mold Inspection",
-            href: "#",
-          },
-          {
-            title: "Septic Inspection",
-            href: "#",
-          },
-        ],
-      },
-      {
-        title: "Uncategorized",
-        items: [
-          {
-            title: "Home Inspection Report",
-            href: "#",
-          },
-          {
-            title: "Mold Inspection",
-            href: "#",
-          },
-          {
-            title: "Septic Inspection",
-            href: "#",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    key: "closing",
-    sections: [
-      {
-        title: "Disclosures",
-        items: [
-          {
-            title: "Closing Disclosure",
-            href: "#",
-          },
-          {
-            title: "Escrow Disclosure",
-            href: "#",
-          },
-        ],
-      },
-      {
-        title: "Agreements",
-        items: [
-          {
-            title: "Closing Disclosure",
-            href: "#",
-          },
-          {
-            title: "Escrow Disclosure",
-            href: "#",
-          },
-        ],
-      },
-      {
-        title: "Deeds",
-        items: [
-          {
-            title: "Closing Disclosure",
-            href: "#",
-          },
-          {
-            title: "Escrow Disclosure",
-            href: "#",
-          },
-        ],
-      },
-      {
-        title: "Insurance",
-        items: [
-          {
-            title: "Closing Disclosure",
-            href: "#",
-          },
-          {
-            title: "Escrow Disclosure",
-            href: "#",
-          },
-        ],
-      },
-      {
-        title: "Uncategorized",
-        items: [
-          {
-            title: "Closing Disclosure",
-            href: "#",
-          },
-          {
-            title: "Escrow Disclosure",
-            href: "#",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    key: "moving-in",
-    sections: [
-      {
-        title: "Pre Move In",
-        items: [
-          {
-            title: "Moving Company ",
-            href: "#",
-          },
-          {
-            title: "Cleaning Company Contract",
-            href: "#",
-          },
-          {
-            title: "HOA Agreement",
-            href: "#",
-          },
-        ],
-      },
-      {
-        title: "Moving Day",
-        items: [
-          {
-            title: "Moving Company ",
-            href: "#",
-          },
-          {
-            title: "Cleaning Company Contract",
-            href: "#",
-          },
-          {
-            title: "HOA Agreement",
-            href: "#",
-          },
-        ],
-      },
-      {
-        title: "Post Move In",
-        items: [
-          {
-            title: "Moving Company ",
-            href: "#",
-          },
-          {
-            title: "Cleaning Company Contract",
-            href: "#",
-          },
-          {
-            title: "HOA Agreement",
-            href: "#",
-          },
-        ],
-      },
-      {
-        title: "Uncategorized",
-        items: [
-          {
-            title: "Moving Company ",
-            href: "#",
-          },
-          {
-            title: "Cleaning Company Contract",
-            href: "#",
-          },
-        ],
-      },
-    ],
-  },
-];
-
-const accordionItems = getSectionsWithKey(totalAccordionItems, id);
+const accordionItems = getSectionsWithKey(documentsAccordionItems, id);
 ---
 
 <Layout title="Bloomsday">
-  <EditAddressForm
-    client:only="react"
-    breadcrumbs={[
-      { title: "Documents", url: "#" },
-      { title: breadcrumbs_title, url: "#" },
-    ]}
-  />
-  <div class="grid grid-cols-7 gap-x-12 pl-3 pr-3">
-    <div class="col-span-2">
-      <button
-        class="flex justify-center bg-darkgreen rounded-lg gap-5 py-3 w-full"
-        id="share"
-      >
-        <Icon name="share" width={24} height={24} class="shrink-0" />
-        <span class="text-white">Share Document Package</span>
-      </button>
-      <div class="mt-8">
-        <Accordion accordionItems={accordionItems} />
-      </div>
-    </div>
-    <div class="col-span-5 border border-sage rounded-lg">
-      <PdfViewer
-        url="https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf"
+  <div class="relative dropdown">
+    <div class="py-3 px-6 flex gap-7 flex-col">
+      <ShowAddress
+        breadcrumbs={[
+          { title: "Documents", url: "#" },
+          { title: breadcrumbs_title, url: "#" },
+        ]}
       />
-    </div>
-    <div id="share-package">
-      <Dialog
-        id="share-package-dialog"
-        title="Share Document Package"
-        description="Select the documents you wish to share."
-        width="1200px"
-        height="855px"
-      >
-        <div class="py-4">
-          <SharePackageForm client:only="react" />
+      <div class="grid grid-cols-7 gap-x-12 pl-3 pr-3">
+        <div class="col-span-2">
+          <button
+            class="flex justify-center bg-darkgreen rounded-lg gap-5 py-3 w-full"
+            id="share"
+          >
+            <Icon name="share" width={24} height={24} class="shrink-0" />
+            <span class="text-white">Share Document Package</span>
+          </button>
+          <div class="mt-8">
+            <Accordion accordionItems={accordionItems} />
+          </div>
         </div>
-      </Dialog>
-    </div>
-    <div id="success-confirmation">
-      <Dialog id="success-confirmation-dialog" width="1200px" height="855px">
-        <div class="flex items-center justify-center h-full">
-          <SuccessConfirmation client:only="react" />
+        <div class="col-span-5 border border-sage rounded-lg">
+          <PdfViewer
+            url="https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf"
+          />
         </div>
-      </Dialog>
+        <div id="share-package">
+          <Dialog
+            id="share-package-dialog"
+            title="Share Document Package"
+            description="Select the documents you wish to share."
+            width="1200px"
+            height="855px"
+          >
+            <div class="py-4">
+              <SharePackageForm client:only="react" />
+            </div>
+          </Dialog>
+        </div>
+        <div id="success-confirmation">
+          <Dialog
+            id="success-confirmation-dialog"
+            width="1200px"
+            height="855px"
+          >
+            <div class="flex items-center justify-center h-full">
+              <SuccessConfirmation client:only="react" />
+            </div>
+          </Dialog>
+        </div>
+      </div>
     </div>
   </div>
 </Layout>
@@ -432,4 +106,3 @@ const accordionItems = getSectionsWithKey(totalAccordionItems, id);
     });
   });
 </script>
-

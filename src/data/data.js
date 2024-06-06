@@ -31,6 +31,342 @@ export const trackerAccordionItems = [
   },
 ];
 
+export const documentsAccordionItems = [
+  {
+    key: "get-approved",
+    sections: [
+      {
+        title: "Assets",
+        items: [
+          {
+            title: "Bank Statement",
+            href: "#get-approved",
+          },
+          {
+            title: "2023 W-2 Form",
+            href: "#make-an-offer",
+          },
+        ],
+      },
+      {
+        title: "Income",
+        items: [
+          {
+            title: "Bank Statement",
+            href: "#get-approved",
+          },
+          {
+            title: "2023 W-2 Form",
+            href: "#make-an-offer",
+          },
+        ],
+      },
+      {
+        title: "Debts",
+        items: [
+          {
+            title: "Bank Statement",
+            href: "#get-approved",
+          },
+          {
+            title: "2023 W-2 Form",
+            href: "#make-an-offer",
+          },
+        ],
+      },
+      {
+        title: "Reports",
+        items: [
+          {
+            title: "Bank Statement",
+            href: "#get-approved",
+          },
+          {
+            title: "2023 W-2 Form",
+            href: "#make-an-offer",
+          },
+        ],
+      },
+      {
+        title: "Uncategorized",
+        items: [
+          {
+            title: "Bank Statement",
+            href: "#get-approved",
+          },
+          {
+            title: "2023 W-2 Form",
+            href: "#make-an-offer",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    key: "make-an-offer",
+    sections: [
+      {
+        title: "Prepare Offer",
+        items: [
+          {
+            title: "Offer Letter",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Offer Accepted",
+        items: [
+          {
+            title: "Offer Letter",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Offer Rejected",
+        items: [
+          {
+            title: "Offer Letter",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Counteroffer",
+        items: [
+          {
+            title: "Offer Letter",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Uncategorized",
+        items: [
+          {
+            title: "Offer Letter",
+            href: "#",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    key: "escrow",
+    sections: [
+      {
+        title: "Inspections",
+        items: [
+          {
+            title: "Home Inspection Report",
+            href: "#",
+          },
+          {
+            title: "Mold Inspection",
+            href: "#",
+          },
+          {
+            title: "Septic Inspection",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Appraisals",
+        items: [
+          {
+            title: "Home Inspection Report",
+            href: "#",
+          },
+          {
+            title: "Mold Inspection",
+            href: "#",
+          },
+          {
+            title: "Septic Inspection",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Repairs",
+        items: [
+          {
+            title: "Home Inspection Report",
+            href: "#",
+          },
+          {
+            title: "Mold Inspection",
+            href: "#",
+          },
+          {
+            title: "Septic Inspection",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Uncategorized",
+        items: [
+          {
+            title: "Home Inspection Report",
+            href: "#",
+          },
+          {
+            title: "Mold Inspection",
+            href: "#",
+          },
+          {
+            title: "Septic Inspection",
+            href: "#",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    key: "closing",
+    sections: [
+      {
+        title: "Disclosures",
+        items: [
+          {
+            title: "Closing Disclosure",
+            href: "#",
+          },
+          {
+            title: "Escrow Disclosure",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Agreements",
+        items: [
+          {
+            title: "Closing Disclosure",
+            href: "#",
+          },
+          {
+            title: "Escrow Disclosure",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Deeds",
+        items: [
+          {
+            title: "Closing Disclosure",
+            href: "#",
+          },
+          {
+            title: "Escrow Disclosure",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Insurance",
+        items: [
+          {
+            title: "Closing Disclosure",
+            href: "#",
+          },
+          {
+            title: "Escrow Disclosure",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Uncategorized",
+        items: [
+          {
+            title: "Closing Disclosure",
+            href: "#",
+          },
+          {
+            title: "Escrow Disclosure",
+            href: "#",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    key: "moving-in",
+    sections: [
+      {
+        title: "Pre Move In",
+        items: [
+          {
+            title: "Moving Company ",
+            href: "#",
+          },
+          {
+            title: "Cleaning Company Contract",
+            href: "#",
+          },
+          {
+            title: "HOA Agreement",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Moving Day",
+        items: [
+          {
+            title: "Moving Company ",
+            href: "#",
+          },
+          {
+            title: "Cleaning Company Contract",
+            href: "#",
+          },
+          {
+            title: "HOA Agreement",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Post Move In",
+        items: [
+          {
+            title: "Moving Company ",
+            href: "#",
+          },
+          {
+            title: "Cleaning Company Contract",
+            href: "#",
+          },
+          {
+            title: "HOA Agreement",
+            href: "#",
+          },
+        ],
+      },
+      {
+        title: "Uncategorized",
+        items: [
+          {
+            title: "Moving Company ",
+            href: "#",
+          },
+          {
+            title: "Cleaning Company Contract",
+            href: "#",
+          },
+        ],
+      },
+    ],
+  },
+];
+
+
 export const steps = {
   "get-approved": {
     description:
@@ -351,19 +687,19 @@ export const sidebarMenuItems = [
       },
       {
         title: "Make an Offer",
-        href: "#make-an-offer",
+        href: "/documents/make-an-offer",
       },
       {
         title: "Escrow",
-        href: "#escrow",
+        href: "/documents/escrow",
       },
       {
         title: "Closing",
-        href: "#closing",
+        href: "/documents/closing",
       },
       {
         title: "Moving in",
-        href: "#moving-in",
+        href: "/documents/moving-in",
       },
     ],
   },
