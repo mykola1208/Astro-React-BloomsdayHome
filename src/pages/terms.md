@@ -3,7 +3,14 @@ layout: '../layouts/StaticLayout.astro'
 title: Terms and Conditions
 ---
 
-# Terms and Conditions
+<div class="flex flex-col w-screen markdown">
+<div class="flex items-center justify-center bg-[#F5F2E1] h-[300px]">
+<p class=" text-darkgreen font-normal text-5xl">
+Terms and Conditions
+</p>
+</div>
+<div class="flex justify-center items-center">
+<div class="w-[60%] py-28 px-20 text-black text-sm">
 
 ## Acceptance of These Terms and Applicable Definitions
 
@@ -68,3 +75,7 @@ If you feel that we did something wrong, we hope that you will reach out to us s
 We hope that we haven’t lost you! To repeat, these terms and conditions govern all of the Products that we offer, unless we explicitly state that these terms and conditions do not apply. By accessing or using our Products, you agree to these terms and conditions in their entirety.
 
 _Last updated March 27, 2024._
+
+</div>
+</div>
+</div>

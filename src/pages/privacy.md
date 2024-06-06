@@ -1,9 +1,16 @@
 ---
 title: Privacy Policy
-layout: '../layouts/StaticLayout.astro'
+layout: "../layouts/StaticLayout.astro"
 ---
 
-# Privacy Policy
+<div class="flex flex-col w-screen markdown">
+<div class="flex items-center justify-center bg-[#F5F2E1] h-[300px]">
+<p class=" text-darkgreen font-normal text-5xl">
+Privacy Policy
+</p>
+</div>
+<div class="flex justify-center items-center">
+<div class="w-[60%] py-28 px-20 text-black text-sm">
 
 When you sign up for Bloomsday, you make available to us information about your home and yourself. We take your trust in us – and in our ability to handle your data responsibly – very seriously. This privacy policy describes the kind of information that you give to us; the ways that we collect, use, and disclose that information; and the steps we take to protect that information. This privacy policy is subject to, and to be read in conjunction with, our terms and conditions. Please read this privacy policy carefully because, by using our Products, you are opting in to our use of your data, including personal data, in the ways that we describe here. **If you disagree with anything in this privacy policy, you should not use our Products.**
 
@@ -75,3 +82,7 @@ Denver, Colorado 80206
 We reserve the right to change this privacy policy at any time in our sole discretion and without prior notice.
 
 _Last updated March 27, 2024._
+
+</div>
+</div>
+</div>

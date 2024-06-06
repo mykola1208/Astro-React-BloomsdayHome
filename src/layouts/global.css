@@ -313,3 +313,9 @@ html {
 .scrollbar-hide::-webkit-scrollbar-thumb:hover {
   background-color: #9fbcad;
 }
+
+.markdown h2, .markdown h3{
+  color: #1C4835;
+}
+
+

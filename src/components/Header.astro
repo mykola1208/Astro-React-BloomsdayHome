@@ -6,6 +6,7 @@ import stream from "getstream";
 import NotificationBell from "../components/react/NotificationBell.jsx";
 
 const user = await Astro.locals.currentUser();
+const { mode } = Astro.props;
 const userToken =
   user.publicMetadata.streamToken ||
   stream
@@ -17,27 +18,35 @@ const userToken =
     .createUserToken(user.id);
 ---
 
-<div class="flex items-center py-4 px-7 gap-8">
+<div
+  class={`flex items-center py-4 px-7 gap-8 ${mode == "remove" && "bg-cream fixed w-screen border border-sage"}`}
+>
   <div class="w-60 flex items-center">
     <Icon name="logo" width={185} height={34} />
   </div>
-  <div class="grow">
-    <SearchBox />
-  </div>
-  <div class="ml-6 w-50 flex items-center justify-end gap-x-6">
-    <button type="button" class="inline-flex items-center p-3.5">
-      <NotificationBell token={userToken} client:load />
-    </button>
-    <div>
-      <div>
-        <UserButton
-          appearance={{
-            elements: { userButtonAvatarBox: "w-12.5 h-12.5" },
-          }}
-        />
-      </div>
-    </div>
-  </div>
+  {
+    mode == "regular" && (
+      <>
+        <div class="grow">
+          <SearchBox />
+        </div>
+        <div class="ml-6 w-50 flex items-center justify-end gap-x-6">
+          <button type="button" class="inline-flex items-center p-3.5">
+            <NotificationBell token={userToken} client:load />
+          </button>
+          <div>
+            <div>
+              <UserButton
+                appearance={{
+                  elements: { userButtonAvatarBox: "w-12.5 h-12.5" },
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  }
 </div>
 
 <script>
