@@ -60,7 +60,6 @@ const { url } = Astro.props;
   await import("pdfjs-dist/build/pdf.worker.min.mjs");
 
   kind.subscribe((content) => {
-    console.log("content:", content);
     document.getElementById("kind").textContent = content;
   });
 

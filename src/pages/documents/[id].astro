@@ -95,12 +95,10 @@ const accordionItems = getSectionsWithKey(documentsAccordionItems, id);
   button.addEventListener("click", () => {
     sharePackageDialog.setAttribute("open", "true");
     const sharePackageButton = document.querySelector("#share-package-button");
-    console.log("button: ", sharePackageButton);
     const successConfirmationDialog = document.querySelector(
       "#success-confirmation-dialog"
     );
     sharePackageButton.addEventListener("click", () => {
-      console.log("click");
       sharePackageDialog.setAttribute("open", "false");
       successConfirmationDialog.setAttribute("open", "true");
     });
