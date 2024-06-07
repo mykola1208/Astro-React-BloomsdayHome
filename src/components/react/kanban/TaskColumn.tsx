@@ -56,9 +56,9 @@ const TaskColumn = ({ state, tasks, onStatusChange }: TaskColumnProps) => {
           <div
             ref={droppableProvided.innerRef}
             {...droppableProvided.droppableProps}
-            className={`flex flex-col rounded-md p-1 scrollbar-hide overflow-auto ${
-              snapshot.isDraggingOver ? "bg-[#dadadf]" : ""
-            }`}
+            className={`flex flex-col rounded-md p-1 ${
+              tasks.length > 2 ? "scrollbar-hide overflow-auto" : ""
+            } ${snapshot.isDraggingOver ? "bg-[#dadadf]" : ""}`}
           >
             {tasks.map((task, position) => (
               <div className="mt-2" key={`${task.id}-${position}`}>
