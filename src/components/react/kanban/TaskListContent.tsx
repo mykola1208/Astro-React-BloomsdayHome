@@ -6,6 +6,7 @@ import { getTasksByStatus, statuses, type TasksByStatus } from "./statuses";
 import { GET_TASKS } from "../../../apollo/queries/getTasks";
 import { createApolloClient } from "../../../apollo/client";
 import type { ITask } from ".";
+import { UPDATE_TASK_STATE } from "../../../apollo/mutations/updateTaskState";
 
 const TaskListContent = () => {
   const [tasksByStatus, setTasksByStatus] = useState<TasksByStatus>(
@@ -16,25 +17,36 @@ const TaskListContent = () => {
 
   const { createClient } = createApolloClient();
 
-  
   useEffect(() => {
-    async function getTasks () {
+    async function getTasks() {
       const client = await createClient();
       const { data } = await client.query({
         query: GET_TASKS,
       });
 
-      setTasks(data.tasks.map(item => ({...item})))
+      setTasks(data.tasks.map((item) => ({ ...item })));
     }
-    getTasks()
+    getTasks();
   }, []);
 
   useEffect(() => {
-    if(tasks && tasks.length!==0){
+    if (tasks && tasks.length !== 0) {
       setTasksByStatus(getTasksByStatus(tasks));
     }
   }, [tasks]);
-  
+
+  async function updateState(id, state: ITask["state"]) {
+    const client = await createClient();
+
+    try {
+      const { data } = await client.mutate({
+        mutation: UPDATE_TASK_STATE,
+        variables: { id, state },
+      });
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
+  }
 
   const onDragEnd = (result) => {
     const { source, destination } = result;
@@ -55,6 +67,8 @@ const TaskListContent = () => {
       [destination.droppableId]: destTasks,
     };
 
+    updateState(result.draggableId, destination.droppableId);
+
     setTasksByStatus(newTasksByStatus);
   };
 
@@ -62,6 +76,7 @@ const TaskListContent = () => {
     const updatedTasks = tasks.map((task) =>
       task.id === id ? { ...task, state: newStatus } : task
     );
+    updateState(id, newStatus);
     setTasksByStatus(getTasksByStatus(updatedTasks));
   };
 

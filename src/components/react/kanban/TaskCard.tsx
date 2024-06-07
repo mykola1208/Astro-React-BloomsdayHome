@@ -15,7 +15,7 @@ interface TaskCardProps {
 
 const buttonClasses = {
   "not_started": "bg-alert-light text-alert",
-  "working_on_it": "bg-warning-light text-darkgreen",
+  "in_progress": "bg-warning-light text-darkgreen",
   completed: "bg-completed-light text-darkgreen",
   hidden: "bg-gray-20 text-gray-50",
 };
@@ -49,7 +49,7 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
             className={clsx(
               "max-w-sm bg-white border-l-4 shadow-inner pt-3 pr-2 pb-4 pl-4",
               task.state == "not_started" && "border-l-alert",
-              task.state == "working_on_it" && "border-l-warning",
+              task.state == "in_progress" && "border-l-warning",
               task.state == "completed" && "border-l-completed",
               task.state == "hidden" && "border-l-gray-50"
             )}
@@ -104,7 +104,7 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                 className={clsx(
                   `ml-10 py-3 px-4 rounded-lg`,
                   task.state == "not_started" && "bg-alert-light text-alert",
-                  task.state == "working_on_it" &&
+                  task.state == "in_progress" &&
                     "bg-warning-light text-darkgreen",
                   task.state == "completed" &&
                     "bg-completed-light text-darkgreen",
@@ -144,7 +144,7 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                     src="/icons/view.svg"
                     color={`${clsx(
                       (task.state == "not_started" ||
-                        task.state == "working_on_it") &&
+                        task.state == "in_progress") &&
                         "#9FBCAD",
                       task.state == "completed" && "#1C4835",
                       task.state == "hidden" && "#C1C7CD"
@@ -158,7 +158,7 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                       task.state == "not_started" && "#9FBCAD",
                       task.state == "hidden" && "#C1C7CD",
                       (task.state == "completed" ||
-                        task.state == "working_on_it") &&
+                        task.state == "in_progress") &&
                         "#1C4835"
                     )}`}
                   />
@@ -168,7 +168,7 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                     src="/icons/download.svg"
                     color={`${clsx(
                       (task.state == "not_started" ||
-                        task.state == "working_on_it") &&
+                        task.state == "in_progress") &&
                         "#9FBCAD",
                       task.state == "completed" && "#1C4835",
                       task.state == "hidden" && "#C1C7CD"
@@ -180,7 +180,7 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                     src="/icons/share.svg"
                     color={`${clsx(
                       (task.state == "not_started" ||
-                        task.state == "working_on_it") &&
+                        task.state == "in_progress") &&
                         "#9FBCAD",
                       task.state == "completed" && "#1C4835",
                       task.state == "hidden" && "#C1C7CD"
@@ -192,7 +192,7 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                     src="/icons/trash.svg"
                     color={`${clsx(
                       (task.state == "not_started" ||
-                        task.state == "working_on_it") &&
+                        task.state == "in_progress") &&
                         "#9FBCAD",
                       task.state == "completed" && "#1C4835",
                       task.state == "hidden" && "#C1C7CD"
@@ -205,7 +205,7 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                   src="/icons/calendar.svg"
                   color={`${clsx(
                     (task.state == "not_started" ||
-                      task.state == "working_on_it" ||
+                      task.state == "in_progress" ||
                       task.state == "completed") &&
                       "#1C4835",
                     task.state == "hidden" && "#C1C7CD"

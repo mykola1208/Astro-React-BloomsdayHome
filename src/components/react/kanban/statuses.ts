@@ -2,14 +2,14 @@ import type { ITask } from ".";
 
 export const statusNames: Record<ITask["state"], string> = {
   "not_started": "Not Started",
-  "working_on_it": "Working On It",
+  "in_progress": "Working On It",
   "completed": "Completed",
   "hidden": "Hidden",
 };
 
 export const statuses: ITask["state"][] = [
   "not_started",
-  "working_on_it",
+  "in_progress",
   "completed",
   "hidden",
 ];
