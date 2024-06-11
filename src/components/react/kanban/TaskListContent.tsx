@@ -3,7 +3,7 @@ import { isEqual } from "lodash";
 import { useEffect, useState } from "react";
 import TaskColumn from "./TaskColumn";
 import { getTasksByStatus, statuses, type TasksByStatus } from "./statuses";
-import { GET_TASKS } from "../../../apollo/queries/getTasks";
+import { GET_TASKS_BY_STAGE } from "../../../apollo/queries/getTasksByStage";
 import { createApolloClient } from "../../../apollo/client";
 import type { ITask } from ".";
 import { UPDATE_TASK_STATE } from "../../../apollo/mutations/updateTaskState";
@@ -21,7 +21,10 @@ const TaskListContent = () => {
     async function getTasks() {
       const client = await createClient();
       const { data } = await client.query({
-        query: GET_TASKS,
+        query: GET_TASKS_BY_STAGE,
+        variables: {
+          task_stage: "get_approved",
+        },
       });
 
       setTasks(data.tasks.map((item) => ({ ...item })));
