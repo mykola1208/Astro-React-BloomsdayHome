@@ -10,6 +10,11 @@ const query = `
       task_category
       state
     }
+    tasks_aggregate(where: {state: {_neq: completed}, task_stage: {_eq: $task_stage}}) {
+      aggregate {
+        count
+      }
+    }
   }
 `;
 
@@ -36,7 +41,7 @@ async function fetchTasks(graphqlEndpoint, token, id) {
 
     const data = await response.json();
 
-    return data?.data?.tasks || [];
+    return [data?.data?.tasks, data?.data?.tasks_aggregate?.aggregate?.count];
   } catch (error) {
     throw error;
   }
@@ -44,10 +49,14 @@ async function fetchTasks(graphqlEndpoint, token, id) {
 
 export async function getTasks(graphqlEndpoint, token, id) {
   if (requestParamIds[id] == undefined) {
-    return [];
+    return [[], 0];
   }
 
-  let tasksResponse = await fetchTasks(graphqlEndpoint, token, id);
+  let [tasksResponse, incompleteTasksCount] = await fetchTasks(
+    graphqlEndpoint,
+    token,
+    id
+  );
 
   if (tasksResponse.length > 0) {
     const tasksByCategory = {};
@@ -75,7 +84,7 @@ export async function getTasks(graphqlEndpoint, token, id) {
         checkList: tasks,
       });
     });
-    return structuredTasks;
+    return [structuredTasks, incompleteTasksCount];
   }
   return [];
 }
