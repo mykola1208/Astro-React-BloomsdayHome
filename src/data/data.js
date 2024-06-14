@@ -102,31 +102,31 @@ export const trackerAccordionItems = [
     id: "get-prepared",
     headerPrefix: "Step 1:",
     header: "Get Prepared",
-    body: "This process takes time, so securing your pre-approval letter early is essential. It determines your budget, helping to focus your search on affordable options.",
+    body: "Being prepared is essential to securing your pre-approval letter. This first step determines your purchasing power, helping to focus your search on affordable options.",
   },
   {
     id: "make-offer",
     headerPrefix: "Step 2:",
     header: "Make an Offer",
-    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.",
+    body: "Making an offer means formally expressing your intention to buy a property at a specified price and conditions, usually through a written proposal to the seller."
   },
   {
     id: "escrow",
     headerPrefix: "Step 3:",
     header: "Escrow",
-    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.",
+    body: "Going into escrow means placing funds and documents with a neutral third party until all sale conditions are met, ensuring the purchase is secure for you and the seller.",
   },
   {
     id: "closing",
     headerPrefix: "Step 4:",
     header: "Closing",
-    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.",
+    body: "Closing on your house means finalizing the purchase by signing all necessary documents, transferring ownership, and paying any remaining costs.",
   },
   {
     id: "moving-in",
     headerPrefix: "Step 5:",
     header: "Moving In",
-    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.",
+    body: "Congratulations! You've done it! Your hard work and organization have earned you the house of your dreams. Now, all that's left is to move in!",
   },
 ];
 
