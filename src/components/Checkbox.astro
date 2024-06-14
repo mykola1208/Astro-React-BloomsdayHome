@@ -70,7 +70,7 @@ const randomId = Math.floor(Math.random() * 9999);
       titleClass="text-3xl"
     >
       <div class="py-4">
-        <DocumentUploader currentUser={user} client:only="react" />
+        <DocumentUploader currentUser={user} mode="upload" client:only="react" />
       </div>
     </Dialog>
   </div>

@@ -3,6 +3,6 @@ import ConfirmDialog from "./ConfirmDialog";
 
 export const confirm = createConfirmation(ConfirmDialog);
 
-export function confirmWrapper(confirmation, options = {}) {
-  return confirm({ confirmation, ...options });
+export function confirmWrapper(confirmation, mode, options = {}) {
+  return confirm({ confirmation, mode, ...options });
 }

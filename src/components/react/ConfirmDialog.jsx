@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { confirmable } from "react-confirm";
 import Dialog from "./Dialog";
 
-const ConfirmDialog = ({ show, proceed, confirmation, options }) => {
+const ConfirmDialog = ({ show, proceed, confirmation, mode, options }) => {
   return (
     <Dialog onHide={false} show={true} width="546px" height="304px">
       <div className="flex flex-col items-center justify-center py-4 h-full">
@@ -24,7 +24,7 @@ const ConfirmDialog = ({ show, proceed, confirmation, options }) => {
             onClick={() => proceed(true)}
             className="py-3 px-14 bg-darkgreen rounded-xl border-2 border-darkgreen"
           >
-            <p className="px-4 text-white">Delete</p>
+            <p className="px-4 text-white">{mode}</p>
           </button>
         </div>
       </div>
@@ -35,7 +35,7 @@ const ConfirmDialog = ({ show, proceed, confirmation, options }) => {
 ConfirmDialog.propTypes = {
   show: PropTypes.bool,
   proceed: PropTypes.func,
-  confirmation: PropTypes.string,
+  confirmation: PropTypes.object,
   options: PropTypes.object,
 };
 

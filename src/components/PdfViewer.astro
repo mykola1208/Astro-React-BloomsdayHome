@@ -1,11 +1,14 @@
 ---
 import { Icon } from "astro-icon/components";
+import Dialog from "./Dialog.astro";
+import DocumentUploader from "./react/DocumentUploader";
 
 interface Props {
   url: string;
 }
 
 const { url } = Astro.props;
+const user = await Astro.locals.currentUser();
 ---
 
 <bd-pdf-viewer data-url={url}>
@@ -34,16 +37,16 @@ const { url } = Astro.props;
         <button type="button" class="zoom-out">
           <Icon name="zoom-out" width={24} height={24} class="shrink-0" />
         </button>
-        <button>
+        <button type="button" class="expand">
           <Icon name="expand" width={24} height={24} class="shrink-0" />
         </button>
-        <button>
+        <button type="button" class="download">
           <Icon name="download" width={24} height={24} class="shrink-0" />
         </button>
-        <button>
+        <button type="button" class="upload">
           <Icon name="upload" width={24} height={24} class="shrink-0" />
         </button>
-        <button>
+        <button type="button" class="trash">
           <Icon name="trash" width={24} height={24} class="shrink-0" />
         </button>
       </div>
@@ -52,15 +55,63 @@ const { url } = Astro.props;
       <canvas></canvas>
     </div>
   </div>
+  <div id="replace-file">
+    <Dialog
+      id="replace-document-dialog"
+      title="Replace Your Document"
+      width="449px"
+      height="593px"
+      titleClass="text-3xl"
+    >
+      <div class="py-4">
+        <DocumentUploader
+          currentUser={user}
+          mode="replace"
+          client:only="react"
+        />
+      </div>
+    </Dialog>
+  </div>
 </bd-pdf-viewer>
 
 <script>
   import { getDocument } from "pdfjs-dist";
   import { kind } from "../store.js";
+  import { confirmWrapper, confirm } from "./react/confirm";
   await import("pdfjs-dist/build/pdf.worker.min.mjs");
 
   kind.subscribe((content) => {
     document.getElementById("kind").textContent = content;
+  });
+
+  const replaceFileButton = document.querySelector(
+    ".upload"
+  ) as HTMLButtonElement;
+  const replaceDocumentDialog = document.querySelector(
+    "#replace-document-dialog"
+  );
+  replaceFileButton.addEventListener("click", () => {
+    replaceDocumentDialog.setAttribute("open", "true");
+  });
+
+  const deleteFileButton = document.querySelector(
+    ".trash"
+  ) as HTMLButtonElement;
+  deleteFileButton.addEventListener("click", async () => {
+    if (
+      await confirmWrapper(
+        {
+          title: "Are your sure?",
+          description:
+            "Are you sure you want to replace this item? This action cannot be undone.",
+        },
+        "Replace"
+      )
+    ) {
+      console.log("Yes");
+    } else {
+      console.log("No");
+    }
   });
 
   class PdfViewer extends HTMLElement {
@@ -89,8 +140,14 @@ const { url } = Astro.props;
           this.renderPage(pdfDoc, this._page, this._scale);
         });
         this.querySelector(".zoom-out").addEventListener("click", () => {
-          this._scale -= 0.1;
+          if (this._scale > 0.6) this._scale -= 0.1;
           this.renderPage(pdfDoc, this._page, this._scale);
+        });
+        this.querySelector(".download").addEventListener("click", () => {
+          this.downloadPdf();
+        });
+        this.querySelector(".expand").addEventListener("click", () => {
+          this.toggleFullscreen();
         });
       });
 
@@ -141,6 +198,27 @@ const { url } = Astro.props;
       }
       this._page++;
       this.queueRenderPage(pdfDoc, this._page);
+    }
+
+    downloadPdf() {
+      console.log("download");
+      const url = this.dataset.url;
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "document.pdf";
+      link.click();
+    }
+
+    toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        this.requestFullscreen().catch((err) => {
+          console.error(
+            `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+          );
+        });
+      } else {
+        document.exitFullscreen();
+      }
     }
   }
   customElements.define("bd-pdf-viewer", PdfViewer);

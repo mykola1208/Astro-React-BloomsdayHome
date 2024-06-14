@@ -8,7 +8,7 @@ interface FileWithPath extends File {
   path: string;
 }
 
-const DocumentUploader = ({ currentUser }) => {
+const DocumentUploader = ({ currentUser, mode }) => {
   const [file, setFile] = useState<FileWithPath | null>(null);
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0] || null);
@@ -70,7 +70,7 @@ const DocumentUploader = ({ currentUser }) => {
         disabled={!file}
       >
         <span className={`${file ? "text-white" : "text-sage"}`}>
-          Upload File
+          {mode=="upload" ? "Upload File":"Replace File"}
         </span>
       </button>
     </div>

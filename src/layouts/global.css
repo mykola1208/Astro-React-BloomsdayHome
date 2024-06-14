@@ -318,4 +318,12 @@ html {
   color: #1C4835;
 }
 
+bd-pdf-viewer {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+}
 
+bd-pdf-viewer canvas {
+  height: auto;
+}
