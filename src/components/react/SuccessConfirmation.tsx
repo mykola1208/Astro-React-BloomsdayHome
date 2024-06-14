@@ -11,7 +11,7 @@ const SuccessConfirmation = () => {
       <a
         className="text-white bg-darkgreen py-3 px-12 rounded-lg mt-11"
         id="return-to-documents"
-        href="/documents/get-approved"
+        href="/documents/get-prepared"
       >
         Return to Documents
       </a>

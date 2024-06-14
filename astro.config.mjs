@@ -23,6 +23,6 @@ export default defineConfig({
     }),
   ],
   redirects: {
-    "/progress-tracker": "/progress-tracker/get-approved",
+    "/progress-tracker": "/progress-tracker/get-prepared",
   },
 });

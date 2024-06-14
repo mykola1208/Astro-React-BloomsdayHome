@@ -3,10 +3,15 @@ import Layout from "../../layouts/Layout.astro";
 import Accordion from "../../components/Accordion.astro";
 import Task from "../../components/Task.astro";
 import ActivityFeed from "../../components/ActivityFeed.astro";
-import { trackerAccordionItems, steps } from "../../data/data.js";
+import { trackerAccordionItems, requestParamIds } from "../../data/data.js";
 import ShowAddress from "../../components/ShowAddress.astro";
+import { getTasks } from "../api/getTasks";
 
+const graphqlEndpoint = import.meta.env.PUBLIC_HASURA_BASE_URL;
+const token = await Astro.locals.auth().getToken({ template: "hasura" });
 const { id } = Astro.params;
+
+const tasks = await getTasks(graphqlEndpoint, token, id);
 ---
 
 <Layout title="Bloomsday">
@@ -19,40 +24,34 @@ const { id } = Astro.params;
             { title: "Progress Tracker", url: "#" },
           ]}
         />
-      <div class="flex flex-row py-8 px-6 border border-sage rounded-md">
-        <div class="basis-1/4">
-          <Accordion items={trackerAccordionItems} />
-        </div>
-        <div class="flex flex-col basis-3/4 pl-9">
-          <p class="text-lg text-darkgreen font-medium">
-            {steps[id].description}
-          </p>
-          <div class="flex grow gap-3.5 mt-5">
-            {
-              steps[id].tasks.map(
-                ({
-                  headerIcon,
-                  header,
-                  hasGroups,
-                  checkList,
-                  checkListGroups,
-                }) => (
-                  <div class="basis-1/4">
-                    <Task
-                      headerIcon={headerIcon}
-                      header={header}
-                      hasGroups={hasGroups}
-                      checkList={checkList}
-                      checkListGroups={checkListGroups}
-                    />
-                  </div>
-                )
-              )
-            }
+        <div class="flex flex-row py-8 px-6 border border-sage rounded-md">
+          <div class="basis-1/4">
+            <Accordion items={trackerAccordionItems} />
+          </div>
+          <div class="flex flex-col basis-3/4 pl-9">
+            <p class="text-lg text-darkgreen font-medium">
+              {tasks[requestParamIds[id]]?.description}
+            </p>
+            <div class="flex grow gap-3.5 mt-5">
+              {
+                tasks[requestParamIds[id]]?.tasks != undefined &&
+                  tasks[requestParamIds[id]].tasks.map(
+                    ({ headerIcon, header, checkList }) => (
+                      <div class="basis-1/4">
+                        <Task
+                          headerIcon={headerIcon}
+                          header={header}
+                          checkList={checkList}
+                        />
+                      </div>
+                    )
+                  )
+              }
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <ActivityFeed />
   </div>
-  <ActivityFeed />
 </Layout>

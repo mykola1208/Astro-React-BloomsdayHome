@@ -23,7 +23,7 @@ const TaskListContent = () => {
       const { data } = await client.query({
         query: GET_TASKS_BY_STAGE,
         variables: {
-          task_stage: "get_approved",
+          task_stage: "get_prepared",
         },
       });
 

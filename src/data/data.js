@@ -1,8 +1,107 @@
+export const requestParamIds = {
+  "get-prepared": "get_prepared",
+  escrow: "escrow",
+  closing: "closing",
+  "make-offer": "make_an_offer",
+  "moving-in": "moving_in",
+};
+
+export const taskCategories = {
+  assets: {
+    headerIcon: "assets",
+    header: "Assets",
+  },
+  income: {
+    headerIcon: "income",
+    header: "Income",
+  },
+  debt: {
+    headerIcon: "debt",
+    header: "Debt",
+  },
+  reports: {
+    headerIcon: "reports",
+    header: "Reports",
+  },
+  broker:{
+    headerIcon: "broker",
+    header: "Broker",
+  },
+  prepare_offer: {
+    headerIcon: "write",
+    header: "Prepare Offer",
+  },
+  offer_accepted: {
+    headerIcon: "accept",
+    header: "Offer Accepted",
+  },
+  offer_rejected: {
+    headerIcon: "reject",
+    header: "Offer Rejected",
+  },
+  counteroffer: {
+    headerIcon: "counter",
+    header: "Counter Offer",
+  },
+  inspections: {
+    headerIcon: "home-inspections",
+    header: "Inspections",
+  },
+  appraisals: {
+    headerIcon: "home-appraisals",
+    header: "Appraisals",
+  },
+  repairs: {
+    headerIcon: "repairs",
+    header: "Repairs",
+  },
+  disclosures: {
+    headerIcon: "disclosure",
+    header: "Disclosures",
+  },
+  miscellany: {
+    headerIcon: "miscellany",
+    header: "Miscellany",
+  },
+  forms: {
+    headerIcon: "form",
+    header: "Forms",
+  },
+  agreements: {
+    headerIcon: "agreement",
+    header: "Agreements",
+  },
+  deeds: {
+    headerIcon: "deed",
+    header: "Deeds",
+  },
+  insurance: {
+    headerIcon: "insurance",
+    header: "Insurance",
+  },
+  potential_post_closing_forms: {
+    headerIcon: "post-closing",
+    header: "Potential Post-Closing Forms",
+  },
+  pre_move_in: {
+    headerIcon: "moving-in",
+    header: "Pre-Move In",
+  },
+  moving_day: {
+    headerIcon: "key",
+    header: "Moving Day",
+  },
+  post_move_in: {
+    headerIcon: "living",
+    header: "Post Move In",
+  },
+};
+
 export const trackerAccordionItems = [
   {
-    id: "get-approved",
+    id: "get-prepared",
     headerPrefix: "Step 1:",
-    header: "Get Approved",
+    header: "Get Prepared",
     body: "This process takes time, so securing your pre-approval letter early is essential. It determines your budget, helping to focus your search on affordable options.",
   },
   {
@@ -33,7 +132,7 @@ export const trackerAccordionItems = [
 
 export const documentsAccordionItems = [
   {
-    key: "get-approved",
+    key: "get-prepared",
     sections: [
       {
         title: "Assets",
@@ -656,8 +755,8 @@ export const sidebarMenuItems = [
     icon: "tasks",
     items: [
       {
-        title: "Get Approved",
-        href: "/tasks/get-approved",
+        title: "Get Prepared",
+        href: "/tasks/get-prepared",
       },
       {
         title: "Make an Offer",
@@ -682,8 +781,8 @@ export const sidebarMenuItems = [
     icon: "documents",
     items: [
       {
-        title: "Get Approved",
-        href: "/documents/get-approved",
+        title: "Get Prepared",
+        href: "/documents/get-prepared",
       },
       {
         title: "Make an Offer",
