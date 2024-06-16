@@ -7,15 +7,19 @@ import NotificationBell from "../components/react/NotificationBell.jsx";
 
 const user = await Astro.locals.currentUser();
 const { mode } = Astro.props;
-const userToken =
-  user.publicMetadata.streamToken ||
-  stream
-    .connect(
-      import.meta.env.PUBLIC_GETSTREAM_FEED_KEY,
-      import.meta.env.GETSTREAM_FEED_SECRET,
-      import.meta.env.PUBLIC_GETSTREAM_APP_ID
-    )
-    .createUserToken(user.id);
+
+let userToken = "";
+if (user) {
+  userToken =
+    user.publicMetadata.streamToken ||
+    stream
+      .connect(
+        import.meta.env.PUBLIC_GETSTREAM_FEED_KEY,
+        import.meta.env.GETSTREAM_FEED_SECRET,
+        import.meta.env.PUBLIC_GETSTREAM_APP_ID
+      )
+      .createUserToken(user.id);
+}
 ---
 
 <div
