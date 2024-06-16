@@ -5,10 +5,12 @@ import Checkbox from "./Checkbox.astro";
 interface CheckListItem {
   status: boolean;
   label: string;
+  id: string;
 }
 
 interface CheckListGroup {
   title: string;
+  id: string;
   checkList: CheckListItem[];
 }
 
@@ -50,13 +52,13 @@ const flag =
     <div>
       {
         hasGroups ? (
-          checkListGroups.map(({ title, checkList }) => (
+          checkListGroups.map(({id, title, checkList }) => (
             <div class="flex flex-col">
               <p class="text-darkgreen font-medium text-sm">{title}</p>
               <ul>
                 {checkList.map(({ status, label }) => (
                   <li>
-                    <Checkbox checked={status} label={label} />
+                    <Checkbox checked={status} label={label} taskId ={id}/>
                   </li>
                 ))}
               </ul>
@@ -64,9 +66,9 @@ const flag =
           ))
         ) : (
           <ul>
-            {checkList.map(({ status, label }) => (
+            {checkList.map(({id, status, label }) => (
               <li>
-                <Checkbox checked={status} label={label} />
+                <Checkbox checked={status} label={label} taskId ={id}/>
               </li>
             ))}
           </ul>

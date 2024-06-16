@@ -2,6 +2,7 @@ import uploadFileOnSignedUrl from "../../utils/upload-file-on-signed-url";
 import { navigate } from "astro/virtual-modules/transitions-router.js";
 import { GET_S3_SIGNED_URL } from "../../apollo/queries/getS3SignedUrl";
 import { INSERT_DOCUMENTS_ONE } from "../../apollo/mutations/insertDocumentsOne";
+import { MARK_TASK_COMPLETE } from "../../apollo/mutations/completeTask";
 import { createApolloClient } from "../../apollo/client";
 
 export const useFilesUploader = ({ files, currentUser }) => {
@@ -36,6 +37,16 @@ export const useFilesUploader = ({ files, currentUser }) => {
       });
 
       await uploadFileOnSignedUrl({ signedUrl, file });
+      const taskId = document.getElementsByClassName("taskID")[0]?.getAttribute("id");
+
+      if (taskId) {
+        await client.mutate({
+          mutation: MARK_TASK_COMPLETE,
+          variables: {
+            id: taskId,
+          },
+        });
+      }
 
       console.log("File uploaded successfully");
     } catch (error) {

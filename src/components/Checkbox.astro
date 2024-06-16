@@ -6,9 +6,10 @@ import DocumentUploader from "./react/DocumentUploader";
 interface Props {
   checked: boolean;
   label: string;
+  taskId: string;
 }
 
-const { checked, label } = Astro.props;
+const { checked, label, taskId } = Astro.props;
 const user = await Astro.locals.currentUser();
 const randomId = Math.floor(Math.random() * 9999);
 ---
@@ -50,9 +51,8 @@ const randomId = Math.floor(Math.random() * 9999);
       <button
         type="button"
         class="add-file-button"
-        id={`add-file-button-${randomId}`}
+        id={taskId}
         data-random-id={randomId}
-        class="cursor-pointer"
       >
         <p class="text-sm font-medium text-darkgreen text-left hover:underline hover:decoration-darkgreen">
           {label}
@@ -82,6 +82,7 @@ const randomId = Math.floor(Math.random() * 9999);
   const addDocumentDialog = document.querySelector("#add-document-dialog");
   addFileButtons.forEach((button) => {
     button.addEventListener("click", () => {
+      button.classList.add("taskID");
       addDocumentDialog.setAttribute("open", "true");
     });
   });

@@ -70,8 +70,9 @@ export async function getTasks(graphqlEndpoint, token, id) {
 
     tasksResponse.forEach((task) => {
       tasksByCategory[task.task_category] =
-        tasksByCategory[task.task_category] || [];
+      tasksByCategory[task.task_category] || [];
       tasksByCategory[task.task_category].push({
+        id: task.id,
         status: task.state === "completed",
         label: task.title,
       });
