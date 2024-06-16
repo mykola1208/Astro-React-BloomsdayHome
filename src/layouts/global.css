@@ -314,10 +314,42 @@ html {
   background-color: #9fbcad;
 }
 
-.markdown h2, .markdown h3{
-  color: #1C4835;
+.markdown h2,
+.markdown h3 {
+  color: #1c4835;
 }
 
+.cl-formButtonPrimary {
+  @apply bg-darkgreen isolation-auto;
+}
+.cl-formButtonPrimary:hover {
+  @apply bg-darkgreen cursor-pointer;
+}
+.cl-formFieldLabel,
+.cl-headerTitle,
+.cl-headerSubtitle,
+.cl-socialButtonsBlockButtonText,
+.cl-dividerText,
+.cl-footerActionText,
+.cl-footerActionLink,
+.cl-internal-wf8x4b {
+  @apply text-darkgreen;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-image: url("/icons/chevron-up-down.svg");
+  background-repeat: no-repeat;
+  background-position-x: 98%;
+  background-position-y: 50%;
+  border: 1px solid #dfdfdf;
+  border-radius: 2px;
+  margin-right: 32px;
+  padding: 1rem;
+  padding-right: 32px;
+}
 bd-pdf-viewer {
   display: block;
   max-width: 100%;

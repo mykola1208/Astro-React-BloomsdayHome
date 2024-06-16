@@ -16,7 +16,7 @@ export default defineConfig({
       signInUrl: "/sign-in",
       signUpUrl: "/sign-up",
       afterSignInUrl: "/progress-tracker",
-      afterSignUpUrl: "/progress-tracker",
+      afterSignUpUrl: "/describe-yourself",
     }),
     react(),
     tailwind(),

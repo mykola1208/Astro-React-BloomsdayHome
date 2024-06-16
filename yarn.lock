@@ -5649,6 +5649,16 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==
 
+state-counties-us@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/state-counties-us/-/state-counties-us-1.0.4.tgz#7649efe740d00828bfab480c93b420076e0e4f1c"
+  integrity sha512-Pr1B1TjFLJrXyMd4qDGQHgGVkUaV5peBFmaJfp0JWG5sZiN/olXPCl42wY7flD4FWs1wj2ZqNuLyLPrvRZnLVg==
+
+states-us@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/states-us/-/states-us-1.0.4.tgz#313a20708b73d29f78bcf2aa6983b71ab6296e49"
+  integrity sha512-leHLDfdmo8kX6zOocR8/B4AOOK1h8j6nJrWrR7NUdVjymnC93lZ1ZumY9fCuPFrqmdpAFU68DKcsq1U5Czqcrg==
+
 statuses@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-2.0.1.tgz#55cb000ccf1d48728bd23c685a063998cf1a1b63"

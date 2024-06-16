@@ -1,13 +1,12 @@
 import React from "react";
 import { ReactSVG } from "react-svg";
 
-const ColoredSVG = ({ src, color }) => {
+const ColoredSVG = ({ src, color, mode = "stroke" }) => {
   const beforeInjection = (svg) => {
-    if(svg.querySelector("g")) {
-      svg.querySelector("g").setAttribute("stroke", color); 
-    }
-    else {
-      svg.querySelector("path").setAttribute("stroke", color); 
+    if (svg.querySelector("g")) {
+      svg.querySelector("g").setAttribute(mode, color);
+    } else {
+      svg.querySelector("path").setAttribute(mode, color);
     }
   };
 

@@ -1,0 +1,46 @@
+---
+import { Icon } from "astro-icon/components";
+import OnboardingLayout from "../layouts/OnboardingLayout.astro";
+import RadioButton from "../components/RadioButton.astro";
+import OnBoarding from "../components/react/on-boarding";
+
+const visit_intentions = [
+  "Not buying a home yet, but curious",
+  "I'm buying my first home",
+  "I'm buying a second home",
+  "I'm buying an investment property",
+  "I'm refinancing",
+];
+
+const user_descriptions = [
+  "First-time homebuyer",
+  "Upsizing",
+  "Downsizing",
+  "Luxury homebuyer",
+  "Investor",
+  "Renter",
+  "Fixer/flipper",
+];
+
+const user = await Astro.locals.currentUser();
+---
+
+<OnboardingLayout title="Bloomsday: Describe-Yourself">
+  <div
+    class="flex flex-col grow px-20 pb-16 w-full leading-6 text-darkgreen bg-cream max-md:px-5 min-h-screen"
+  >
+    <div class="mt-20 w-50 flex">
+      <Icon name="logo" width={185} height={34} />
+    </div>
+    <OnBoarding client:only="react" currentUser={user} />
+  </div>
+</OnboardingLayout>
+
+<style>
+  .radio-buttons {
+    flex-wrap: wrap;
+  }
+  .float-right {
+    float: right;
+  }
+</style>

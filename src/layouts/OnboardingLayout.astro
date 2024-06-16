@@ -21,7 +21,31 @@ const { title } = Astro.props;
     </head>
     <body>
       <main>
-        <slot />
+        <section
+          class="justify-end border border-solid border-black border-opacity-20"
+        >
+          <div class="flex max-md:flex-col max-md:gap-0">
+            <div
+              class="flex flex-col w-6/12 max-md:ml-0 max-md:w-full bg-[#F5F2E1]"
+            >
+              <slot />
+            </div>
+            <div
+              class="flex flex-col w-6/12 max-md:ml-0 max-md:w-full bg-[#1C4835]"
+            >
+              <div
+                class="flex grow justify-center items-center px-16 py-20 w-full max-md:px-5 max-md:max-w-full"
+              >
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/642fa7dacda68b28c4ae90f8ce2b26498ecd7a6997ed9110d8d929713686651f?apiKey=3bf7af20e2da4e639676747cf20951bb&"
+                  alt="Bloomsday logo"
+                  class="max-w-full aspect-square w-[108px] max-md:mt-10"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </body>
   </html>
