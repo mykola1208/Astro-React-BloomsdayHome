@@ -26,7 +26,7 @@ export const useFilesUploader = ({ files, currentUser }) => {
 
       const signedUrl = data.getS3SignedUrl.url;
 
-      await client.mutate({
+      const documentData = await client.mutate({
         mutation: INSERT_DOCUMENTS_ONE,
         variables: {
           object: {
@@ -44,6 +44,7 @@ export const useFilesUploader = ({ files, currentUser }) => {
           mutation: MARK_TASK_COMPLETE,
           variables: {
             id: taskId,
+            document_id: documentData.data.insert_documents_one.id,
           },
         });
       }
