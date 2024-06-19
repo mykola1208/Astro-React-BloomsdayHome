@@ -43,10 +43,10 @@ const EditAddressForm = ({ address }) => {
   });
 
   useEffect(() => {
-    setValue("street", address.address1 || "");
-    setValue("city", address.city || "");
-    setValue("state", address.state || "");
-    setValue("zip_code", address.zip5 || null);
+    setValue("street", address?.address1 || "");
+    setValue("city", address?.city || "");
+    setValue("state", address?.state || "");
+    setValue("zip_code", address?.zip5 || null);
 
     setTimeout(() => {
       setLoaded(true);
@@ -62,7 +62,7 @@ const EditAddressForm = ({ address }) => {
   const onSubmit = async (data: Inputs) => {
     let addressId = null;
 
-    if (address.id) {
+    if (address?.id) {
       addressId = await updateAddress(address.id, data);
     } else {
       addressId = await createAddress(data);
