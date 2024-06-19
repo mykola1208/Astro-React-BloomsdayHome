@@ -6,6 +6,7 @@ import type { ITask } from ".";
 import { statusNames, statuses } from "./statuses";
 import Dropdown from "./Dropdown";
 import ColoredSVG from "../ColoredSVG";
+import { taskCategories } from "../../../data/data";
 
 interface TaskCardProps {
   task: ITask;
@@ -14,8 +15,8 @@ interface TaskCardProps {
 }
 
 const buttonClasses = {
-  "not_started": "bg-alert-light text-alert",
-  "in_progress": "bg-warning-light text-darkgreen",
+  not_started: "bg-alert-light text-alert",
+  in_progress: "bg-warning-light text-darkgreen",
   completed: "bg-completed-light text-darkgreen",
   hidden: "bg-gray-20 text-gray-50",
 };
@@ -76,7 +77,7 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                     />
                     <span className="text-darkgreen text-left text-lg leading-4 font-medium">
                       <span className="text-sm font-medium">
-                        {task.task_category}
+                        {taskCategories[task.task_category].header}
                       </span>
                     </span>
                   </div>

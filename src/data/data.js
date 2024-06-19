@@ -2,7 +2,7 @@ export const requestParamIds = {
   "get-prepared": "get_prepared",
   escrow: "escrow",
   closing: "closing",
-  "make-offer": "make_an_offer",
+  "make-an-offer": "make_an_offer",
   "moving-in": "moving_in",
 };
 
@@ -105,7 +105,7 @@ export const trackerAccordionItems = [
     body: "Being prepared is essential to securing your pre-approval letter. This first step determines your purchasing power, helping to focus your search on affordable options.",
   },
   {
-    id: "make-offer",
+    id: "make-an-offer",
     headerPrefix: "Step 2:",
     header: "Make an Offer",
     body: "Making an offer means formally expressing your intention to buy a property at a specified price and conditions, usually through a written proposal to the seller.",
@@ -526,7 +526,7 @@ export const steps = {
       },
     ],
   },
-  "make-offer": {
+  "make-an-offer": {
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.",
     tasks: [
@@ -759,19 +759,19 @@ export const sidebarMenuItems = [
       },
       {
         title: "Make an Offer",
-        href: "#make-an-offer",
+        href: "/tasks/make-an-offer",
       },
       {
         title: "Escrow",
-        href: "#escrow",
+        href: "/tasks/escrow",
       },
       {
         title: "Closing",
-        href: "#closing",
+        href: "/tasks/closing",
       },
       {
         title: "Moving in",
-        href: "#moving-in",
+        href: "/tasks/moving-in",
       },
     ],
   },

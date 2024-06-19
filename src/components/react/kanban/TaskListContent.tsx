@@ -7,8 +7,9 @@ import { GET_TASKS_BY_STAGE } from "../../../apollo/queries/getTasksByStage";
 import { createApolloClient } from "../../../apollo/client";
 import type { ITask } from ".";
 import { UPDATE_TASK_STATE } from "../../../apollo/mutations/updateTaskState";
+import { requestParamIds } from "../../../data/data";
 
-const TaskListContent = () => {
+const TaskListContent = ({ id }) => {
   const [tasksByStatus, setTasksByStatus] = useState<TasksByStatus>(
     getTasksByStatus([])
   );
@@ -23,7 +24,7 @@ const TaskListContent = () => {
       const { data } = await client.query({
         query: GET_TASKS_BY_STAGE,
         variables: {
-          task_stage: "get_prepared",
+          task_stage: requestParamIds[id],
         },
       });
 

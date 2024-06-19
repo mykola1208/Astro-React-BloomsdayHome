@@ -4,6 +4,7 @@ import TaskListContent from "../../components/react/kanban/TaskListContent";
 import ShowAddress from "../../components/ShowAddress.astro";
 
 const { id } = Astro.params;
+console.log("1111", id);
 const transformString = (inputString) => {
   // Split the input string into an array of words using the '-' character as the delimiter
   const words = inputString.split("-");
@@ -26,7 +27,8 @@ const breadcrumbs_title = transformString(id);
             { title: breadcrumbs_title, url: "#" },
           ]}
         />
-      <TaskListContent client:only="react" />
+        <TaskListContent client:only="react" id={id} />
+      </div>
     </div>
   </div>
 </Layout>
