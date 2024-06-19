@@ -23,7 +23,7 @@ export const taskCategories = {
     headerIcon: "reports",
     header: "Reports",
   },
-  broker:{
+  broker: {
     headerIcon: "broker",
     header: "Broker",
   },
@@ -108,7 +108,7 @@ export const trackerAccordionItems = [
     id: "make-offer",
     headerPrefix: "Step 2:",
     header: "Make an Offer",
-    body: "Making an offer means formally expressing your intention to buy a property at a specified price and conditions, usually through a written proposal to the seller."
+    body: "Making an offer means formally expressing your intention to buy a property at a specified price and conditions, usually through a written proposal to the seller.",
   },
   {
     id: "escrow",
@@ -139,7 +139,7 @@ export const documentsAccordionItems = [
         items: [
           {
             title: "Bank Statement",
-            href: "#get-approved",
+            href: "#get-prepared",
           },
           {
             title: "2023 W-2 Form",
@@ -152,7 +152,7 @@ export const documentsAccordionItems = [
         items: [
           {
             title: "Bank Statement",
-            href: "#get-approved",
+            href: "#get-prepared",
           },
           {
             title: "2023 W-2 Form",
@@ -165,7 +165,7 @@ export const documentsAccordionItems = [
         items: [
           {
             title: "Bank Statement",
-            href: "#get-approved",
+            href: "#get-prepared",
           },
           {
             title: "2023 W-2 Form",
@@ -178,7 +178,7 @@ export const documentsAccordionItems = [
         items: [
           {
             title: "Bank Statement",
-            href: "#get-approved",
+            href: "#get-prepared",
           },
           {
             title: "2023 W-2 Form",
@@ -191,7 +191,7 @@ export const documentsAccordionItems = [
         items: [
           {
             title: "Bank Statement",
-            href: "#get-approved",
+            href: "#get-prepared",
           },
           {
             title: "2023 W-2 Form",
@@ -465,11 +465,10 @@ export const documentsAccordionItems = [
   },
 ];
 
-
 export const steps = {
-  "get-approved": {
+  "get-prepared": {
     description:
-      "To get pre-approved, start by collecting and upload your documents to your Bloomsday portal. When you are ready we’ll help you package up your documents and share with your chosen lender.",
+      "To get pre-prepared, start by collecting and upload your documents to your Bloomsday portal. When you are ready we’ll help you package up your documents and share with your chosen lender.",
     tasks: [
       {
         headerIcon: "assets",
@@ -695,7 +694,7 @@ export const documentAccordionItems = [
     items: [
       {
         title: "Bank Statement",
-        href: "#get-approved",
+        href: "#get-prepared",
       },
       {
         title: "2023 W-2 Form",
@@ -708,7 +707,7 @@ export const documentAccordionItems = [
     items: [
       {
         title: "Bank Statement",
-        href: "#get-approved",
+        href: "#get-prepared",
       },
       {
         title: "2023 W-2 Form",
@@ -721,7 +720,7 @@ export const documentAccordionItems = [
     items: [
       {
         title: "Bank Statement",
-        href: "#get-approved",
+        href: "#get-prepared",
       },
       {
         title: "2023 W-2 Form",
@@ -734,7 +733,7 @@ export const documentAccordionItems = [
     items: [
       {
         title: "Bank Statement",
-        href: "#get-approved",
+        href: "#get-prepared",
       },
       {
         title: "2023 W-2 Form",
@@ -747,7 +746,7 @@ export const documentAccordionItems = [
 export const sidebarMenuItems = [
   {
     title: "Home",
-    href: "#home",
+    href: "/progress-tracker/get-prepared",
     icon: "home",
   },
   {

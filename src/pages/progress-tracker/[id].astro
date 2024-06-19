@@ -11,7 +11,11 @@ const graphqlEndpoint = import.meta.env.PUBLIC_HASURA_BASE_URL;
 const token = await Astro.locals.auth().getToken({ template: "hasura" });
 const { id } = Astro.params;
 
-const [tasks, incompleteTasksCount] = await getTasks(graphqlEndpoint, token, id);
+const [tasks, incompleteTasksCount] = await getTasks(
+  graphqlEndpoint,
+  token,
+  id
+);
 ---
 
 <Layout title="Bloomsday">
@@ -33,15 +37,18 @@ const [tasks, incompleteTasksCount] = await getTasks(graphqlEndpoint, token, id)
               {tasks[requestParamIds[id]]?.description}
             </p>
             {
-              (tasks[requestParamIds[id]]?.tasks != undefined &&  incompleteTasksCount > 0) && (
-                <div class="flex justify-between items-center content-center">
-                  <p class="text-lg not-italic font-medium leading-6">
-                    You have{" "}
-                    <span class="font-bold">{incompleteTasksCount} tasks</span>{" "}
-                    to complete.
-                  </p>
-                </div>
-              )
+              tasks[requestParamIds[id]]?.tasks != undefined &&
+                incompleteTasksCount > 0 && (
+                  <div class="flex justify-between items-center content-center">
+                    <p class="text-lg not-italic font-medium leading-6">
+                      You have{" "}
+                      <span class="font-bold">
+                        {incompleteTasksCount} tasks
+                      </span>{" "}
+                      to complete.
+                    </p>
+                  </div>
+                )
             }
             <div class="flex grow gap-3.5 mt-5">
               {
