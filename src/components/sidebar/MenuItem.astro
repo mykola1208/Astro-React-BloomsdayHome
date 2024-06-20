@@ -34,16 +34,19 @@ const selectedMenu = segments[1];
         </button>
         <DropdownItems class="dropdown-items" aria-expanded={selectedMenu == icon ? "true" : "false"}>
           <ul>
-            {items.map((item) => (
-              <li class="py-2 pr-2 pl-10">
-                <a
-                  href={item.href}
-                  class="text-darkgreen text-sm leading-none font-medium block"
-                >
-                  {item.title}
-                </a>
-              </li>
-            ))}
+            {items.map((item) => {
+              const isActive = currentPath === item.href;
+              return (
+                <li class={`py-2 pr-2 pl-10 ${isActive ? 'underline' : ''}`}>
+                  <a
+                    href={item.href}
+                    class={`text-darkgreen text-sm leading-none font-medium block hover:underline hover:underline-offset-1 ${isActive ? 'underline' : ''}`}
+                  >
+                    {item.title}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </DropdownItems>
       </Dropdown>
