@@ -107,7 +107,7 @@ const EditAddressForm = ({ address }) => {
               <input
                 {...register("street")}
                 placeholder="Enter Street"
-                className="block w-full rounded-xl border bg-cream-light text-lg text-darkgreen py-3 px-4 placeholder:text-darkgreen placeholder:font-medium focus:border-sage focus:bg-white"
+                className="block w-full rounded-xl border border-darkgreen bg-cream-light text-lg font-medium text-darkgreen py-3 px-4 placeholder:text-darkgreen placeholder:font-medium  focus:bg-white"
               />
             </div>
             {errors.street && (
@@ -128,7 +128,7 @@ const EditAddressForm = ({ address }) => {
               <input
                 {...register("city")}
                 placeholder="Enter City"
-                className="block w-full rounded-xl border bg-cream-light text-lg text-darkgreen py-3 px-4 placeholder:text-darkgreen placeholder:font-medium focus:border-sage focus:bg-white"
+                className="block w-full rounded-xl border border-darkgreen bg-cream-light text-lg font-medium text-darkgreen py-3 px-4 placeholder:text-darkgreen placeholder:font-medium  focus:bg-white"
               />
             </div>
             {errors.city && (
@@ -149,7 +149,7 @@ const EditAddressForm = ({ address }) => {
               <input
                 {...register("state")}
                 placeholder="Enter State"
-                className="block w-full rounded-xl border bg-cream-light text-lg text-darkgreen py-3 px-4 placeholder:text-darkgreen placeholder:font-medium focus:border-sage focus:bg-white"
+                className="block w-full rounded-xl border border-darkgreen bg-cream-light text-lg font-medium text-darkgreen py-3 px-4 placeholder:text-darkgreen placeholder:font-medium  focus:bg-white"
               />
             </div>
             {errors.state && (
@@ -170,7 +170,7 @@ const EditAddressForm = ({ address }) => {
               <input
                 {...register("zip_code")}
                 placeholder="Enter Zip Code"
-                className="block w-full rounded-xl border bg-cream-light text-lg text-darkgreen py-3 px-4 placeholder:text-darkgreen placeholder:font-medium focus:border-sage focus:bg-white"
+                className="block w-full rounded-xl border border-darkgreen bg-cream-light text-lg font-medium text-darkgreen py-3 px-4 placeholder:text-darkgreen placeholder:font-medium  focus:bg-white"
               />
             </div>
             {errors.zip_code && (
