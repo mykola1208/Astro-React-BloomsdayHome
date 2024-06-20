@@ -2,8 +2,6 @@ import React from "react";
 import { ReactSVG } from "react-svg";
 
 const Checkbox = ({ name, checked = false, onChange }) => {
-  console.log("Checkbox: ", name, checked);
-
   return (
     <label className="flex items-center p-3 gap-3 border border-sage bg-cream-light rounded-[50px]">
       <input

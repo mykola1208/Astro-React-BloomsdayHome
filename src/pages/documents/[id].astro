@@ -36,13 +36,15 @@ const accordionItems = getSectionsWithKey(documentsAccordionItems, id);
 
 <Layout title="Bloomsday">
   <div class="relative dropdown">
-    <div class="py-3 px-6 flex gap-7 flex-col">
-      <ShowAddress
-        breadcrumbs={[
-          { title: "Documents", url: "#" },
-          { title: breadcrumbs_title, url: "#" },
-        ]}
-      />
+    <div class="py-3 px-6 flex flex-col">
+      <div class="py-7 px-6">
+        <ShowAddress
+          breadcrumbs={[
+            { title: "Documents", url: "#" },
+            { title: breadcrumbs_title, url: "#" },
+          ]}
+        />
+      </div>
       <div class="grid grid-cols-7 gap-x-12 pl-3 pr-3">
         <div class="col-span-2">
           <button

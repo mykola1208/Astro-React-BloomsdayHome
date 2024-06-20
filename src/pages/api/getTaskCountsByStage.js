@@ -1,16 +1,14 @@
 const query = `
-  query GetProperty {
-    properties(limit: 1) {
-      address1
-      city
+  query TaskCountsByStage {
+    task_counts_by_stage {
+      task_stage
       state
-      zip5
-      id
+      count
     }
   }
 `;
 
-export async function getAddress(graphqlEndpoint, token) {
+export async function getTaskCountsByStage(graphqlEndpoint, token) {
   try {
     const response = await fetch(graphqlEndpoint, {
       method: "POST",
@@ -28,7 +26,7 @@ export async function getAddress(graphqlEndpoint, token) {
 
     const data = await response.json();
 
-    return data?.data?.properties[0];
+    return data?.data?.task_counts_by_stage;
   } catch (error) {
     throw new Error("Error fetching data");
   }

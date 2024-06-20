@@ -39,7 +39,7 @@ const flag =
 ---
 
 <div
-  class="flex flex-col gap-2 min-h-full border border-sage rounded-xl py-3 px-4"
+  class="flex flex-col gap-2 h-[260px] border border-sage rounded-xl py-3 px-4"
 >
   <div class="flex items-center gap-1.5">
     <Icon name={headerIcon} width={25} height={25} class="shrink-0" />
@@ -76,15 +76,4 @@ const flag =
       }
     </div>
   </div>
-  {
-    !flag ? (
-      <button class="px-4 py-3 text-base font-medium bg-darkgreen text-[#ffffff] rounded-lg">
-        Work On It
-      </button>
-    ) : (
-      <button class="px-4 py-3 text-base font-medium bg-mint text-sage rounded-lg">
-        Completed
-      </button>
-    )
-  }
 </div>

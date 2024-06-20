@@ -23,7 +23,7 @@ export const useCreateAddress = () => {
       });
       return data?.insert_properties_one?.id;
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   };
 

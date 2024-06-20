@@ -37,7 +37,9 @@ export const useFilesUploader = ({ files, currentUser }) => {
       });
 
       await uploadFileOnSignedUrl({ signedUrl, file });
-      const taskId = document.getElementsByClassName("taskID")[0]?.getAttribute("id");
+      const taskId = document
+        .getElementsByClassName("taskID")[0]
+        ?.getAttribute("id");
 
       if (taskId) {
         await client.mutate({
@@ -48,10 +50,8 @@ export const useFilesUploader = ({ files, currentUser }) => {
           },
         });
       }
-
-      console.log("File uploaded successfully");
     } catch (error) {
-      console.error("Error occurred during file upload:", error);
+      throw new Error("Error occurred during file upload");
     }
   }
 
@@ -59,7 +59,7 @@ export const useFilesUploader = ({ files, currentUser }) => {
     for (const file of files) {
       await uploadFile(file);
     }
-    
+
     navigate(window.location.pathname);
   }
 

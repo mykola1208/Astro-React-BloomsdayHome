@@ -1,0 +1,86 @@
+---
+import { Icon } from "astro-icon/components";
+import { getTaskCountsByStage } from "../pages/api/getTaskCountsByStage";
+import { requestParamIds } from "../data/data";
+
+const graphqlEndpoint = import.meta.env.PUBLIC_HASURA_BASE_URL;
+const token = await Astro.locals.auth().getToken({ template: "hasura" });
+
+const task_counts_by_stage = await getTaskCountsByStage(graphqlEndpoint, token);
+
+const consolidatedObject = task_counts_by_stage.reduce(
+  (acc, { task_stage, state, count }) => {
+    if (!acc[task_stage]) {
+      acc[task_stage] = { not_started: 0, total: 0 };
+    }
+    if (state === "not_started") {
+      acc[task_stage].not_started += count;
+    }
+    acc[task_stage].total += count;
+    return acc;
+  },
+  {}
+);
+
+const getIconName = (id) => {
+  const totalCount = consolidatedObject[requestParamIds[id]]?.total;
+  const incompleteCount = consolidatedObject[requestParamIds[id]]?.not_started;
+
+  if (incompleteCount === 0) return "stage-complete";
+  if (incompleteCount === totalCount) return "stage-not-started";
+  return "stage-in-progress";
+};
+---
+
+<ol
+  class="flex items-center w-full text-sm font-medium text-center text-gray-500 dark:text-gray-400 sm:text-base"
+>
+  <li
+    class="flex md:w-full items-center after:w-full after:h-1 after:border-b after:border-completed after:border-1 after:mx-2"
+  >
+    <span class="flex items-center text-darkgreen">
+      <Icon name={getIconName("get-prepared")} width={24} height={24} />
+      <span class="sm:ms-3.5 text-base font-semibold whitespace-nowrap">
+        Get Prepared
+      </span>
+    </span>
+  </li>
+  <li
+    class="flex md:w-full items-center after:w-full after:h-1 after:border-b after:border-completed after:border-1 after:mx-2 ml-[-40px]"
+  >
+    <span class="flex items-center text-darkgreen">
+      <Icon name={getIconName("make-an-offer")} width={24} height={24} />
+      <span class="sm:ms-3.5 text-base font-semibold whitespace-nowrap">
+        Make an Offer
+      </span>
+    </span>
+  </li>
+  <li
+    class="flex md:w-full items-center after:w-full after:h-1 after:border-b after:border-completed after:border-1 after:mx-2 ml-[-40px]"
+  >
+    <span class="flex items-center text-darkgreen">
+      <Icon name={getIconName("escrow")} width={24} height={24} />
+      <span class="sm:ms-3.5 text-base font-semibold whitespace-nowrap">
+        Escrow
+      </span>
+    </span>
+  </li>
+  <li
+    class="flex md:w-full items-center after:w-full after:h-1 after:border-b after:border-completed after:border-1 after:mx-2 ml-[-40px]"
+  >
+    <span class="flex items-center text-darkgreen">
+      <Icon name={getIconName("closing")} width={24} height={24} />
+      <span class="sm:ms-3.5 text-base font-semibold whitespace-nowrap">
+        Closing
+      </span>
+    </span>
+  </li>
+  <li class="flex items-center ml-[-40px]">
+    <Icon name={getIconName("moving-in")} width={24} height={24} />
+    <span
+      class="sm:ms-3.5 text-base font-semibold text-darkgreen whitespace-nowrap"
+    >
+      Moving In
+    </span>
+  </li>
+</ol>

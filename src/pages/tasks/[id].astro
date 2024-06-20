@@ -4,7 +4,6 @@ import TaskListContent from "../../components/react/kanban/TaskListContent";
 import ShowAddress from "../../components/ShowAddress.astro";
 
 const { id } = Astro.params;
-console.log("1111", id);
 const transformString = (inputString) => {
   // Split the input string into an array of words using the '-' character as the delimiter
   const words = inputString.split("-");
@@ -21,15 +20,17 @@ const user = await Astro.locals.currentUser();
 
 <Layout title="Bloomsday">
   <div class="relative dropdown">
-    <div class="py-3 px-6 flex gap-7 flex-col">
+    <div class="py-3 px-6 flex flex-col">
       <div class="neue text-darkgreen text-lg font-bold leading-5">
-        <ShowAddress
-          breadcrumbs={[
-            { title: "Tasks", url: "#" },
-            { title: breadcrumbs_title, url: "#" },
-          ]}
-        />
-        <TaskListContent currentUser={user} client:only="react" id={id} />
+        <div class="px-6 py-7">
+          <ShowAddress
+            breadcrumbs={[
+              { title: "Tasks", url: "#" },
+              { title: breadcrumbs_title, url: "#" },
+            ]}
+          />
+        </div>
+        <TaskListContent client:only="react" currentUser={user} id={id} />
       </div>
     </div>
   </div>

@@ -22,7 +22,7 @@ export const useUpdateAddress = () => {
       });
       return data?.update_properties_by_pk?.id
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   };
 

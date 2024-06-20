@@ -97,21 +97,16 @@ const user = await Astro.locals.currentUser();
   const deleteFileButton = document.querySelector(
     ".trash"
   ) as HTMLButtonElement;
+
   deleteFileButton.addEventListener("click", async () => {
-    if (
-      await confirmWrapper(
-        {
-          title: "Are your sure?",
-          description:
-            "Are you sure you want to replace this item? This action cannot be undone.",
-        },
-        "Replace"
-      )
-    ) {
-      console.log("Yes");
-    } else {
-      console.log("No");
-    }
+    await confirmWrapper(
+      {
+        title: "Are your sure?",
+        description:
+          "Are you sure you want to replace this item? This action cannot be undone.",
+      },
+      "Replace"
+    );
   });
 
   class PdfViewer extends HTMLElement {
@@ -201,7 +196,6 @@ const user = await Astro.locals.currentUser();
     }
 
     downloadPdf() {
-      console.log("download");
       const url = this.dataset.url;
       const link = document.createElement("a");
       link.href = url;
@@ -212,7 +206,7 @@ const user = await Astro.locals.currentUser();
     toggleFullscreen() {
       if (!document.fullscreenElement) {
         this.requestFullscreen().catch((err) => {
-          console.error(
+          throw new Error(
             `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
           );
         });

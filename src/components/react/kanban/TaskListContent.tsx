@@ -48,7 +48,7 @@ const TaskListContent = ({currentUser, id }) => {
         variables: { id, state },
       });
     } catch (error) {
-      console.error("Error updating task:", error);
+      throw new Error("Error updating task");
     }
   }
 

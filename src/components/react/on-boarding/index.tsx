@@ -51,40 +51,40 @@ const OnBoarding = ({ currentUser }) => {
   useEffect(() => {
     const fetchIntentions = async () => {
       try {
-        const response = await fetch("/api/intentions.json", { method: "GET" }); // Replace with your actual API route path
+        const response = await fetch("/api/getIntentions"); // Replace with your actual API route path
         if (!response.ok) {
           throw new Error("Failed to fetch intentions");
         }
         const data = await response.json();
         setIntentions(data.intentions);
       } catch (error) {
-        console.error("Error fetching intentions:", error);
+        throw new Error("Error fetching intentions");
       }
     };
 
     const fetchDescriptions = async () => {
       try {
-        const response = await fetch("/api/descriptions.json"); // Replace with your actual API route path
+        const response = await fetch("/api/getDescriptions"); // Replace with your actual API route path
         if (!response.ok) {
           throw new Error("Failed to fetch descriptions");
         }
         const data = await response.json();
         setDescriptions(data.descriptions);
       } catch (error) {
-        console.error("Error fetching descriptions:", error);
+        throw new Error("Error fetching descriptions");
       }
     };
 
     const fetchSources = async () => {
       try {
-        const response = await fetch("/api/sources.json"); // Replace with your actual API route path
+        const response = await fetch("/api/getSources"); // Replace with your actual API route path
         if (!response.ok) {
           throw new Error("Failed to fetch sources");
         }
         const data = await response.json();
         setSources(data.sources);
       } catch (error) {
-        console.error("Error fetching sources:", error);
+        throw new Error("Error fetching sources");
       }
     };
 
@@ -120,7 +120,7 @@ const OnBoarding = ({ currentUser }) => {
       });
       window.location.href = "/progress-tracker";
     } catch (error) {
-      console.error("Error answering questionnaire:", error);
+      throw new Error("Error answering questionnaire");
     }
   };
 

@@ -5,6 +5,7 @@ import Task from "../../components/Task.astro";
 import ActivityFeed from "../../components/ActivityFeed.astro";
 import { trackerAccordionItems, requestParamIds } from "../../data/data.js";
 import ShowAddress from "../../components/ShowAddress.astro";
+import Stepper from "../../components/Stepper.astro";
 import { getTasks } from "../api/getTasks";
 
 const graphqlEndpoint = import.meta.env.PUBLIC_HASURA_BASE_URL;
@@ -20,51 +21,87 @@ const [tasks, incompleteTasksCount] = await getTasks(
 
 <Layout title="Bloomsday">
   <div class="relative dropdown">
-    <div class="py-3 px-6 flex gap-7 flex-col">
+    <div class="py-3 px-6 flex gap-7 flex-col mt-6">
+      <p class="text-darkgreen text-1.5xl font-bold">Welcome Home</p>
       <div class="neue text-darkgreen text-lg font-bold leading-5">
-        <ShowAddress
-          breadcrumbs={[
-            { title: "Home", url: "#" },
-            { title: "Progress Tracker", url: "#" },
-          ]}
-        />
-        <div class="flex flex-row py-8 px-6 border border-sage rounded-md">
-          <div class="basis-1/4">
-            <Accordion items={trackerAccordionItems} />
+        <div
+          class="flex flex-col py-6 px-6 border border-sage rounded-md gap-8"
+        >
+          <div class="flex items-end">
+            <div class="text-darkgreen basis-[70%] pr-32">
+              <h1 class="text-1.5xl font-semibold">
+                Home Purchase Progress Tracker
+              </h1>
+              <p class="text-base font-normal mt-3">
+                Below is your personalized homebuying checklist. It lists each
+                of the documents you may need for purchasing a new home. Use the
+                <a class="font-semibold" href=`/tasks/${id}`>Tasks</a> page to upload
+                your docs, hide unnecessary docs, and manage your progress—all your
+                hard work will be shown here.
+              </p>
+            </div>
+            <div class="border-l border-sage px-4">
+              <ShowAddress
+                breadcrumbs={[
+                  { title: "Home", url: "#" },
+                  { title: "Progress Tracker", url: "#" },
+                ]}
+              />
+            </div>
           </div>
-          <div class="flex flex-col basis-3/4 pl-9">
-            <p class="text-lg text-darkgreen font-medium">
-              {tasks[requestParamIds[id]]?.description}
-            </p>
-            {
-              tasks[requestParamIds[id]]?.tasks != undefined &&
-                incompleteTasksCount > 0 && (
-                  <div class="flex justify-between items-center content-center">
-                    <p class="text-lg not-italic font-medium leading-6">
-                      You have{" "}
-                      <span class="font-bold">
-                        {incompleteTasksCount} tasks
-                      </span>{" "}
-                      to complete.
-                    </p>
-                  </div>
-                )
-            }
-            <div class="flex grow gap-3.5 mt-5">
-              {
-                tasks[requestParamIds[id]]?.tasks != undefined &&
-                  tasks[requestParamIds[id]].tasks.map(
-                    ({ headerIcon, header, checkList }) => (
-                      <div class="basis-1/4">
-                        <Task
-                          headerIcon={headerIcon}
-                          header={header}
-                          checkList={checkList}
-                        />
-                      </div>
-                    )
+          <Stepper />
+          <div class="flex gap-9">
+            <div class="basis-1/4">
+              <Accordion items={trackerAccordionItems} />
+            </div>
+            <div class="flex flex-col basis-3/4 pl-9">
+              <div class="flex justify-between items-center font-medium">
+                {
+                  tasks[requestParamIds[id]]?.tasks != undefined &&
+                  incompleteTasksCount > 0 ? (
+                    <div class="flex justify-between items-center content-center">
+                      <p class="text-lg not-italic font-medium leading-6">
+                        You have{" "}
+                        <span class="font-bold">
+                          {incompleteTasksCount} tasks
+                        </span>{" "}
+                        to complete.
+                      </p>
+                    </div>
+                  ) : (
+                    <div />
                   )
-              }
+                }
+                <div class="flex gap-3">
+                  <a
+                    class="flex justify-center items-center px-4 bg-darkgreen text-white rounded-lg text-base font-medium h-9"
+                    href=`/tasks/${id}`
+                  >
+                    Work On Tasks
+                  </a>
+                  <button
+                    class="flex justify-center items-center px-4 bg-white text-darkgreen rounded-lg text-base font-medium border border-darkgreen h-9"
+                  >
+                    Mark as Complete
+                  </button>
+                </div>
+              </div>
+              <div class="grid-cols-4 grid gap-3.5 mt-5">
+                {
+                  tasks[requestParamIds[id]]?.tasks != undefined &&
+                    tasks[requestParamIds[id]].tasks.map(
+                      ({ headerIcon, header, checkList }) => (
+                        <div>
+                          <Task
+                            headerIcon={headerIcon}
+                            header={header}
+                            checkList={checkList}
+                          />
+                        </div>
+                      )
+                    )
+                }
+              </div>
             </div>
           </div>
         </div>
@@ -73,3 +110,4 @@ const [tasks, incompleteTasksCount] = await getTasks(
     <ActivityFeed />
   </div>
 </Layout>
+<script></script>
