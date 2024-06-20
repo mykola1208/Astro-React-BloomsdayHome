@@ -10,11 +10,12 @@ interface TaskColumnProps {
   state: ITask["state"];
   tasks: ITask[];
   onStatusChange: (id: number, newStatus: ITask["state"]) => void;
+  currentUser: any;
 }
 
 const sorts = ["Sort by Category", "Sort A-Z", "Sort Z-A"];
 
-const TaskColumn = ({ state, tasks, onStatusChange }: TaskColumnProps) => {
+const TaskColumn = ({ state, tasks, onStatusChange, currentUser }: TaskColumnProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const handleDropdownToggle = () => {
     setDropdownOpen(!dropdownOpen);
@@ -66,6 +67,7 @@ const TaskColumn = ({ state, tasks, onStatusChange }: TaskColumnProps) => {
                   task={task}
                   position={position}
                   onStatusChange={onStatusChange}
+                  currentUser={currentUser}
                 />
               </div>
             ))}

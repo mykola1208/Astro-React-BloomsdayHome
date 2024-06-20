@@ -59,7 +59,8 @@ export const useFilesUploader = ({ files, currentUser }) => {
     for (const file of files) {
       await uploadFile(file);
     }
-    navigate("/progress-tracker/get-prepared");
+    
+    navigate(window.location.pathname);
   }
 
   return {

@@ -7,11 +7,14 @@ import { statusNames, statuses } from "./statuses";
 import Dropdown from "./Dropdown";
 import ColoredSVG from "../ColoredSVG";
 import { taskCategories } from "../../../data/data";
+import Dialog from "../Dialog";
+import DocumentUploader from "../DocumentUploader";
 
 interface TaskCardProps {
   task: ITask;
   position: number;
   onStatusChange: (id: number, newStatus: ITask["state"]) => void;
+  currentUser: any;
 }
 
 const buttonClasses = {
@@ -21,8 +24,14 @@ const buttonClasses = {
   hidden: "bg-gray-20 text-gray-50",
 };
 
-const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
+const TaskCard = ({
+  task,
+  position,
+  onStatusChange,
+  currentUser,
+}: TaskCardProps) => {
   const [open, setOpen] = useState(true);
+  const [showDialog, setShowDialog] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleToggle = () => {
@@ -36,6 +45,14 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
   const handleStatusChange = (newStatus: ITask["state"]) => {
     onStatusChange(task.id, newStatus);
     setDropdownOpen(false); // Close dropdown after selection
+  };
+
+  const showDocumentUploaderDialog = () => {
+    setShowDialog(true);
+  };
+
+  const hideDocumentUploaderDialog = () => {
+    setShowDialog(false);
   };
 
   return (
@@ -152,7 +169,14 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
                     )}`}
                   />
                 </button>
-                <button>
+                <button
+                  className={`${
+                    task.state == "not_started" || task.state == "hidden"
+                      ? "pointer-events-none"
+                      : ""
+                  }`}
+                  onClick={showDocumentUploaderDialog}
+                >
                   <ColoredSVG
                     src="/icons/upload.svg"
                     color={`${clsx(
@@ -223,6 +247,21 @@ const TaskCard = ({ task, position, onStatusChange }: TaskCardProps) => {
               </div>
             </div>
           </div>
+
+          {showDialog && (
+            <div className="taskID" id={String(task.id)}>
+              <Dialog
+                width="449px"
+                height="590px"
+                hideDialog={hideDocumentUploaderDialog}
+              >
+                <DocumentUploader
+                  currentUser={currentUser}
+                  mode={task.state == "completed" ? "replace" : "upload"}
+                />
+              </Dialog>
+            </div>
+          )}
         </div>
       )}
     </Draggable>

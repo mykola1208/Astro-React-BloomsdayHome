@@ -63,14 +63,14 @@ const DocumentUploader = ({ currentUser, mode }) => {
         <ul className="flex flex-col py-2 gap-3 grow h-12.5">{fileList}</ul>
       </div>
       <button
-        className={`flex justify-center items-center ${
+        className={`flex justify-center items-center text-base not-italic font-medium ${
           file ? "bg-darkgreen" : "bg-mint"
         } rounded-lg py-2 h-12.5 mt-14`}
         onClick={uploadFiles}
         disabled={!file}
       >
         <span className={`${file ? "text-white" : "text-sage"}`}>
-          {mode=="upload" ? "Upload File":"Replace File"}
+          {mode=="upload" ? "Upload Document":"Replace Document"}
         </span>
       </button>
     </div>

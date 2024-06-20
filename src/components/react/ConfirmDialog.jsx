@@ -5,7 +5,7 @@ import Dialog from "./Dialog";
 
 const ConfirmDialog = ({ show, proceed, confirmation, mode, options }) => {
   return (
-    <Dialog onHide={false} show={true} width="546px" height="304px">
+    <Dialog  width="546px" height="304px">
       <div className="flex flex-col items-center justify-center py-4 h-full">
         <p className="text-3xl font-bold text-darkgreen">
           {confirmation.title}

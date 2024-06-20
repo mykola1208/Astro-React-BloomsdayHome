@@ -9,7 +9,7 @@ import type { ITask } from ".";
 import { UPDATE_TASK_STATE } from "../../../apollo/mutations/updateTaskState";
 import { requestParamIds } from "../../../data/data";
 
-const TaskListContent = ({ id }) => {
+const TaskListContent = ({currentUser, id }) => {
   const [tasksByStatus, setTasksByStatus] = useState<TasksByStatus>(
     getTasksByStatus([])
   );
@@ -93,6 +93,7 @@ const TaskListContent = ({ id }) => {
             tasks={tasksByStatus[status]}
             key={status}
             onStatusChange={handleStatusChange}
+            currentUser={currentUser}
           />
         ))}
       </div>

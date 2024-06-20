@@ -15,6 +15,8 @@ const transformString = (inputString) => {
   return transformedString;
 };
 const breadcrumbs_title = transformString(id);
+
+const user = await Astro.locals.currentUser();
 ---
 
 <Layout title="Bloomsday">
@@ -27,7 +29,7 @@ const breadcrumbs_title = transformString(id);
             { title: breadcrumbs_title, url: "#" },
           ]}
         />
-        <TaskListContent client:only="react" id={id} />
+        <TaskListContent currentUser={user} client:only="react" id={id} />
       </div>
     </div>
   </div>
