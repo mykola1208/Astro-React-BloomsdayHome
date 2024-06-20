@@ -92,7 +92,14 @@ const TaskCard = ({
                       height={24}
                       className="shrink-0"
                     />
-                    <span className="text-darkgreen text-left text-lg leading-4 font-medium">
+                    <span
+                      className={clsx(
+                        "text-left text-lg leading-4 font-medium",
+                        task.state == "hidden"
+                          ? "text-gray-50"
+                          : "text-darkgreen"
+                      )}
+                    >
                       <span className="text-sm font-medium">
                         {taskCategories[task.task_category].header}
                       </span>
@@ -106,14 +113,15 @@ const TaskCard = ({
                   />
                 </div>
               </button>
-              <div className="ml-10 flex flex-col gap-2">
-                <p className="text-xl font-medium text-darkgreen">
-                  {task.title}
-                </p>
+              <div
+                className={clsx(
+                  "ml-10 flex flex-col gap-2",
+                  task.state == "hidden" ? "text-gray-50" : "text-darkgreen"
+                )}
+              >
+                <p className="text-xl font-medium">{task.title}</p>
                 {open && (
-                  <p className="font-normal text-base text-darkgreen">
-                    {task.description}
-                  </p>
+                  <p className="font-normal text-base">{task.description}</p>
                 )}
               </div>
             </div>
