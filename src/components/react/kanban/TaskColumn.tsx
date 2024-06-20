@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Droppable } from "@hello-pangea/dnd";
 import { ReactSVG } from "react-svg";
 import type { ITask } from ".";
@@ -22,9 +22,37 @@ const TaskColumn = ({
   currentUser,
 }: TaskColumnProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [allTasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    setTasks(tasks);
+  }, [tasks]);
+
   const handleDropdownToggle = () => {
     setDropdownOpen(!dropdownOpen);
   };
+
+  const sortTasks = (sort: string) => {
+    let sortedTasks: ITask[] = [];
+
+    if (sort === "Sort A-Z") {
+      sortedTasks = allTasks.sort((task1: ITask, task2: ITask) => {
+        return task1.title.localeCompare(task2.title);
+      });
+    } else if (sort === "Sort Z-A") {
+      sortedTasks = allTasks.sort((task1: ITask, task2: ITask) => {
+        return task2.title.localeCompare(task1.title);
+      });
+    } else if (sort === "Sort by Category") {
+      sortedTasks = allTasks.sort((task1: ITask, task2: ITask) => {
+        return task1.task_category.localeCompare(task2.task_category);
+      });
+    }
+
+    setTasks(sortedTasks);
+    setDropdownOpen(!dropdownOpen);
+  };
+
   return (
     <div className="basis-1/4 border rounded-lg border-sage p-3 flex flex-col h-[787px]">
       <div className="flex justify-between text-darkgreen text-xl font-bold">
@@ -49,7 +77,10 @@ const TaskColumn = ({
                       key={`sort-dropdown-${state}-${index}`}
                       className="w-full"
                     >
-                      <button className="py-3 px-4 w-full">
+                      <button
+                        className="py-3 px-4 w-full"
+                        onClick={() => sortTasks(sort)}
+                      >
                         <p className="text-darkgreen font-medium text-sm text-left">
                           {sort}
                         </p>
@@ -71,7 +102,7 @@ const TaskColumn = ({
               tasks.length > 2 ? "scrollbar-hide overflow-auto" : ""
             } ${snapshot.isDraggingOver ? "bg-[#dadadf]" : ""}`}
           >
-            {tasks.map((task, position) => (
+            {allTasks.map((task, position) => (
               <div className="mt-2" key={`${task.id}-${position}`}>
                 <TaskCard
                   task={task}
