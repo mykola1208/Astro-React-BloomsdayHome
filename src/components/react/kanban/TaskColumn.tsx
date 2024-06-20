@@ -15,7 +15,12 @@ interface TaskColumnProps {
 
 const sorts = ["Sort by Category", "Sort A-Z", "Sort Z-A"];
 
-const TaskColumn = ({ state, tasks, onStatusChange, currentUser }: TaskColumnProps) => {
+const TaskColumn = ({
+  state,
+  tasks,
+  onStatusChange,
+  currentUser,
+}: TaskColumnProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const handleDropdownToggle = () => {
     setDropdownOpen(!dropdownOpen);
@@ -24,7 +29,12 @@ const TaskColumn = ({ state, tasks, onStatusChange, currentUser }: TaskColumnPro
     <div className="basis-1/4 border rounded-lg border-sage p-3 flex flex-col h-[787px]">
       <div className="flex justify-between text-darkgreen text-xl font-bold">
         <p className="text-xl font-bold">
-          {statusNames[state]} / {tasks.length}
+          {statusNames[state] == "Hide"
+            ? "Hidden"
+            : statusNames[state] == "Work On It"
+            ? "Working On It"
+            : statusNames[state]}{" "}
+          / {tasks.length}
         </p>
         <div className="relative">
           <button onClick={handleDropdownToggle}>

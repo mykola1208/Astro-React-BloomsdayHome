@@ -139,7 +139,13 @@ const TaskCard = ({
                 type="button"
                 onClick={handleDropdownToggle}
               >
-                <p className="px-4 font-medium">{statusNames[task.state]}</p>
+                <p className="px-4 font-medium">
+                  {statusNames[task.state] == "Hide"
+                    ? "Hidden"
+                    : statusNames[task.state] == "Work On It"
+                    ? "Working On It"
+                    : statusNames[task.state]}
+                </p>
               </button>
               {dropdownOpen && (
                 <div className="absolute ml-6">
@@ -154,7 +160,9 @@ const TaskCard = ({
                             className={`py-3 px-4 rounded-lg ${buttonClasses[status]} w-full`}
                             onClick={() => handleStatusChange(status)}
                           >
-                            <p className="px-3">{statusNames[status]}</p>
+                            <p className="px-3 text-base font-medium">
+                              {statusNames[status]}
+                            </p>
                           </button>
                         </li>
                       ))}
