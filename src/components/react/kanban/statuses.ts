@@ -8,9 +8,9 @@ export const statusNames: Record<ITask["state"], string> = {
 };
 
 export const statuses: ITask["state"][] = [
-  "completed",
-  "in_progress",
   "not_started",
+  "in_progress",
+  "completed",
   "hidden",
 ];
 
