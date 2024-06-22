@@ -1,16 +1,14 @@
 ---
 import { Icon } from "astro-icon/components";
-import BreadCrumbs from "./BreadCrumbs.astro";
 import { getAddress } from "../pages/api/getAddress";
 import EditAddressForm from "./react/EditAddressForm";
+
 const graphqlEndpoint = import.meta.env.PUBLIC_HASURA_BASE_URL;
 const token = await Astro.locals.auth().getToken({ template: "hasura" });
-
-const { breadcrumbs } = Astro.props;
 const address = await getAddress(graphqlEndpoint, token);
 ---
 
-<div class="pr-4 gap-4 flex mt-3">
+<div class="pr-6 gap-4 flex">
   <div class="flex flex-col items-baseline gap-2">
     <div class="flex">
       <p class="text-base leading-4 text-darkgreen mt-1.5 font-medium">

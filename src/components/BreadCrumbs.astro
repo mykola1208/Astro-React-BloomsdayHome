@@ -10,7 +10,7 @@ const { breadcrumbs } = Astro.props;
       breadcrumbs.map(({ title, url }, index) => (
         <li class="inline-flex items-center text-1.5xl font-bold text-darkgreen gap-1">
           <a href={url}>{title}</a>
-          {index != breadcrumbs.length - 1 && <span>{`>`}</span>}
+          {index != breadcrumbs.length - 1 && <span>|</span>}
         </li>
       ))
     }

@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import TaskListContent from "../../components/react/kanban/TaskListContent";
 import ShowAddress from "../../components/ShowAddress.astro";
+import BreadCrumbs from "../../components/BreadCrumbs.astro";
 
 const { id } = Astro.params;
 const transformString = (inputString) => {
@@ -21,14 +22,17 @@ const user = await Astro.locals.currentUser();
 <Layout title="Bloomsday">
   <div class="relative dropdown">
     <div class="py-3 px-6 flex flex-col">
-      <div class="neue text-darkgreen text-lg font-bold leading-5">
-        <div class="px-6 py-7">
-          <ShowAddress
+      <div
+        class="neue text-darkgreen text-lg font-bold leading-5 flex flex-col gap-2"
+      >
+        <div class="px-6 py-7 flex justify-between items-start">
+          <BreadCrumbs
             breadcrumbs={[
-              { title: "Tasks", url: "#" },
+              { title: "Tasks ", url: "#" },
               { title: breadcrumbs_title, url: "#" },
             ]}
           />
+          <ShowAddress />
         </div>
         <TaskListContent client:only="react" currentUser={user} id={id} />
       </div>

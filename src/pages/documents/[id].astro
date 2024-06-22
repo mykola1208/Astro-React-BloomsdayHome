@@ -6,7 +6,7 @@ import Accordion from "../../components/documents/Accordion.astro";
 import SharePackageForm from "../../components/react/SharePackageForm";
 import Dialog from "../../components/Dialog.astro";
 import SuccessConfirmation from "../../components/react/SuccessConfirmation";
-import EditAddressForm from "../../components/react/EditAddressForm";
+import BreadCrumbs from "../../components/BreadCrumbs.astro";
 import { documentsAccordionItems } from "../../data/data.js";
 import ShowAddress from "../../components/ShowAddress.astro";
 
@@ -37,13 +37,14 @@ const accordionItems = getSectionsWithKey(documentsAccordionItems, id);
 <Layout title="Bloomsday">
   <div class="relative dropdown">
     <div class="py-3 px-6 flex flex-col">
-      <div class="py-7 px-6">
-        <ShowAddress
+      <div class="px-6 py-6 flex justify-between items-start">
+        <BreadCrumbs
           breadcrumbs={[
-            { title: "Documents", url: "#" },
+            { title: "Documents ", url: "#" },
             { title: breadcrumbs_title, url: "#" },
           ]}
         />
+        <ShowAddress />
       </div>
       <div class="grid grid-cols-7 gap-x-12 pl-3 pr-3">
         <div class="col-span-2">
