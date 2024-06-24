@@ -2,7 +2,7 @@ import { requestParamIds, taskCategories } from "../../data/data";
 
 const query = `
   query GetTasksByStage($task_stage: task_stages_enum = closing) {
-    tasks(where: {task_stage: {_eq: $task_stage}}) {
+    tasks(where: {task_stage: {_eq: $task_stage},state: {_neq: hidden}}) {
       id
       title
       description
@@ -10,7 +10,15 @@ const query = `
       task_category
       state
     }
-    tasks_aggregate(where: {state: {_neq: completed}, task_stage: {_eq: $task_stage}}) {
+    tasks_aggregate(
+      where: {
+        _and: [
+          { state: { _neq: completed } },
+          { state: { _neq: hidden } },
+        ],
+        task_stage: { _eq: $task_stage }
+      }
+    ) {
       aggregate {
         count
       }
