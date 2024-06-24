@@ -1,7 +1,7 @@
 ---
 import AddFileDropupButton from "./AddFileDropupButton.astro";
 import Dialog from "./Dialog.astro";
-import DocumentsUploader from "./react/DocumentsUploader";
+import DocumentUploader from "./react/DocumentUploader";
 const user = await Astro.locals.currentUser();
 ---
 
@@ -9,13 +9,12 @@ const user = await Astro.locals.currentUser();
   <AddFileDropupButton />
   <Dialog
     id="add-documents-dialog"
-    title="Upload Your Documents"
-    description="Upload your files and we’ll determine where they belong in your portal. You can always resort them later if you wish."
-    width="900px"
-    height="574px"
+    title="Upload Document"
+    width="449px"
+    height="593px"
   >
     <div class="py-4">
-      <DocumentsUploader currentUser={user} client:only="react" />
+      <DocumentUploader currentUser={user} mode="upload" client:only="react" />
     </div>
   </Dialog>
 </div>
