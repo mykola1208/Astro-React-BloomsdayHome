@@ -9,14 +9,12 @@ interface Inputs {
   street: string;
   city: string;
   state: string;
-  zip_code: number;
 }
 
 const initialValues = {
   street: "",
   city: "",
   state: "",
-  zip_code: null,
   id: "",
 };
 
@@ -24,7 +22,6 @@ const schema = yup.object().shape({
   street: yup.string().required("Street is required"),
   city: yup.string().required("City is required"),
   state: yup.string().required("State is required"),
-  zip_code: yup.string().required("Zip Code is required"),
 });
 
 const EditAddressForm = ({ address }) => {
@@ -46,7 +43,6 @@ const EditAddressForm = ({ address }) => {
     setValue("street", address?.address1 || "");
     setValue("city", address?.city || "");
     setValue("state", address?.state || "");
-    setValue("zip_code", address?.zip5 || null);
 
     setTimeout(() => {
       setLoaded(true);
@@ -70,7 +66,7 @@ const EditAddressForm = ({ address }) => {
     if (addressId) {
       document.getElementById(
         "showAddress"
-      ).innerHTML = `${data.street}, ${data.city}, ${data.state} ${data.zip_code}`;
+      ).innerHTML = `${data.street}, ${data.city}, ${data.state}`;
 
       const editForm = document.getElementById("editForm");
       editForm.classList.remove("visible");
@@ -155,27 +151,6 @@ const EditAddressForm = ({ address }) => {
             {errors.state && (
               <p className="text-xs font-medium text-red-500 mt-1">
                 {errors.state.message}
-              </p>
-            )}
-          </div>
-
-          <div>
-            <label
-              htmlFor="zip_code"
-              className="text-base text-darkgreen font-medium leading-6 items-start flex"
-            >
-              Zip Code
-            </label>
-            <div className="relative mt-2 shadow-sm">
-              <input
-                {...register("zip_code")}
-                placeholder="Enter Zip Code"
-                className="block w-full rounded-xl border border-darkgreen bg-cream-light text-lg font-medium text-darkgreen py-3 px-4 placeholder:text-darkgreen placeholder:font-medium  focus:bg-white"
-              />
-            </div>
-            {errors.zip_code && (
-              <p className="text-xs font-medium text-red-500 mt-1">
-                {errors.zip_code.message}
               </p>
             )}
           </div>
