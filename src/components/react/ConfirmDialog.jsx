@@ -4,13 +4,16 @@ import { confirmable } from "react-confirm";
 import Dialog from "./Dialog";
 
 const ConfirmDialog = ({ show, proceed, confirmation, mode, options }) => {
+  const hideDialog = () => {
+    proceed(false);
+  };
   return (
-    <Dialog  width="546px" height="304px">
-      <div className="flex flex-col items-center justify-center py-4 h-full">
+    <Dialog width="546px" height="304px" hideDialog={hideDialog}>
+      <div className="flex flex-col items-center justify-center py-2 h-full">
         <p className="text-3xl font-bold text-darkgreen">
           {confirmation.title}
         </p>
-        <p className="text-lg font-medium text-darkgreen mt-2 leading-6 w-full text-center">
+        <p className="text-lg font-medium text-darkgreen mt-3 leading-6 w-full text-center">
           {confirmation.description}
         </p>
         <div className="flex gap-6 mt-7">

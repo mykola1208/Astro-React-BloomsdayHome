@@ -45,12 +45,7 @@ const Dialog: React.FC<PropsWithChildren<DialogProps>> = ({
                   />
                 </button>
               </div>
-              <p className="text-3xl not-italic font-normal">
-                Upload Document
-              </p>
-              <div className="py-6">
-                {children}
-              </div>
+              <div>{children}</div>
             </div>
           </div>
         </div>
