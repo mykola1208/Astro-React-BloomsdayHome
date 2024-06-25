@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import storyblok from '@storyblok/astro'
 import clerk from "astro-clerk-auth";
 import node from "@astrojs/node";
 import react from "@astrojs/react";
@@ -17,6 +18,13 @@ export default defineConfig({
       signUpUrl: "/sign-up",
       afterSignInUrl: "/progress-tracker",
       afterSignUpUrl: "/describe-yourself",
+    }),
+    storyblok({
+      accessToken: "eyrZ2yAu9JxAKOAr8yRoEwtt",
+      bridge: true,
+      apiOptions: {
+        region: 'us',
+      },
     }),
     react(),
     tailwind(),

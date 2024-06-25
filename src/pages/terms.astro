@@ -1,0 +1,23 @@
+---
+import { useStoryblokApi } from '@storyblok/astro'
+import StaticLayout from '../layouts/StaticLayout.astro'
+import { Markdown } from 'astro-remote';
+ 
+const storyblokApi = useStoryblokApi()
+const { data } = await storyblokApi.get('cdn/stories/terms-and-conditions')
+---
+ 
+<StaticLayout title="Terms and Conditions">
+  <div class="flex flex-col w-screen markdown">
+    <div class="flex items-center justify-center bg-[#F5F2E1] h-[300px]">
+      <p class=" text-darkgreen font-normal text-5xl">
+        Terms and Conditions
+      </p>
+    </div>
+    <div class="flex justify-center items-center">
+      <div class="w-[60%] py-28 px-20 text-black text-sm">
+        <Markdown content={data.story.content.body[0].content} />
+      </div>
+    </div>
+  </div>
+</StaticLayout>
