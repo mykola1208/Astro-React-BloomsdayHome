@@ -54,7 +54,7 @@ const TaskColumn = ({
   };
 
   return (
-    <div className="basis-1/4 border rounded-lg border-sage p-3 flex flex-col h-[787px]">
+    <div className="basis-1/4 border rounded-lg border-sage p-3 flex flex-col max-h-screen">
       <div className="flex justify-between text-darkgreen text-xl font-bold">
         <p className="text-xl font-bold">
           {statusNames[state] == "Hide"
