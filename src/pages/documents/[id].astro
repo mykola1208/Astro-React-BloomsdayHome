@@ -7,10 +7,13 @@ import SharePackageForm from "../../components/react/SharePackageForm";
 import Dialog from "../../components/Dialog.astro";
 import SuccessConfirmation from "../../components/react/SuccessConfirmation";
 import BreadCrumbs from "../../components/BreadCrumbs.astro";
-import { documentsAccordionItems } from "../../data/data.js";
 import ShowAddress from "../../components/ShowAddress.astro";
+import { getDocumentsForCategory } from "../api/getTasksDocuments.js";
 
 const { id } = Astro.params;
+
+const graphqlEndpoint = import.meta.env.PUBLIC_HASURA_BASE_URL;
+const token = await Astro.locals.auth().getToken({ template: "hasura" });
 
 const transformString = (inputString) => {
   // Split the input string into an array of words using the '-' character as the delimiter
@@ -26,12 +29,7 @@ const transformString = (inputString) => {
 
 const breadcrumbs_title = transformString(id);
 
-const getSectionsWithKey = (data, key) => {
-  const item = data.find((item) => item.key === key);
-  return item ? item.sections : [];
-};
-
-const accordionItems = getSectionsWithKey(documentsAccordionItems, id);
+const accordionItems = await getDocumentsForCategory(graphqlEndpoint, token, id);
 ---
 
 <Layout title="Bloomsday">
@@ -56,7 +54,12 @@ const accordionItems = getSectionsWithKey(documentsAccordionItems, id);
             <span class="text-white">Share Document Package</span>
           </button>
           <div class="mt-8">
-            <Accordion accordionItems={accordionItems} />
+            <Accordion
+              accordionItems={accordionItems.map((document) => ({
+                title: document.title,
+                items: document.items,
+              }))}
+            />
           </div>
         </div>
         <div class="col-span-5 border border-sage rounded-lg">

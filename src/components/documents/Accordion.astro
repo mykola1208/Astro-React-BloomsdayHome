@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import { taskCategories } from "../../data/data";
 
 interface AccordionMenuItem {
   title: string;
@@ -38,7 +39,7 @@ let index = 0;
               aria-expanded={isExpanded ? "true" : "false"}
             >
               <span class="text-darkgreen text-left text-lg leading-4 grow font-medium">
-                <span>{title}</span>
+                <span>{taskCategories[title].header}</span>
               </span>
               <Icon
                 name="chevron"
