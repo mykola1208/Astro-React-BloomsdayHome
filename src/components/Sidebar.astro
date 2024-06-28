@@ -2,6 +2,45 @@
 import { Astronav, MenuItems } from "astro-navbar";
 import MenuItem from "./sidebar/MenuItem.astro";
 import { sidebarMenuItems } from "../data/data.js";
+import { getTaskCountsByStage } from "../pages/api/getTaskCountsByStage";
+
+const graphqlEndpoint = import.meta.env.PUBLIC_HASURA_BASE_URL;
+const token = await Astro.locals.auth().getToken({ template: "hasura" });
+
+const task_counts_by_stage = await getTaskCountsByStage(graphqlEndpoint, token);
+
+const consolidatedObject = task_counts_by_stage.reduce(
+  (acc, { task_stage, state, count }) => {
+    if (!acc[task_stage]) {
+      acc[task_stage] = { not_started: 0, total: 0 };
+    }
+    if (state === "not_started") {
+      acc[task_stage].not_started += count;
+    }
+    acc[task_stage].total += count;
+    return acc;
+  },
+  {}
+);
+
+const task_categories = [
+  "get_prepared",
+  "make_an_offer",
+  "escrow",
+  "closing",
+  "moving_in",
+];
+
+let taskStageWorkingOn = 'get-prepared';
+
+for (const category of task_categories) {
+  if (consolidatedObject[category]?.not_started != 0) {
+    taskStageWorkingOn = category.replace(/_/g, '-');
+    break;
+  }
+}
+
+const homeURL = `/progress-tracker/${taskStageWorkingOn}`;
 ---
 
 <div class="min-h-screen h-[100%] bg-putty py-6 px-4 w-65">
@@ -14,7 +53,7 @@ import { sidebarMenuItems } from "../data/data.js";
               <MenuItem
                 title={item.title}
                 icon={item.icon}
-                href={item.href}
+                href={item.title === "Home" ? homeURL : item.href}
                 items={item.items || []}
               />
             </li>
