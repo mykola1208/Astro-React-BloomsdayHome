@@ -34,5 +34,6 @@ export default defineConfig({
   ],
   redirects: {
     "/progress-tracker": "/progress-tracker/get-prepared",
+    "/": "/progress-tracker/get-prepared",
   },
 });
