@@ -4,6 +4,9 @@ import Header from "../components/Header.astro";
 import Sidebar from "../components/Sidebar.astro";
 import AddFile from "../components/AddFile.astro";
 import "./global.css";
+import { ViewTransitions } from "astro:transitions";
+import LoadingIndicator from "astro-loading-indicator/component"
+
 
 interface Props {
   title: string;
@@ -21,6 +24,12 @@ const { title } = Astro.props;
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <meta name="generator" content={Astro.generator} />
       <title>{title}</title>
+      <ViewTransitions/>
+      <LoadingIndicator
+        color="Green"
+        threshold={400}
+        height=".2rem"
+      />
     </head>
     <body>
       <main>
