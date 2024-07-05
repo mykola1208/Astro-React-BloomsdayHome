@@ -80,8 +80,9 @@ const TaskListContent = ({currentUser, id }) => {
     const updatedTasks = tasks.map((task) =>
       task.id === id ? { ...task, state: newStatus } : task
     );
+
     updateState(id, newStatus);
-    setTasksByStatus(getTasksByStatus(updatedTasks));
+    setTasks(updatedTasks)
   };
 
   return (
