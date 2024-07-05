@@ -16,7 +16,7 @@ export default defineConfig({
     clerk({
       signInUrl: "/sign-in",
       signUpUrl: "/sign-up",
-      afterSignInUrl: "/progress-tracker",
+      afterSignInUrl: "/progress-tracker/get-prepared",
       afterSignUpUrl: "/describe-yourself",
     }),
     storyblok({
