@@ -4,6 +4,7 @@ import { taskCategories } from "../../data/data";
 
 interface AccordionMenuItem {
   title: string;
+  document: any;
 }
 
 interface AccordionItem {
@@ -13,12 +14,21 @@ interface AccordionItem {
 }
 
 interface Props {
+  id: string;
   accordionItems: AccordionItem[];
 }
 
-const { accordionItems = [] } = Astro.props;
 let index = 0;
+const { id, accordionItems = [] } = Astro.props;
+const user = await Astro.locals.currentUser();
 ---
+
+<style>
+  .active {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+</style>
 
 <bd-accordion>
   <div
@@ -32,6 +42,7 @@ let index = 0;
         return (
           <div
             class={`accordion-item group bg-cream-light border-t border-sage ${itemIndex == 0 && "rounded-t-lg"} ${itemIndex == accordionItems.length - 1 && "rounded-b-lg"}`}
+            data-id={`accordion-item-${itemIndex}`}
           >
             <button
               class={`flex items-center space-x-2 focus:bg-cream cursor-pointer px-2 py-3 w-full ${itemIndex == 0 && "rounded-t-lg"} ${itemIndex == accordionItems.length - 1 && "rounded-b-lg"}`}
@@ -52,10 +63,15 @@ let index = 0;
               <ul>
                 {items.map((item) => (
                   <li
-                    class="py-3 pl-8 bg-white border-t border-sage text-darkgreen hover:underline hover:underline-offset-2 cursor-pointer"
+                    class={`py-3 pl-8 bg-white border-t border-sage hover:underline hover:underline-offset-2 cursor-pointer  ${item.document == undefined ? "text-sage " : "text-darkgreen"}`}
                     id={`item-${index++}`}
+                    data-id={`item-${index - 1}`}
                   >
-                    {item.title}
+                    <a
+                      href={`/documents/${id}/${item.document ? encodeURIComponent(item.document.filename) : "new"}`}
+                    >
+                      {item.title}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -66,20 +82,83 @@ let index = 0;
     }
   </div>
 </bd-accordion>
+
 <script>
-  import { kind } from "../../store.js";
+  import { kind } from "../../store";
 
   const accordion = document.getElementById("document-accordion");
   const buttons = accordion.querySelectorAll("button");
-  buttons[0].classList.add("rounded-t-lg");
   const lis = accordion.querySelectorAll("li");
+
+  buttons[0].classList.add("rounded-t-lg");
   lis[lis.length - 1].classList.add("rounded-b-lg");
+
+  // Function to remove active class from all li elements
+  function removeActiveClass() {
+    lis.forEach((li) => {
+      li.classList.remove("active");
+    });
+  }
+
+  // Function to save the active item state
+  function saveActiveItemState(itemId) {
+    localStorage.setItem("activeAccordionItem", itemId);
+  }
+
+  // Function to save the accordion state
+  function saveAccordionState(itemIndex) {
+    localStorage.setItem(
+      "expandedAccordionItem",
+      `accordion-item-${itemIndex}`
+    );
+  }
+
   lis.forEach((li, index) => {
     li.addEventListener("click", () => {
+      // Set the clicked li as active
+      removeActiveClass();
+      li.classList.add("active");
+
       const content = document.getElementById(`item-${index}`).textContent;
       kind.set(content);
+      localStorage.setItem("activeAccordionContent", content);
+
+      // Save the selected item to local storage
+      saveActiveItemState(`item-${index}`);
     });
   });
+
+  buttons.forEach((button, itemIndex) => {
+    button.addEventListener("click", () => {
+      saveAccordionState(itemIndex);
+    });
+  });
+
+  // Retrieve the selected item from local storage
+  const activeItemId = localStorage.getItem("activeAccordionItem");
+  if (activeItemId) {
+    const activeItem = document.querySelector(`[data-id="${activeItemId}"]`);
+    if (activeItem) {
+      activeItem.classList.add("active");
+    }
+  }
+
+  // Retrieve the expanded accordion state from local storage
+  const expandedItemId = localStorage.getItem("expandedAccordionItem");
+  if (expandedItemId) {
+    const expandedItem = document.querySelector(
+      `[data-id="${expandedItemId}"]`
+    );
+    if (expandedItem) {
+      const button = expandedItem.querySelector("button[aria-expanded]");
+      const body = document.querySelector(
+        `#${button.getAttribute("aria-controls")}`
+      );
+      button.setAttribute("aria-expanded", "true");
+      body.removeAttribute("hidden");
+    }
+  }
+
   class Accordion extends HTMLElement {
     constructor() {
       super();

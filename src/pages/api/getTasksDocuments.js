@@ -2,7 +2,7 @@ import { requestParamIds } from "../../data/data";
 
 const query = `
   query GetDocumentsForCategory($stage: task_stages_enum = get_prepared) {
-    tasks(where: {task_stage: {_eq: $stage}}) {
+    tasks(where: {task_stage: {_eq: $stage}}, order_by: {title: asc}) {
       documents_tasks(limit: 1) {
         document {
           filename

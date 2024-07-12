@@ -1,19 +1,21 @@
 ---
 import { Icon } from "astro-icon/components";
-import Layout from "../../layouts/Layout.astro";
-import PdfViewer from "../../components/PdfViewer.astro";
-import Accordion from "../../components/documents/Accordion.astro";
-import SharePackageForm from "../../components/react/SharePackageForm";
-import Dialog from "../../components/Dialog.astro";
-import SuccessConfirmation from "../../components/react/SuccessConfirmation";
-import BreadCrumbs from "../../components/BreadCrumbs.astro";
-import ShowAddress from "../../components/ShowAddress.astro";
-import { getDocumentsForCategory } from "../api/getTasksDocuments.js";
+import Layout from "../../../layouts/Layout.astro";
+import DocumentViewer from "../../../components/documents/DocumentViewer.jsx";
+import Accordion from "../../../components/documents/Accordion.astro";
+import SharePackageForm from "../../../components/react/SharePackageForm.jsx";
+import Dialog from "../../../components/Dialog.astro";
+import SuccessConfirmation from "../../../components/react/SuccessConfirmation.jsx";
+import BreadCrumbs from "../../../components/BreadCrumbs.astro";
+import ShowAddress from "../../../components/ShowAddress.astro";
+import { getDocumentsForCategory } from "../../api/getTasksDocuments.js";
+import { getS3SignedUrlForDownload } from "../../api/getS3SignedUrlForDownload";
 
-const { id } = Astro.params;
+const { id, name } = Astro.params;
 
 const graphqlEndpoint = import.meta.env.PUBLIC_HASURA_BASE_URL;
 const token = await Astro.locals.auth().getToken({ template: "hasura" });
+const user = await Astro.locals.currentUser();
 
 const transformString = (inputString) => {
   // Split the input string into an array of words using the '-' character as the delimiter
@@ -29,7 +31,21 @@ const transformString = (inputString) => {
 
 const breadcrumbs_title = transformString(id);
 
-const accordionItems = await getDocumentsForCategory(graphqlEndpoint, token, id);
+const accordionItems = await getDocumentsForCategory(
+  graphqlEndpoint,
+  token,
+  id
+);
+
+const s3UrlForDownload =
+  decodeURIComponent(name) != "new"
+    ? await getS3SignedUrlForDownload(
+        graphqlEndpoint,
+        token,
+        user.id,
+        decodeURIComponent(name)
+      )
+    : undefined;
 ---
 
 <Layout title="Bloomsday">
@@ -55,6 +71,7 @@ const accordionItems = await getDocumentsForCategory(graphqlEndpoint, token, id)
           </button>
           <div class="mt-8">
             <Accordion
+              id={id}
               accordionItems={accordionItems.map((document) => ({
                 title: document.title,
                 items: document.items,
@@ -63,8 +80,11 @@ const accordionItems = await getDocumentsForCategory(graphqlEndpoint, token, id)
           </div>
         </div>
         <div class="col-span-5 border border-sage rounded-lg">
-          <PdfViewer
-            url="https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf"
+          <DocumentViewer
+            id={id}
+            docUrl={s3UrlForDownload}
+            user={user}
+            client:only="react"
           />
         </div>
         <div id="share-package">

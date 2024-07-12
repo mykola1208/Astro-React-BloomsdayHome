@@ -8,7 +8,7 @@ interface FileWithPath extends File {
   path: string;
 }
 
-const DocumentUploader = ({ currentUser, mode }) => {
+const DocumentUploader = ({ id, currentUser, mode }) => {
   const [file, setFile] = useState<FileWithPath | null>(null);
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0] || null);
@@ -17,9 +17,9 @@ const DocumentUploader = ({ currentUser, mode }) => {
   const { getRootProps, getInputProps, open } = useDropzone({
     accept: {
       "image/png": [".png"],
+      "image/gif": [".gif"],
       "image/jpeg": [".jpg"],
       "application/pdf": [".pdf"],
-      "application/msword": [".doc"],
     },
     onDrop,
     noClick: true,
@@ -30,6 +30,7 @@ const DocumentUploader = ({ currentUser, mode }) => {
   const { uploadFiles } = useFilesUploader({
     files: file ? [file] : [],
     currentUser,
+    id: id,
   });
 
   const fileList = file ? (
@@ -52,7 +53,7 @@ const DocumentUploader = ({ currentUser, mode }) => {
   ) : null;
 
   return (
-    <div className="flex flex-col justify-between">
+    <div className="flex flex-col justify-between mt-3">
       <div className="flex flex-col gap-4">
         <Dropzone
           getRootProps={getRootProps}
@@ -70,7 +71,7 @@ const DocumentUploader = ({ currentUser, mode }) => {
         disabled={!file}
       >
         <span className={`${file ? "text-white" : "text-sage"}`}>
-          {mode=="upload" ? "Upload Document":"Replace Document"}
+          {mode == "upload" ? "Upload Document" : "Replace Document"}
         </span>
       </button>
     </div>

@@ -6,7 +6,7 @@ import {
   HttpLink,
   ApolloLink,
   concat,
-} from "@apollo/client";
+} from "@apollo/client/core";
 
 const base_url = import.meta.env.PUBLIC_HASURA_BASE_URL;
 const httpLink = new HttpLink({ uri: base_url });

@@ -5,14 +5,15 @@ import { INSERT_DOCUMENTS_ONE } from "../../apollo/mutations/insertDocumentsOne"
 import { MARK_TASK_COMPLETE } from "../../apollo/mutations/completeTask";
 import { createApolloClient } from "../../apollo/client";
 
-export const useFilesUploader = ({ files, currentUser }) => {
+export const useFilesUploader = ({ files, currentUser, id }) => {
   const { createClient } = createApolloClient();
 
+  let filename;
   async function uploadFile(file) {
     const client = await createClient();
 
     const userId = currentUser.id;
-    const filename = file?.name;
+    filename = file?.name;
     const contentType = file?.type;
 
     try {
@@ -59,8 +60,7 @@ export const useFilesUploader = ({ files, currentUser }) => {
     for (const file of files) {
       await uploadFile(file);
     }
-
-    navigate(window.location.pathname);
+    navigate(`/documents/${id}/${filename}`);
   }
 
   return {

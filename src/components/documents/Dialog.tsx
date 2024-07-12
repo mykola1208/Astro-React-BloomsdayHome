@@ -5,14 +5,15 @@ interface DialogProps {
   width: string;
   height: string;
   mode?: string;
-  hideDialog: () => void;
+  setFile: any;
+  hideDialog?: () => void;
 }
 
 const Dialog: React.FC<PropsWithChildren<DialogProps>> = ({
   children,
   width,
   height,
-  mode,
+  setFile,
   hideDialog,
 }) => {
   return (
@@ -37,7 +38,7 @@ const Dialog: React.FC<PropsWithChildren<DialogProps>> = ({
                   type="button"
                   className="close"
                   aria-label="Close"
-                  onClick={hideDialog}
+                  onClick={() => setFile(null)}
                 >
                   <ReactSVG
                     src="/icons/circle-x.svg"
@@ -48,9 +49,6 @@ const Dialog: React.FC<PropsWithChildren<DialogProps>> = ({
                 </button>
               </div>
               <div className="flex flex-col gap-3">
-                <p className="text-darkgreen font-normal text-4xl">
-                  {mode == "upload" ? "Upload" : "Replace"} Document
-                </p>
                 <div>{children}</div>
               </div>
             </div>

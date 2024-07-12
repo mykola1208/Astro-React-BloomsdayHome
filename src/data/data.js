@@ -780,23 +780,23 @@ export const sidebarMenuItems = [
     items: [
       {
         title: "Get Prepared",
-        href: "/documents/get-prepared",
+        href: "/documents/get-prepared/new",
       },
       {
         title: "Make an Offer",
-        href: "/documents/make-an-offer",
+        href: "/documents/make-an-offer/new",
       },
       {
         title: "Escrow",
-        href: "/documents/escrow",
+        href: "/documents/escrow/new",
       },
       {
         title: "Closing",
-        href: "/documents/closing",
+        href: "/documents/closing/new",
       },
       {
         title: "Moving in",
-        href: "/documents/moving-in",
+        href: "/documents/moving-in/new",
       },
     ],
   },
