@@ -9,7 +9,7 @@ import type { ITask } from ".";
 import { UPDATE_TASK_STATE } from "../../../apollo/mutations/updateTaskState";
 import { requestParamIds } from "../../../data/data";
 
-const TaskListContent = ({currentUser, id }) => {
+const TaskListContent = ({ currentUser, id }) => {
   const [tasksByStatus, setTasksByStatus] = useState<TasksByStatus>(
     getTasksByStatus([])
   );
@@ -82,14 +82,15 @@ const TaskListContent = ({currentUser, id }) => {
     );
 
     updateState(id, newStatus);
-    setTasks(updatedTasks)
+    setTasks(updatedTasks);
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="flex gap-4">
+      <div className="relative flex gap-4">
         {statuses.map((status) => (
           <TaskColumn
+            id={id}
             state={status}
             tasks={tasksByStatus[status]}
             key={status}

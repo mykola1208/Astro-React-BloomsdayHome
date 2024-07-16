@@ -4,7 +4,7 @@ import { Dropdown, DropdownItems } from "astro-navbar";
 
 const { title, icon, href = "#", items = [] } = Astro.props;
 const currentPath = Astro.url.pathname;
-const segments = currentPath.split('/');
+const segments = currentPath.split("/");
 const selectedMenu = segments[1];
 ---
 
@@ -19,7 +19,10 @@ const selectedMenu = segments[1];
     </a>
   ) : (
     <bd-sidebar-dropdown id={selectedMenu} data-id={selectedMenu}>
-      <Dropdown class={`group ${icon} ${selectedMenu == icon && 'open'}`} aria-expanded={selectedMenu == icon ? "true" : "false"} open={selectedMenu === icon}>
+      <Dropdown
+        class={`group ${icon} `}
+        aria-expanded={selectedMenu == icon ? "true" : "false"}
+      >
         <button class="flex items-center space-x-2 focus:bg-cream hover:bg-cream cursor-pointer rounded px-2 py-3 w-full">
           <Icon name={icon} width={24} height={24} class="shrink-0" />
           <span class="text-darkgreen text-left leading-4 grow font-medium">
@@ -32,15 +35,18 @@ const selectedMenu = segments[1];
             class="shrink-0 group-open:rotate-180"
           />
         </button>
-        <DropdownItems class="dropdown-items" aria-expanded={selectedMenu == icon ? "true" : "false"}>
+        <DropdownItems
+          class="dropdown-items"
+          aria-expanded={selectedMenu == icon ? "true" : "false"}
+        >
           <ul>
             {items.map((item) => {
               const isActive = currentPath === item.href;
               return (
-                <li class={`py-2 pr-2 pl-10 ${isActive ? 'underline' : ''}`}>
+                <li class={`py-2 pr-2 pl-10 ${isActive ? "underline" : ""}`}>
                   <a
                     href={item.href}
-                    class={`text-darkgreen text-sm leading-none font-medium block hover:underline hover:underline-offset-1 ${isActive ? 'underline' : ''}`}
+                    class={`text-darkgreen text-sm leading-none font-medium block hover:underline hover:underline-offset-1 ${isActive ? "underline" : ""}`}
                   >
                     {item.title}
                   </a>
@@ -58,11 +64,12 @@ const selectedMenu = segments[1];
   class SidebarDropdown extends HTMLElement {
     constructor() {
       super();
-      const dropdown = this.querySelector(`#${this.dataset.id} .${this.dataset.id}`) as HTMLElement;
-      const dropdownToggle = dropdown?.querySelector('.dropdown-items');
-      dropdownToggle?.classList.remove('hidden');
+      const dropdown = this.querySelector(
+        `#${this.dataset.id} .${this.dataset.id}`
+      ) as HTMLElement;
+      const dropdownToggle = dropdown?.querySelector(".dropdown-items");
+      dropdownToggle?.classList.remove("hidden");
     }
   }
   customElements.define("bd-sidebar-dropdown", SidebarDropdown);
-
 </script>

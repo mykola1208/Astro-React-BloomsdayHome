@@ -7,6 +7,7 @@ import TaskCard from "./TaskCard";
 import Dropdown from "./Dropdown";
 
 interface TaskColumnProps {
+  id: any;
   state: ITask["state"];
   tasks: ITask[];
   onStatusChange: (id: number, newStatus: ITask["state"]) => void;
@@ -16,6 +17,7 @@ interface TaskColumnProps {
 const sorts = ["Sort by Category", "Sort A-Z", "Sort Z-A"];
 
 const TaskColumn = ({
+  id,
   state,
   tasks,
   onStatusChange,
@@ -98,13 +100,14 @@ const TaskColumn = ({
           <div
             ref={droppableProvided.innerRef}
             {...droppableProvided.droppableProps}
-            className={`flex flex-col rounded-md p-1 ${
-              tasks.length > 2 ? "scrollbar-hide overflow-auto" : ""
-            } ${snapshot.isDraggingOver ? "bg-[#dadadf]" : ""}`}
+            className={`flex flex-col rounded-md p-1 scrollbar-hide overflow-auto h-full ${
+              snapshot.isDraggingOver ? "bg-[#dadadf]" : ""
+            }`}
           >
             {allTasks.map((task, position) => (
               <div className="mt-2" key={`${task.id}-${position}`}>
                 <TaskCard
+                  id={id}
                   task={task}
                   position={position}
                   onStatusChange={onStatusChange}

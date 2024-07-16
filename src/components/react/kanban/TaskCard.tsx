@@ -9,8 +9,10 @@ import ColoredSVG from "../ColoredSVG";
 import { taskCategories } from "../../../data/data";
 import Dialog from "../Dialog";
 import DocumentUploader from "../DocumentUploader";
+import DatePicker from "./DatePicker";
 
 interface TaskCardProps {
+  id: any;
   task: ITask;
   position: number;
   onStatusChange: (id: number, newStatus: ITask["state"]) => void;
@@ -25,12 +27,14 @@ const buttonClasses = {
 };
 
 const TaskCard = ({
+  id,
   task,
   position,
   onStatusChange,
   currentUser,
 }: TaskCardProps) => {
   const [open, setOpen] = useState(true);
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -38,7 +42,7 @@ const TaskCard = ({
     setOpen(!open);
   };
 
-  const handleDropdownToggle = () => {
+  const handleToggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
@@ -53,6 +57,10 @@ const TaskCard = ({
 
   const hideDocumentUploaderDialog = () => {
     setShowDialog(false);
+  };
+
+  const handleToggleDatePicker = () => {
+    setIsDatePickerOpen(!isDatePickerOpen);
   };
 
   return (
@@ -137,7 +145,7 @@ const TaskCard = ({
                   task.state == "hidden" && "bg-gray-20 text-gray-50"
                 )}
                 type="button"
-                onClick={handleDropdownToggle}
+                onClick={handleToggleDropdown}
               >
                 <p className="px-4 font-medium">
                   {statusNames[task.state] == "Hide"
@@ -171,8 +179,8 @@ const TaskCard = ({
                 </div>
               )}
             </div>
-            <div className="flex justify-between mt-5">
-              <div className="flex gap-4">
+            <div className="flex justify-between mt-5 gap-2">
+              <div className="flex grow justify-between">
                 <button>
                   <ColoredSVG
                     src="/icons/view.svg"
@@ -241,29 +249,35 @@ const TaskCard = ({
                   />
                 </button>
               </div>
-              <div className="flex items-center gap-1 pr-2">
-                <ColoredSVG
-                  src="/icons/calendar.svg"
-                  color={`${clsx(
-                    (task.state == "not_started" ||
-                      task.state == "in_progress" ||
-                      task.state == "completed") &&
-                      "#1C4835",
-                    task.state == "hidden" && "#C1C7CD"
-                  )}`}
-                />
-                <p
-                  className={`text-base font-medium ${clsx(
-                    task.state == "hidden" && "text-gray-30",
-                    task.state != "hidden" && "text-darkgreen"
-                  )}`}
+              <div className="group relative pr-2 whitespace-nowrap">
+                <button
+                  disabled={task.state == "hidden"}
+                  className="flex items-center gap-1"
+                  onClick={handleToggleDatePicker}
                 >
-                  Due
-                </p>
+                  <ColoredSVG
+                    src="/icons/calendar.svg"
+                    color={`${clsx(
+                      (task.state == "not_started" ||
+                        task.state == "in_progress" ||
+                        task.state == "completed") &&
+                        "#1C4835",
+                      task.state == "hidden" && "#C1C7CD"
+                    )}`}
+                  />
+                  <p
+                    className={`text-base font-medium ${clsx(
+                      task.state == "hidden" && "text-gray-30",
+                      task.state != "hidden" && "text-darkgreen"
+                    )}`}
+                  >
+                    Due Date
+                  </p>
+                </button>
+                {isDatePickerOpen && <DatePicker id={task.id} />}
               </div>
             </div>
           </div>
-
           {showDialog && (
             <div className="taskID" id={String(task.id)}>
               <Dialog
@@ -272,6 +286,7 @@ const TaskCard = ({
                 hideDialog={hideDocumentUploaderDialog}
               >
                 <DocumentUploader
+                  id={id}
                   currentUser={currentUser}
                   mode={task.state == "completed" ? "replace" : "upload"}
                 />

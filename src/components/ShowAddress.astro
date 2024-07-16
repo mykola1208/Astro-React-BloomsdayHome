@@ -9,7 +9,7 @@ const address = await getAddress(graphqlEndpoint, token);
 ---
 
 <div class="pr-6 gap-4 flex">
-  <div class="flex flex-col items-baseline gap-2">
+  <div class="flex flex-col items-baseline gap-2 group relative">
     <div class="flex">
       <p class="text-base leading-4 text-darkgreen mt-1.5 font-medium">
         Future Home
@@ -17,7 +17,6 @@ const address = await getAddress(graphqlEndpoint, token);
       <button id="addressFrom" class="flex ml-3 mt-0.5">
         <Icon name="edit" width={20} height={21} />
       </button>
-      <EditAddressForm client:only="react" address={address} />
     </div>
 
     <p id="showAddress" class="text-1.5xl font-medium text-darkgreen">
@@ -27,20 +26,6 @@ const address = await getAddress(graphqlEndpoint, token);
           : "Street, City, State 00000"
       }
     </p>
+    <EditAddressForm client:only="react" address={address} />
   </div>
 </div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", (event) => {
-    const buttonElement = document.getElementById("addressFrom");
-    buttonElement.addEventListener("click", () => {
-      const element = document.getElementById("editForm");
-      if (element) {
-        element.classList.toggle("hidden");
-        element.classList.toggle("visible");
-      } else {
-        throw new Error('Element with ID "editForm" not found');
-      }
-    });
-  });
-</script>

@@ -360,6 +360,73 @@ bd-pdf-viewer canvas {
   height: auto;
 }
 
+.date-picker {
+  box-shadow: 0px 0px 20px 0px rgba(28, 72, 53, 0.24);
+}
+
+.date-picker::before {
+  border-bottom: 15px solid rgba(0, 0, 0, 0);
+  border-left: 9px solid rgba(0, 0, 0, 0);
+  border-right: 9px solid rgba(0, 0, 0, 0);
+  content: "";
+  display: inline-block;
+  right: 40px;
+  position: absolute;
+  top: -14px;
+}
+
+.date-picker::after {
+  border-bottom: 14px solid #ffffff;
+  border-left: 9px solid rgba(0, 0, 0, 0);
+  border-right: 9px solid rgba(0, 0, 0, 0);
+  content: "";
+  display: inline-block;
+  right: 40px;
+  position: absolute;
+  top: -14px;
+}
+
+.react-datepicker {
+  @apply flex justify-center items-start border-0 !important;
+}
+
+.react-datepicker__header {
+  @apply bg-white border-b-0 !important;
+}
+
+.react-datepicker__month-container {
+  @apply flex flex-col w-full !important;
+}
+
+.react-datepicker__day-names,
+.react-datepicker__week {
+  @apply flex items-center justify-between !important;
+}
+
+.react-datepicker__day-names {
+  @apply mt-5;
+}
+
+.react-datepicker__month {
+  @apply p-0 m-0 !important;
+}
+
+.react-datepicker__day {
+  @apply text-darkgreen text-sm py-1.5 font-medium  !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  @apply border-0 bg-mint !important;
+}
+
+.react-datepicker__day-name {
+  @apply text-sage text-xs font-medium !important;
+}
+
+.react-datepicker__day--outside-month {
+  @apply invisible !important;
+}
+
 #pdf-viewer {
   display: flex;
   flex-direction: column;

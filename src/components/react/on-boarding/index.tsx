@@ -118,7 +118,7 @@ const OnBoarding = ({ currentUser }) => {
           },
         },
       });
-      window.location.href = "/progress-tracker";
+      window.location.href = "/progress-tracker/get-prepared";
     } catch (error) {
       throw new Error("Error answering questionnaire");
     }
