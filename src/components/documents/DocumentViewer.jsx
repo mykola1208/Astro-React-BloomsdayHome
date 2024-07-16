@@ -399,7 +399,7 @@ const DocumentViewer = ({ id, docUrl, user }) => {
                 </button>
               </div>
             </div>
-            <div className="flex justify-center overflow-auto h-full">
+            <div className="flex justify-center items-center overflow-auto h-full">
               {extension == "pdf" && (
                 <canvas ref={canvasRef} className="z-[-1]"></canvas>
               )}

@@ -60,7 +60,6 @@ export const useFilesUploader = ({ files, currentUser, id }) => {
     for (const file of files) {
       await uploadFile(file);
     }
-    navigate(`/documents/${id}/${filename}`);
   }
 
   return {

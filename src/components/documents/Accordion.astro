@@ -50,7 +50,7 @@ const user = await Astro.locals.currentUser();
               aria-expanded={isExpanded ? "true" : "false"}
             >
               <span class="text-darkgreen text-left text-lg leading-4 grow font-medium">
-                <span>{taskCategories[title].header}</span>
+                <span>{taskCategories[title]?.header}</span>
               </span>
               <Icon
                 name="chevron"
@@ -61,7 +61,7 @@ const user = await Astro.locals.currentUser();
             </button>
             <div id={`accordion${randomId}`} hidden={!isExpanded}>
               <ul>
-                {items.map((item) => (
+                {items?.map((item) => (
                   <li
                     class={`py-3 pl-8 bg-white border-t border-sage hover:underline hover:underline-offset-2 cursor-pointer  ${item.document == undefined ? "text-sage " : "text-darkgreen"}`}
                     id={`item-${index++}`}
@@ -157,6 +157,22 @@ const user = await Astro.locals.currentUser();
       button.setAttribute("aria-expanded", "true");
       body.removeAttribute("hidden");
     }
+  }
+
+  // Select the li element based on the activeAccordionContent value
+  const activeAccordionContent = localStorage.getItem("activeAccordionContent");
+  if (activeAccordionContent) {
+    lis.forEach((li) => {
+      if (li.textContent.trim() === activeAccordionContent.trim()) {
+        li.classList.add("active");
+        // Ensure the parent accordion item is expanded
+        const parentAccordionItem = li.closest(".accordion-item");
+        const parentButton = parentAccordionItem.querySelector("button[aria-expanded]");
+        const parentBody = document.querySelector(`#${parentButton.getAttribute("aria-controls")}`);
+        parentButton.setAttribute("aria-expanded", "true");
+        parentBody.removeAttribute("hidden");
+      }
+    });
   }
 
   class Accordion extends HTMLElement {

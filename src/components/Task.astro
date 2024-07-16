@@ -15,19 +15,23 @@ interface CheckListGroup {
 }
 
 interface Props {
+  stepId: string;
   headerIcon: string;
   header: string;
   checkList?: CheckListItem[];
   hasGroups?: boolean;
   checkListGroups?: CheckListGroup[];
+  items: any[];
 }
 
 const {
+  stepId,
   headerIcon,
   header,
   hasGroups = false,
   checkList = [],
   checkListGroups = [],
+  items,
 } = Astro.props;
 
 const flag =
@@ -36,6 +40,13 @@ const flag =
       checkList.every(({ status }) => status)
     )) ||
   (!hasGroups && checkList.every(({ status }) => status));
+
+const handleGetFilename = (label) => {
+  const document = items.find(({ title }) => title == label).document;
+
+  return document?.filename;
+};
+
 ---
 
 <div
@@ -52,13 +63,20 @@ const flag =
     <div>
       {
         hasGroups ? (
-          checkListGroups.map(({id, title, checkList }) => (
+          checkListGroups.map(({ id, title, checkList }) => (
             <div class="flex flex-col">
               <p class="text-darkgreen font-medium text-sm">{title}</p>
               <ul>
                 {checkList.map(({ status, label }) => (
                   <li>
-                    <Checkbox checked={status} label={label} taskId ={id}/>
+                    <Checkbox
+                      header={header}
+                      stepId={stepId}
+                      checked={status}
+                      label={label}
+                      taskId={id}
+                      filename={handleGetFilename(label)}
+                    />
                   </li>
                 ))}
               </ul>
@@ -66,9 +84,16 @@ const flag =
           ))
         ) : (
           <ul>
-            {checkList.map(({id, status, label }) => (
+            {checkList.map(({ id, status, label }) => (
               <li>
-                <Checkbox checked={status} label={label} taskId ={id}/>
+                <Checkbox
+                  header={header}
+                  stepId={stepId}
+                  checked={status}
+                  label={label}
+                  taskId={id}
+                  filename={handleGetFilename(label)}
+                />
               </li>
             ))}
           </ul>

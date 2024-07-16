@@ -3,10 +3,15 @@ import Layout from "../../layouts/Layout.astro";
 import Accordion from "../../components/Accordion.astro";
 import Task from "../../components/Task.astro";
 import ActivityFeed from "../../components/ActivityFeed.astro";
-import { trackerAccordionItems, requestParamIds } from "../../data/data.js";
+import {
+  trackerAccordionItems,
+  requestParamIds,
+  taskCategories,
+} from "../../data/data.js";
 import ShowAddress from "../../components/ShowAddress.astro";
 import Stepper from "../../components/Stepper.astro";
 import { getTasks } from "../api/getTasks";
+import { getDocumentsForCategory } from "../api/getTasksDocuments";
 
 const graphqlEndpoint = import.meta.env.PUBLIC_HASURA_BASE_URL;
 const token = await Astro.locals.auth().getToken({ template: "hasura" });
@@ -17,6 +22,27 @@ const [tasks, incompleteTasksCount] = await getTasks(
   token,
   id
 );
+
+const accordionItems = await getDocumentsForCategory(
+  graphqlEndpoint,
+  token,
+  id
+);
+
+const handleGetKeyByHeader = (header) => {
+  for (const [key, value] of Object.entries(taskCategories)) {
+    if (value.header === header) {
+      return key;
+    }
+  }
+  return null;
+};
+
+const handleFindItems = (header) => {
+  const key = handleGetKeyByHeader(header);
+  const items = accordionItems.find((document) => document?.title == key).items;
+  return items;
+};
 ---
 
 <Layout title="Bloomsday">
@@ -93,9 +119,11 @@ const [tasks, incompleteTasksCount] = await getTasks(
                       ({ headerIcon, header, checkList }) => (
                         <div>
                           <Task
+                            stepId={id}
                             headerIcon={headerIcon}
                             header={header}
                             checkList={checkList}
+                            items={handleFindItems(header)}
                           />
                         </div>
                       )
