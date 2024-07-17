@@ -53,7 +53,7 @@ const DocumentUploader = ({ id, currentUser, mode }) => {
   ) : null;
 
   return (
-    <div className="flex flex-col justify-between mt-3">
+    <div className="flex flex-col justify-between">
       <div className="flex flex-col gap-4">
         <Dropzone
           getRootProps={getRootProps}
@@ -66,7 +66,7 @@ const DocumentUploader = ({ id, currentUser, mode }) => {
       <button
         className={`flex justify-center items-center text-base not-italic font-medium ${
           file ? "bg-darkgreen" : "bg-mint"
-        } rounded-lg py-2 h-12.5 mt-14`}
+        } rounded-lg h-12.5 mt-8`}
         onClick={uploadFiles}
         disabled={!file}
       >
