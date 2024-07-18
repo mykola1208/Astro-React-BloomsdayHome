@@ -1,6 +1,5 @@
 ---
 import { Icon } from "astro-icon/components";
-import { Dropdown, DropdownItems } from "astro-navbar";
 
 const { title, icon, href = "#", items = [] } = Astro.props;
 const currentPath = Astro.url.pathname;
@@ -25,58 +24,66 @@ const selectedMenu = segments[1];
       )}
     </a>
   ) : (
-    <bd-sidebar-dropdown id={selectedMenu} data-id={selectedMenu}>
-      <Dropdown
-        class={`group ${icon} `}
+    <div class="relative">
+      <button
+        class="flex items-center space-x-2 focus:bg-cream hover:bg-cream cursor-pointer rounded px-2 py-3 w-full"
         aria-expanded={selectedMenu == icon ? "true" : "false"}
+        data-dropdown-target={`dropdown-${icon}`}
       >
-        <button class="flex items-center space-x-2 focus:bg-cream hover:bg-cream cursor-pointer rounded px-2 py-3 w-full">
-          <Icon name={icon} width={24} height={24} class="shrink-0" />
-          <span class="text-darkgreen text-left leading-4 grow font-medium">
-            {title}
-          </span>
-          <Icon
-            name="chevron"
-            width={24}
-            height={24}
-            class="shrink-0 group-open:rotate-180"
-          />
-        </button>
-        <DropdownItems
-          class="dropdown-items"
-          aria-expanded={selectedMenu == icon ? "true" : "false"}
-        >
-          <ul>
-            {items.map((item) => {
-              const isActive = currentPath === item.href;
-              return (
-                <li class={`py-2 pr-2 pl-10 ${isActive ? "underline" : ""}`}>
-                  <a
-                    href={item.href}
-                    class={`text-darkgreen text-sm leading-none font-medium block hover:underline hover:underline-offset-1 ${isActive ? "underline" : ""}`}
-                  >
-                    {item.title}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </DropdownItems>
-      </Dropdown>
-    </bd-sidebar-dropdown>
+        <Icon name={icon} width={24} height={24} class="shrink-0" />
+        <span class="text-darkgreen text-left leading-4 grow font-medium">
+          {title}
+        </span>
+        <Icon
+          name="chevron"
+          id="sidebar-chevron"
+          width={24}
+          height={24}
+          class="shrink-0 transition-transform duration-300"
+        />
+      </button>
+      <ul
+        class={`${selectedMenu == icon ? "block" : "hidden"}`}
+        id={`dropdown-${icon}`}
+        role="listbox"
+      >
+        {items.map((item) => {
+          const isActive =
+            segments[2] === item.href.split("/")[2] &&
+            segments[1] === item.href.split("/")[1];
+          return (
+            <li class={`py-2 pr-2 pl-10 ${isActive ? "underline" : ""}`}>
+              <a
+                href={item.href}
+                class={`text-darkgreen text-sm leading-none font-medium block hover:underline hover:underline-offset-1 ${isActive ? "underline" : ""}`}
+              >
+                {item.title}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   )
 }
 
 <script>
-  class SidebarDropdown extends HTMLElement {
-    constructor() {
-      super();
-      const dropdown = this.querySelector(
-        `#${this.dataset.id} .${this.dataset.id}`
-      ) as HTMLElement;
-      const dropdownToggle = dropdown?.querySelector(".dropdown-items");
-      dropdownToggle?.classList.remove("hidden");
-    }
-  }
-  customElements.define("bd-sidebar-dropdown", SidebarDropdown);
+  document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll("button[aria-expanded]");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const button = event.currentTarget as HTMLButtonElement;
+        const dropdownId = button.getAttribute("data-dropdown-target");
+        const dropdown = document.getElementById(dropdownId);
+        const isExpanded = button.getAttribute("aria-expanded") === "true";
+
+        button.setAttribute("aria-expanded", (!isExpanded).toString());
+        dropdown.classList.toggle("hidden", isExpanded);
+        button
+          .querySelector("#sidebar-chevron")
+          .classList.toggle("rotate-180", !isExpanded);
+      });
+    });
+  });
 </script>
