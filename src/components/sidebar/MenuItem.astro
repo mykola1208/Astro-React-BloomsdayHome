@@ -12,10 +12,17 @@ const selectedMenu = segments[1];
   items.length == 0 ? (
     <a
       href={href}
-      class="flex items-center space-x-2 focus:bg-cream hover:bg-cream cursor-pointer rounded px-2 py-3"
+      class={`flex items-center space-x-2 focus:bg-cream hover:bg-cream cursor-pointer rounded px-2 py-3 ${title === "Notes" || title === "Photos" ? "cursor-not-allowed opacity-60 pointer-events-none" : ""}`}
     >
       <Icon name={icon} width={24} height={24} class="shrink-0" />
       <span class="text-darkgreen leading-4 grow font-medium">{title}</span>
+      {(title === "Notes" || title === "Photos") && (
+        <span>
+          <div class="text-xs not-italic font-medium leading-4 text-darkgreen border border-sage pl-2 pr-2 rounded-2xl bg-cream-light border-2">
+            Coming Soon
+          </div>
+        </span>
+      )}
     </a>
   ) : (
     <bd-sidebar-dropdown id={selectedMenu} data-id={selectedMenu}>
