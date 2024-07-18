@@ -4,11 +4,15 @@ import Dialog from "./Dialog";
 import { useFilesUploader } from "../../hooks/useFilesUploader";
 
 const ConfirmDialog = ({ file, id, setFile, currentUser }) => {
-  const { uploadFiles } = useFilesUploader({
+  const { uploadFiles, uploadStatus } = useFilesUploader({
     files: file ? [file] : [],
     currentUser: currentUser,
     id: id,
   });
+
+  async function uploadDocument() {
+    await uploadFiles();
+  }
 
   const fileList = file ? (
     <div className="flex">
@@ -29,28 +33,56 @@ const ConfirmDialog = ({ file, id, setFile, currentUser }) => {
   return (
     <>
       {file != null && (
-        <Dialog width="546px" height="304px" setFile={setFile}>
+        <Dialog width="546px" height="500px" setFile={setFile}>
           <div className="flex flex-col items-center justify-center py-2 h-full">
             <p className="text-3xl font-bold text-darkgreen">
               Confirm Document
             </p>
-            <div className="text-lg font-medium text-darkgreen mt-3 leading-6 w-full text-center">
-              {fileList}
-            </div>
-            <div className="flex gap-6 mt-7">
-              <button
-                className="py-3 px-14 border-2 border-darkgreen rounded-xl"
-                onClick={() => setFile(null)}
-              >
-                <p className="px-4 text-darkgreen">Cancel</p>
-              </button>
-              <button
-                className="py-3 px-14 bg-darkgreen rounded-xl border-2 border-darkgreen"
-                onClick={uploadFiles}
-              >
-                <p className="px-4 text-white">Confirm</p>
-              </button>
-            </div>
+            {uploadStatus.uploading ? (
+              <div className="flex items-center justify-center h-full">
+                <div className="text-center ml-5 mt-24">
+                  <ReactSVG
+                    src="/icons/uploading.svg"
+                    className="mx-auto mb-2"
+                  />
+                  <p className="text-base text-darkgreen not-italic font-medium mt-11">
+                    Your file is uploading.
+                  </p>
+                </div>
+              </div>
+            ) : uploadStatus.completed ? (
+              <div className="flex items-center justify-center h-full">
+                <div className="text-center ml-5 mt-24">
+                  <ReactSVG
+                    src="/icons/uploading-complete.svg"
+                    className="mx-auto mb-2"
+                  />
+                  <p className="text-base text-darkgreen not-italic font-medium mt-11">
+                    Upload complete!
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div className="text-lg font-medium text-darkgreen leading-6 w-full text-center mt-28">
+                  {fileList}
+                </div>
+                <div className="flex gap-6 mt-7">
+                  <button
+                    className="py-3 px-14 border-2 border-darkgreen rounded-xl"
+                    onClick={() => setFile(null)}
+                  >
+                    <p className="px-4 text-darkgreen">Cancel</p>
+                  </button>
+                  <button
+                    className="py-3 px-14 bg-darkgreen rounded-xl border-2 border-darkgreen"
+                    onClick={uploadDocument}
+                  >
+                    <p className="px-4 text-white">Confirm</p>
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </Dialog>
       )}

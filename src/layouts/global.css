@@ -441,3 +441,17 @@ canvas {
   object-fit: contain;
   border: 1px solid #ddd; /* Optional: for better visibility of the canvas boundary */
 }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Apply the spinning animation to the SVG */
+.animate-spin {
+  animation: spin 2s linear infinite;
+}

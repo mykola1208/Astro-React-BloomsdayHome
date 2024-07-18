@@ -66,13 +66,6 @@ const { id, title, description, width, height, titleClass } = Astro.props;
       const content = dialog.querySelector(".modal-content") as HTMLElement;
 
       closeButton.addEventListener("click", () => this.close(dialog));
-      dialog.addEventListener("click", (event) => {
-        if (
-          event.target != content &&
-          !content.contains(event.target as HTMLElement)
-        )
-          this.close(dialog);
-      });
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

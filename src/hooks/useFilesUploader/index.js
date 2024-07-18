@@ -1,3 +1,5 @@
+import { useState, useCallback } from "react";
+
 import uploadFileOnSignedUrl from "../../utils/upload-file-on-signed-url";
 import { navigate } from "astro/virtual-modules/transitions-router.js";
 import { GET_S3_SIGNED_URL } from "../../apollo/queries/getS3SignedUrl";
@@ -7,6 +9,11 @@ import { createApolloClient } from "../../apollo/client";
 
 export const useFilesUploader = ({ files, currentUser, id }) => {
   const { createClient } = createApolloClient();
+
+  const [uploadStatus, setUploadStatus] = useState({
+    uploading: false,
+    completed: false,
+  });
 
   let filename;
   async function uploadFile(file) {
@@ -56,13 +63,26 @@ export const useFilesUploader = ({ files, currentUser, id }) => {
     }
   }
 
-  async function uploadFiles() {
-    for (const file of files) {
-      await uploadFile(file);
+  const uploadFiles = useCallback(async () => {
+    if (files.length === 0) return;
+
+    setUploadStatus({ uploading: true, completed: false });
+
+    try {
+      for (const file of files) {
+        await uploadFile(file);
+      }
+      setUploadStatus({ uploading: false, completed: true });
+
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      window.location.reload();
+    } catch (error) {
+      setUploadStatus({ uploading: false, completed: false });
     }
-  }
+  }, [files, uploadFile]);
 
   return {
     uploadFiles,
+    uploadStatus,
   };
 };

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, Fragment } from "react";
 import { useDropzone } from "react-dropzone";
 import { ReactSVG } from "react-svg";
 import { useFilesUploader } from "../../hooks/useFilesUploader";
@@ -27,7 +27,7 @@ const DocumentUploader = ({ id, currentUser, mode }) => {
     multiple: false, // Only one file at a time
   });
 
-  const { uploadFiles } = useFilesUploader({
+  const { uploadFiles, uploadStatus } = useFilesUploader({
     files: file ? [file] : [],
     currentUser,
     id: id,
@@ -52,29 +52,59 @@ const DocumentUploader = ({ id, currentUser, mode }) => {
     </li>
   ) : null;
 
+  async function uploadDocument() {
+    await uploadFiles();
+  }
+
   return (
-    <div className="flex flex-col justify-between">
-      <div className="flex flex-col gap-4">
-        <Dropzone
-          getRootProps={getRootProps}
-          getInputProps={getInputProps}
-          open={open}
-          type="single"
-        />
-        <ul className="flex flex-col py-2 gap-3 grow h-12.5">{fileList}</ul>
-      </div>
-      <button
-        className={`flex justify-center items-center text-base not-italic font-medium ${
-          file ? "bg-darkgreen" : "bg-mint"
-        } rounded-lg h-12.5 mt-8`}
-        onClick={uploadFiles}
-        disabled={!file}
-      >
-        <span className={`${file ? "text-white" : "text-sage"}`}>
-          {mode == "upload" ? "Upload Document" : "Replace Document"}
-        </span>
-      </button>
-    </div>
+    <Fragment>
+      {uploadStatus.uploading ? (
+        <div className="flex items-center justify-center h-full">
+          <div className="text-center mt-28">
+            <ReactSVG src="/icons/uploading.svg" className="ml-4 mb-2" />
+            <p className="text-base text-darkgreen not-italic font-medium mt-11">
+              Your file is uploading.
+            </p>
+          </div>
+        </div>
+      ) : uploadStatus.completed ? (
+        <div className="flex items-center justify-center h-full">
+          <div className="text-center mt-28">
+            <ReactSVG
+              src="/icons/uploading-complete.svg"
+              className="ml-4 mb-2"
+            />
+            <p className="text-base text-darkgreen not-italic font-medium mt-11">
+              Upload complete!
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col justify-between">
+          <div className="flex flex-col gap-4">
+            <Dropzone
+              getRootProps={getRootProps}
+              getInputProps={getInputProps}
+              open={open}
+              type="single"
+            />
+            <ul className="flex flex-col py-2 gap-3 grow h-12.5">{fileList}</ul>
+          </div>
+          <button
+            id="uploadDocument"
+            className={`flex justify-center items-center text-base not-italic font-medium ${
+              file ? "bg-darkgreen" : "bg-mint"
+            } rounded-lg h-12.5 mt-8`}
+            onClick={uploadDocument}
+            disabled={!file}
+          >
+            <span className={`${file ? "text-white" : "text-sage"}`}>
+              {mode === "upload" ? "Upload Document" : "Replace Document"}
+            </span>
+          </button>
+        </div>
+      )}
+    </Fragment>
   );
 };
 
