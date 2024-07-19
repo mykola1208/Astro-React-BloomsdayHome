@@ -27,7 +27,7 @@ export const useFilesUploader = ({ files, currentUser, id }) => {
       const { data } = await client.query({
         query: GET_S3_SIGNED_URL,
         variables: {
-          filename: `${userId}/${filename}`,
+          filename: filename,
           contentType: contentType,
         },
       });

@@ -134,15 +134,6 @@ const user = await Astro.locals.currentUser();
     });
   });
 
-  // Retrieve the selected item from local storage
-  const activeItemId = localStorage.getItem("activeAccordionItem");
-  if (activeItemId) {
-    const activeItem = document.querySelector(`[data-id="${activeItemId}"]`);
-    if (activeItem) {
-      activeItem.classList.add("active");
-    }
-  }
-
   // Retrieve the expanded accordion state from local storage
   const expandedItemId = localStorage.getItem("expandedAccordionItem");
   if (expandedItemId) {
