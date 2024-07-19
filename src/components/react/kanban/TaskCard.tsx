@@ -37,6 +37,7 @@ const TaskCard = ({
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [date, setDate] = useState("Due Date");
 
   const handleToggle = () => {
     setOpen(!open);
@@ -179,8 +180,8 @@ const TaskCard = ({
                 </div>
               )}
             </div>
-            <div className="flex justify-between mt-5 gap-2">
-              <div className="flex grow justify-between">
+            <div className="flex mt-5 gap-7">
+              <div className="flex gap-5">
                 <button>
                   <ColoredSVG
                     src="/icons/view.svg"
@@ -249,7 +250,7 @@ const TaskCard = ({
                   />
                 </button>
               </div>
-              <div className="group relative pr-2 whitespace-nowrap">
+              <div className="group relative whitespace-nowrap">
                 <button
                   disabled={task.state == "hidden"}
                   className="flex items-center gap-1"
@@ -271,10 +272,17 @@ const TaskCard = ({
                       task.state != "hidden" && "text-darkgreen"
                     )}`}
                   >
-                    Due Date
+                    {date}
                   </p>
                 </button>
-                {isDatePickerOpen && <DatePicker id={task.id} />}
+                {isDatePickerOpen && (
+                  <DatePicker
+                    id={task.id}
+                    isDatePickerOpen={isDatePickerOpen}
+                    setDate={setDate}
+                    handleToggleDatePicker={handleToggleDatePicker}
+                  />
+                )}
               </div>
             </div>
           </div>

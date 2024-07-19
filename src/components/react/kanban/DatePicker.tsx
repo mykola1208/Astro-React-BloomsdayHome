@@ -22,7 +22,12 @@ const months = [
 
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const DatePicker = ({ id }) => {
+const DatePicker = ({
+  id,
+  isDatePickerOpen,
+  setDate,
+  handleToggleDatePicker,
+}) => {
   const [startDate, setStartDate] = useState(new Date());
   const { createClient } = createApolloClient();
 
@@ -31,9 +36,9 @@ const DatePicker = ({ id }) => {
   };
 
   const setTasksDueDate = async () => {
+    handleCancel();
     const client = await createClient();
     try {
-      console.log("id", id);
       const { data } = await client.mutate({
         mutation: SET_TASKS_DUE_DATE,
         variables: {
@@ -41,6 +46,7 @@ const DatePicker = ({ id }) => {
           due_at: startDate.toISOString(),
         },
       });
+      const date = data.update_tasks_by_pk.due_at;
     } catch (error) {
       throw new Error("Error set due date");
     }
@@ -48,6 +54,15 @@ const DatePicker = ({ id }) => {
 
   const handleSubmit = () => {
     setTasksDueDate();
+    setDate(
+      `${startDate.toLocaleString("default", {
+        month: "short",
+      })} ${startDate.getDate()}`
+    );
+  };
+
+  const handleCancel = () => {
+    handleToggleDatePicker(!isDatePickerOpen);
   };
 
   return (
@@ -92,7 +107,10 @@ const DatePicker = ({ id }) => {
         />
       </div>
       <div className="flex justify-between items-center gap-3 font-medium">
-        <button className="text-base text-darkgreen border border-darkgreen py-2 rounded-lg mt-8 grow">
+        <button
+          className="text-base text-darkgreen border border-darkgreen py-2 rounded-lg mt-8 grow"
+          onClick={() => handleCancel()}
+        >
           Cancel
         </button>
         <button
