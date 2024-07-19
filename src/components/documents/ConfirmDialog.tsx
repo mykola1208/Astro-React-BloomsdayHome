@@ -40,10 +40,10 @@ const ConfirmDialog = ({ file, id, setFile, currentUser }) => {
             </p>
             {uploadStatus.uploading ? (
               <div className="flex items-center justify-center h-full">
-                <div className="text-center ml-5 mt-24">
+                <div className="text-center mt-24">
                   <ReactSVG
                     src="/icons/uploading.svg"
-                    className="mx-auto mb-2"
+                    className="mx-auto ml-4 mb-2"
                   />
                   <p className="text-base text-darkgreen not-italic font-medium mt-11">
                     Your file is uploading.
@@ -52,7 +52,7 @@ const ConfirmDialog = ({ file, id, setFile, currentUser }) => {
               </div>
             ) : uploadStatus.completed ? (
               <div className="flex items-center justify-center h-full">
-                <div className="text-center ml-5 mt-24">
+                <div className="text-center mt-24">
                   <ReactSVG
                     src="/icons/uploading-complete.svg"
                     className="mx-auto mb-2"
@@ -64,10 +64,10 @@ const ConfirmDialog = ({ file, id, setFile, currentUser }) => {
               </div>
             ) : (
               <div>
-                <div className="text-lg font-medium text-darkgreen leading-6 w-full text-center mt-28">
+                <div className="text-lg font-medium text-darkgreen leading-6 w-full text-center mt-24">
                   {fileList}
                 </div>
-                <div className="flex gap-6 mt-7">
+                <div className="flex gap-6 mt-28">
                   <button
                     className="py-3 px-14 border-2 border-darkgreen rounded-xl"
                     onClick={() => setFile(null)}
