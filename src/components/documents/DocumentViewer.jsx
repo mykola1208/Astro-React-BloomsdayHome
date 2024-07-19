@@ -309,29 +309,20 @@ const DocumentViewer = ({ id, docUrl, user }) => {
                     />
                   )}
                 </button>
-                <button
-                  type="button"
-                  className="expand"
-                  onClick={handleToggleFullscreen}
-                >
-                  {isFullScreen ? (
-                    <ColoredSVG
-                      src="/icons/minimize.svg"
-                      width={24}
-                      height={24}
-                      className="shrink-0"
-                      color="white"
-                      mode="stroke"
-                    />
-                  ) : (
+                {!isFullScreen && (
+                  <button
+                    type="button"
+                    className="expand"
+                    onClick={handleToggleFullscreen}
+                  >
                     <ReactSVG
                       src="/icons/expand.svg"
                       width={24}
                       height={24}
                       className="shrink-0"
                     />
-                  )}
-                </button>
+                  </button>
+                )}
                 <button
                   type="button"
                   className="download"
@@ -355,48 +346,47 @@ const DocumentViewer = ({ id, docUrl, user }) => {
                     />
                   )}
                 </button>
-                <button
-                  type="button"
-                  className="upload"
-                  onClick={() => setIsDialogOpen(true)}
-                >
-                  {isFullScreen ? (
-                    <ColoredSVG
-                      src="/icons/upload.svg"
-                      width={24}
-                      height={24}
-                      className="shrink-0"
-                      color="white"
-                      mode="stroke"
-                    />
-                  ) : (
+                {!isFullScreen && (
+                  <button
+                    type="button"
+                    className="upload"
+                    onClick={() => setIsDialogOpen(true)}
+                  >
                     <ReactSVG
                       src="/icons/upload.svg"
                       width={24}
                       height={24}
                       className="shrink-0"
                     />
-                  )}
-                </button>
-                <button type="button" className="trash">
-                  {isFullScreen ? (
-                    <ColoredSVG
-                      src="/icons/trash.svg"
-                      width={24}
-                      height={24}
-                      className="shrink-0"
-                      color="white"
-                      mode="stroke"
-                    />
-                  ) : (
+                  </button>
+                )}
+                {!isFullScreen && (
+                  <button type="button" className="trash">
                     <ReactSVG
                       src="/icons/trash.svg"
                       width={24}
                       height={24}
                       className="shrink-0"
                     />
-                  )}
-                </button>
+                  </button>
+                )}
+
+                {isFullScreen && (
+                  <button
+                    type="button"
+                    className="shrink"
+                    onClick={handleToggleFullscreen}
+                  >
+                    <ColoredSVG
+                      src="/icons/minimize.svg"
+                      width={24}
+                      height={24}
+                      className="shrink-0"
+                      color="white"
+                      mode="stroke"
+                    />
+                  </button>
+                )}
               </div>
             </div>
             <div className="flex justify-center items-center overflow-auto h-full">
