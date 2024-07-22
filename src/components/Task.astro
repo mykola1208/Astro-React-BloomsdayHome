@@ -42,7 +42,7 @@ const flag =
   (!hasGroups && checkList.every(({ status }) => status));
 
 const handleGetFilename = (label) => {
-  const document = items.find(({ title }) => title == label).document;
+  const document = items?.find(({ title }) => title == label)?.document;
 
   return document?.filename;
 };

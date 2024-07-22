@@ -40,7 +40,7 @@ const handleGetKeyByHeader = (header) => {
 
 const handleFindItems = (header) => {
   const key = handleGetKeyByHeader(header);
-  const items = accordionItems.find((document) => document?.title == key).items;
+  const items = accordionItems?.find((document) => document?.title == key)?.items;
   return items;
 };
 ---
