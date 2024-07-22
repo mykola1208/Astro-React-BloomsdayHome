@@ -10,6 +10,8 @@ import { taskCategories } from "../../../data/data";
 import Dialog from "../Dialog";
 import DocumentUploader from "../DocumentUploader";
 import DatePicker from "./DatePicker";
+import { createApolloClient } from "../../../apollo/client";
+import { GET_FILE_DOWNLOAD_LINK } from "../../../apollo/queries/getFileDownloadLink";
 
 interface TaskCardProps {
   id: any;
@@ -33,6 +35,22 @@ const TaskCard = ({
   onStatusChange,
   currentUser,
 }: TaskCardProps) => {
+  const { createClient } = createApolloClient();
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    const getDownloadUrl = async () => {
+      const client = await createClient();
+      const { data } = await client.query({
+        query: GET_FILE_DOWNLOAD_LINK,
+        variables: {
+          filename: task.documents_tasks[0].document.filename,
+        },
+      });
+      setUrl(data.getS3SignedUrlForDownload.url);
+    };
+    getDownloadUrl();
+  }, []);
   const [open, setOpen] = useState(true);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
@@ -64,6 +82,26 @@ const TaskCard = ({
     setIsDatePickerOpen(!isDatePickerOpen);
   };
 
+  const handleDownload = () => {
+    const fileType = url.slice(-3);
+    const fileName = `document.${fileType}`;
+
+    fetch(url)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = downloadUrl;
+        link.setAttribute("download", fileName);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(downloadUrl);
+      })
+      .catch((error) =>
+        console.error(`Error downloading ${fileType} file:`, error)
+      );
+  };
   return (
     <Draggable draggableId={`${task.id}`} index={position}>
       {(provided, snapshot) => (
@@ -213,7 +251,7 @@ const TaskCard = ({
                     )}`}
                   />
                 </button>
-                <button>
+                <button onClick={handleDownload}>
                   <ColoredSVG
                     src="/icons/download.svg"
                     color={`${clsx(

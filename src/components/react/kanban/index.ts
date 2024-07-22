@@ -4,4 +4,5 @@ export interface ITask {
   task_category: string;
   title: string;
   description: string;
+  documents_tasks: any[];
 }
