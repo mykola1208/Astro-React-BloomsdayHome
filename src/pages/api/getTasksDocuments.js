@@ -7,6 +7,7 @@ const query = `
         document {
           filename
           uuid
+          updated_at
         }
       }
       task_category
@@ -16,7 +17,7 @@ const query = `
   }
 `;
 
-async function fetchDocumentsForCategory(graphqlEndpoint, token, id) {
+export async function fetchDocumentsForCategory(graphqlEndpoint, token, id) {
   try {
     const response = await fetch(graphqlEndpoint, {
       method: "POST",
@@ -41,12 +42,12 @@ async function fetchDocumentsForCategory(graphqlEndpoint, token, id) {
   }
 }
 
-export async function getDocumentsForCategory(graphqlEndpoint, token, id) {
+export async function getDocumentsForCategory(tasks, id) {
   if (requestParamIds[id] == undefined) {
     return [[], 0];
   }
 
-  let response = await fetchDocumentsForCategory(graphqlEndpoint, token, id);
+  let response = tasks;
   const sections = {};
 
   response.data.tasks.forEach((item) => {

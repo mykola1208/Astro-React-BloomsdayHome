@@ -8,7 +8,10 @@ import Dialog from "../../../components/Dialog.astro";
 import SuccessConfirmation from "../../../components/react/SuccessConfirmation.jsx";
 import BreadCrumbs from "../../../components/BreadCrumbs.astro";
 import ShowAddress from "../../../components/ShowAddress.astro";
-import { getDocumentsForCategory } from "../../api/getTasksDocuments.js";
+import {
+  getDocumentsForCategory,
+  fetchDocumentsForCategory,
+} from "../../api/getTasksDocuments.js";
 import { getS3SignedUrlForDownload } from "../../api/getS3SignedUrlForDownload";
 
 const { id, name } = Astro.params;
@@ -31,11 +34,9 @@ const transformString = (inputString) => {
 
 const breadcrumbs_title = transformString(id);
 
-const accordionItems = await getDocumentsForCategory(
-  graphqlEndpoint,
-  token,
-  id
-);
+const tasks = await fetchDocumentsForCategory(graphqlEndpoint, token, id);
+
+const accordionItems = await getDocumentsForCategory(tasks, id);
 
 const s3UrlForDownload =
   decodeURIComponent(name) != "new"
@@ -89,6 +90,7 @@ const s3UrlForDownload =
             id={id}
             docUrl={s3UrlForDownload}
             user={user}
+            allTask={tasks.data.tasks}
             client:only="react"
           />
         </div>

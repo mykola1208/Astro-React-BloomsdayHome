@@ -4,16 +4,14 @@ import { getDocument, GlobalWorkerOptions } from "pdfjs-dist";
 import { clsx } from "clsx/lite";
 import DocumentUploader from "../react/DocumentUploader";
 import Dialog from "../react/Dialog";
-import { createApolloClient } from "../../apollo/client";
-import { requestParamIds } from "../../data/data";
-import { GET_TASKS_BY_STAGE } from "../../apollo/queries/getTasksByStage";
 import "pdfjs-dist/build/pdf.worker.min.mjs";
 import Browse from "./Browse";
 import ColoredSVG from "../react/ColoredSVG";
+import moment from 'moment';
 
 GlobalWorkerOptions.workerSrc = "pdfjs-dist/build/pdf.worker.min.js";
 
-const DocumentViewer = ({ id, docUrl, user }) => {
+const DocumentViewer = ({ id, docUrl, user, allTask }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const hideDocumentUploaderDialog = () => {
     setIsDialogOpen(false);
@@ -21,8 +19,9 @@ const DocumentViewer = ({ id, docUrl, user }) => {
   const url = docUrl;
   const folder = localStorage.getItem("activeAccordionContent");
   const [extension, setExtension] = useState();
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(allTask);
   const [task_id, setTaskId] = useState();
+  const [taskDate, setTaskDate] = useState();
   const [pdfDoc, setPdfDoc] = useState(null);
   const [scale, setScale] = useState(1);
   const [page, setPage] = useState(1);
@@ -31,8 +30,6 @@ const DocumentViewer = ({ id, docUrl, user }) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const canvasRef = useRef(null);
   const pdfViewerRef = useRef(null);
-
-  const { createClient } = createApolloClient();
 
   useEffect(() => {
     const loadDocument = async () => {
@@ -66,28 +63,18 @@ const DocumentViewer = ({ id, docUrl, user }) => {
   }, [pdfDoc, page, scale]);
 
   useEffect(() => {
-    async function getTasks() {
-      const client = await createClient();
-      const { data } = await client.query({
-        query: GET_TASKS_BY_STAGE,
-        variables: {
-          task_stage: requestParamIds[id],
-        },
-      });
-
-      setTasks(data.tasks.map((item) => ({ ...item })));
-    }
-    getTasks();
-  }, []);
-
-  useEffect(() => {
     tasks.forEach((task) => {
       compare(task, folder);
     });
   }, [folder, tasks]);
 
   const compare = (task, folder) => {
-    if (task.title === folder.trim()) setTaskId(task.id);
+    if (task.title === folder.trim()){
+      setTaskId(task.id);
+      
+      const formattedDate = moment(task.documents_tasks[0]?.document.updated_at).format('M/D/YY');
+      setTaskDate(formattedDate);
+    } 
   };
 
   const getFileType = (url) => {
@@ -212,7 +199,7 @@ const DocumentViewer = ({ id, docUrl, user }) => {
                 <p className="text-xl font-bold" id="kind">
                   {folder}
                 </p>
-                <p className="text-sm font-normal">Uploaded on 2/19/24</p>
+                <p className="text-sm font-normal">Uploaded on {taskDate}</p>
               </div>
               <div className="basis-1/3 flex justify-center items-center gap-2">
                 <button type="button" className="prev" onClick={handlePrev}>
