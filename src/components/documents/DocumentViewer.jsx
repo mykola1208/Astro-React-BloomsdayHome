@@ -7,11 +7,18 @@ import Dialog from "../react/Dialog";
 import "pdfjs-dist/build/pdf.worker.min.mjs";
 import Browse from "./Browse";
 import ColoredSVG from "../react/ColoredSVG";
-import moment from 'moment';
+import moment from "moment";
 
 GlobalWorkerOptions.workerSrc = "pdfjs-dist/build/pdf.worker.min.js";
 
-const DocumentViewer = ({ id, docUrl, user, allTask }) => {
+const DocumentViewer = ({
+  id,
+  docUrl,
+  user,
+  allTask,
+  mode = "view",
+  handleClosePreview,
+}) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const hideDocumentUploaderDialog = () => {
     setIsDialogOpen(false);
@@ -63,18 +70,24 @@ const DocumentViewer = ({ id, docUrl, user, allTask }) => {
   }, [pdfDoc, page, scale]);
 
   useEffect(() => {
-    tasks.forEach((task) => {
+    tasks?.forEach((task) => {
       compare(task, folder);
     });
   }, [folder, tasks]);
 
+  useEffect(() => {
+    if (mode == "preview") handleToggleFullscreen();
+  }, []);
+
   const compare = (task, folder) => {
-    if (task.title === folder.trim()){
+    if (task.title === folder.trim()) {
       setTaskId(task.id);
-      
-      const formattedDate = moment(task.documents_tasks[0]?.document.updated_at).format('M/D/YY');
+
+      const formattedDate = moment(
+        task.documents_tasks[0]?.document.updated_at
+      ).format("M/D/YY");
       setTaskDate(formattedDate);
-    } 
+    }
   };
 
   const getFileType = (url) => {
@@ -362,7 +375,10 @@ const DocumentViewer = ({ id, docUrl, user, allTask }) => {
                   <button
                     type="button"
                     className="shrink"
-                    onClick={handleToggleFullscreen}
+                    onClick={() => {
+                      handleToggleFullscreen();
+                      if (mode == "preview") handleClosePreview();
+                    }}
                   >
                     <ColoredSVG
                       src="/icons/minimize.svg"

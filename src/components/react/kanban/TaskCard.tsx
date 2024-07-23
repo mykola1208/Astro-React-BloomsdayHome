@@ -12,6 +12,7 @@ import DocumentUploader from "../DocumentUploader";
 import DatePicker from "./DatePicker";
 import { createApolloClient } from "../../../apollo/client";
 import { GET_FILE_DOWNLOAD_LINK } from "../../../apollo/queries/getFileDownloadLink";
+import DocumentViewer from "../../documents/DocumentViewer"; // Import a PDF viewer component or similar
 
 interface TaskCardProps {
   id: any;
@@ -44,18 +45,20 @@ const TaskCard = ({
       const { data } = await client.query({
         query: GET_FILE_DOWNLOAD_LINK,
         variables: {
-          filename: task.documents_tasks[0].document.filename,
+          filename: task?.documents_tasks[0]?.document?.filename,
         },
       });
       setUrl(data.getS3SignedUrlForDownload.url);
     };
     getDownloadUrl();
   }, []);
+
   const [open, setOpen] = useState(true);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [date, setDate] = useState("Due Date");
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false); // State for preview modal
 
   const handleToggle = () => {
     setOpen(!open);
@@ -82,6 +85,11 @@ const TaskCard = ({
     setIsDatePickerOpen(!isDatePickerOpen);
   };
 
+  const handlePreview = (title) => {
+    localStorage.setItem("activeAccordionContent", title);
+    setIsPreviewOpen(true);
+  };
+
   const handleDownload = () => {
     const fileType = url.slice(-3);
     const fileName = `document.${fileType}`;
@@ -102,6 +110,11 @@ const TaskCard = ({
         console.error(`Error downloading ${fileType} file:`, error)
       );
   };
+
+  const handleClosePreview = () => {
+    setIsPreviewOpen(false);
+  };
+
   return (
     <Draggable draggableId={`${task.id}`} index={position}>
       {(provided, snapshot) => (
@@ -220,7 +233,7 @@ const TaskCard = ({
             </div>
             <div className="flex mt-5 gap-7">
               <div className="flex gap-5">
-                <button>
+                <button onClick={() => handlePreview(task.title)}>
                   <ColoredSVG
                     src="/icons/view.svg"
                     color={`${clsx(
@@ -338,6 +351,23 @@ const TaskCard = ({
                 />
               </Dialog>
             </div>
+          )}
+          {isPreviewOpen && (
+            <Dialog
+              hideDialog={handleClosePreview}
+              width="1000px"
+              height="900px"
+              mode="preview"
+            >
+              <DocumentViewer
+                id={id}
+                docUrl={url}
+                user={currentUser}
+                mode="preview"
+                allTask={[]}
+                handleClosePreview={handleClosePreview}
+              />
+            </Dialog>
           )}
         </div>
       )}

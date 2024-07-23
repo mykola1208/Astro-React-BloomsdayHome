@@ -49,7 +49,7 @@ const Dialog: React.FC<PropsWithChildren<DialogProps>> = ({
               </div>
               <div className="flex flex-col gap-3">
                 <p className="text-darkgreen font-normal text-4xl">
-                  {mode == "upload" ? "Upload" : "Replace"} Document
+                  {mode == "upload" ? "Upload" : mode == "replace" ? "Replace":"Preview"} Document
                 </p>
                 <div>{children}</div>
               </div>

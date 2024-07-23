@@ -9,7 +9,7 @@ const token = await Astro.locals.auth().getToken({ template: "hasura" });
 
 const task_counts_by_stage = await getTaskCountsByStage(graphqlEndpoint, token);
 
-const consolidatedObject = task_counts_by_stage.reduce(
+const consolidatedObject = task_counts_by_stage?.reduce(
   (acc, { task_stage, state, count }) => {
     if (!acc[task_stage]) {
       acc[task_stage] = { not_started: 0, total: 0 };
