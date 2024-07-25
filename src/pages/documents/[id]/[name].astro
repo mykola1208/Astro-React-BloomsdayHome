@@ -133,11 +133,13 @@ const s3UrlForDownload =
 <script>
   window.addEventListener("load", () => {
     let current_path = window.location.pathname;
-    current_path = current_path.substring(0, current_path.lastIndexOf("/"));
-    let previouse_path = document.referrer;
-    if (!previouse_path.includes(current_path)) {
-      document.getElementById("documentViewer").style.display = "none";
-      document.getElementById("selectOption").style.display = "block";
+    if (current_path.includes("/new")) {
+      current_path = current_path.substring(0, current_path.lastIndexOf("/"));
+      let previouse_path = document.referrer;
+      if (!previouse_path.includes(current_path)) {
+        document.getElementById("documentViewer").style.display = "none";
+        document.getElementById("selectOption").style.display = "block";
+      }
     }
   });
 </script>
