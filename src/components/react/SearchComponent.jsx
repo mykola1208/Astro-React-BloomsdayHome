@@ -8,6 +8,8 @@ import { GET_DOCUMENT_TASKS } from "../../apollo/queries/getDocumentTask";
 import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 const appId = import.meta.env.PUBLIC_ALGOLIA_APP_ID;
+const indexPrefix = appId === "E6DMXN0M5J" ? "staging" : "production";
+const searchIndex = `${indexPrefix}_documents`;
 
 function SearchComponent({ securedApiKey }) {
   const [loaded, setLoaded] = useState(false);
@@ -79,7 +81,7 @@ function SearchComponent({ securedApiKey }) {
       className="flex items-center"
       style={{ visibility: loaded ? "visible" : "hidden" }}
     >
-      <InstantSearch searchClient={searchClient} indexName="staging_documents">
+      <InstantSearch searchClient={searchClient} indexName={searchIndex}>
         <SearchBox
           submitIconComponent={() => <ReactSVG src="/icons/search.svg" />}
           placeholder="What can we help you find...."
