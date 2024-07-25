@@ -237,8 +237,12 @@ const TaskCard = ({
                   <ColoredSVG
                     src="/icons/view.svg"
                     color={`${clsx(
-                      (task.state == "not_started" ||
-                        task.state == "in_progress") &&
+                      task.state == "not_started" && "#9FBCAD",
+                      task.state == "in_progress" &&
+                        task?.documents_tasks?.length > 0 &&
+                        "#1C4835",
+                      task.state == "in_progress" &&
+                        task?.documents_tasks?.length == 0 &&
                         "#9FBCAD",
                       task.state == "completed" && "#1C4835",
                       task.state == "hidden" && "#C1C7CD"
@@ -268,8 +272,12 @@ const TaskCard = ({
                   <ColoredSVG
                     src="/icons/download.svg"
                     color={`${clsx(
-                      (task.state == "not_started" ||
-                        task.state == "in_progress") &&
+                      task.state == "not_started" && "#9FBCAD",
+                      task.state == "in_progress" &&
+                        task?.documents_tasks?.length > 0 &&
+                        "#1C4835",
+                      task.state == "in_progress" &&
+                        task?.documents_tasks?.length == 0 &&
                         "#9FBCAD",
                       task.state == "completed" && "#1C4835",
                       task.state == "hidden" && "#C1C7CD"
@@ -280,8 +288,12 @@ const TaskCard = ({
                   <ColoredSVG
                     src="/icons/share.svg"
                     color={`${clsx(
-                      (task.state == "not_started" ||
-                        task.state == "in_progress") &&
+                      task.state == "not_started" && "#9FBCAD",
+                      task.state == "in_progress" &&
+                        task?.documents_tasks?.length > 0 &&
+                        "#1C4835",
+                      task.state == "in_progress" &&
+                        task?.documents_tasks?.length == 0 &&
                         "#9FBCAD",
                       task.state == "completed" && "#1C4835",
                       task.state == "hidden" && "#C1C7CD"
@@ -292,8 +304,12 @@ const TaskCard = ({
                   <ColoredSVG
                     src="/icons/trash.svg"
                     color={`${clsx(
-                      (task.state == "not_started" ||
-                        task.state == "in_progress") &&
+                      task.state == "not_started" && "#9FBCAD",
+                      task.state == "in_progress" &&
+                        task?.documents_tasks?.length > 0 &&
+                        "#1C4835",
+                      task.state == "in_progress" &&
+                        task?.documents_tasks?.length == 0 &&
                         "#9FBCAD",
                       task.state == "completed" && "#1C4835",
                       task.state == "hidden" && "#C1C7CD"
@@ -343,11 +359,12 @@ const TaskCard = ({
                 width="449px"
                 height="590px"
                 hideDialog={hideDocumentUploaderDialog}
+                mode={task.documents_tasks.length > 0 ? "replace" : "upload"}
               >
                 <DocumentUploader
                   id={id}
                   currentUser={currentUser}
-                  mode={task.state == "completed" ? "replace" : "upload"}
+                  mode={task.documents_tasks.length > 0 ? "replace" : "upload"}
                 />
               </Dialog>
             </div>
