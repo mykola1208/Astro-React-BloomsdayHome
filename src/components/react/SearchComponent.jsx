@@ -8,8 +8,7 @@ import { GET_DOCUMENT_TASKS } from "../../apollo/queries/getDocumentTask";
 import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 const appId = import.meta.env.PUBLIC_ALGOLIA_APP_ID;
-const indexPrefix = appId === "E6DMXN0M5J" ? "staging" : "production";
-const searchIndex = `${indexPrefix}_documents`;
+const searchIndex = import.meta.env.PUBLIC_ALGOLIA_SEARCH_INDEX || "staging_documents";
 
 function SearchComponent({ securedApiKey }) {
   const [loaded, setLoaded] = useState(false);

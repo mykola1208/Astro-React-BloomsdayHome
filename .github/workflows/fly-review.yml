@@ -35,7 +35,7 @@ jobs:
         uses: frontjutsu/fly-pr-review-apps@8d74475d93615fafae47a6698d174e2055e3d2be
         with:
           name: dhamira-bloomsday-astro-pr-${{ github.event.number }}
-          secrets: CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY=${{ secrets.PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY }} PUBLIC_GETSTREAM_APP_ID=${{ secrets.PUBLIC_GETSTREAM_APP_ID }} PUBLIC_GETSTREAM_FEED_KEY=${{ secrets.PUBLIC_GETSTREAM_FEED_KEY }} GETSTREAM_FEED_SECRET=${{ secrets.GETSTREAM_FEED_SECRET }} ALGOLIA_ADMIN_KEY=${{ secrets.ALGOLIA_ADMIN_KEY }} ALGOLIA_SEARCH_KEY=${{ secrets.ALGOLIA_SEARCH_KEY }} PUBLIC_ALGOLIA_APP_ID=${{ secrets.PUBLIC_ALGOLIA_APP_ID }} PUBLIC_HASURA_BASE_URL=https://bloomsday.hasura.app/v1/graphql STORYBLOK_TOKEN=${{ secrets.STORYBLOK_TOKEN }}
+          secrets: CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY=${{ secrets.PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY }} PUBLIC_GETSTREAM_APP_ID=${{ secrets.PUBLIC_GETSTREAM_APP_ID }} PUBLIC_GETSTREAM_FEED_KEY=${{ secrets.PUBLIC_GETSTREAM_FEED_KEY }} GETSTREAM_FEED_SECRET=${{ secrets.GETSTREAM_FEED_SECRET }} ALGOLIA_ADMIN_KEY=${{ secrets.ALGOLIA_ADMIN_KEY }} ALGOLIA_SEARCH_KEY=${{ secrets.ALGOLIA_SEARCH_KEY }} PUBLIC_ALGOLIA_APP_ID=${{ secrets.PUBLIC_ALGOLIA_APP_ID }} PUBLIC_HASURA_BASE_URL=https://bloomsday.hasura.app/v1/graphql STORYBLOK_TOKEN=${{ secrets.STORYBLOK_TOKEN }} PUBLIC_ALGOLIA_SEARCH_INDEX=staging_documents
           build_secrets: |
             CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }}
             PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY=${{ secrets.PUBLIC_ASTRO_APP_CLERK_PUBLISHABLE_KEY }}
@@ -47,4 +47,5 @@ jobs:
             PUBLIC_ALGOLIA_APP_ID=${{ secrets.PUBLIC_ALGOLIA_APP_ID }}
             PUBLIC_HASURA_BASE_URL=https://bloomsday.hasura.app/v1/graphql
             STORYBLOK_TOKEN=${{ secrets.STORYBLOK_TOKEN }}
+            PUBLIC_ALGOLIA_SEARCH_INDEX=staging_documents
 
