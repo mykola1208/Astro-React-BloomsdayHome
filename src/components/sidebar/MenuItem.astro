@@ -26,7 +26,7 @@ const selectedMenu = segments[1];
   ) : (
     <div class="relative">
       <button
-        class="flex items-center space-x-2 focus:bg-cream hover:bg-cream cursor-pointer rounded px-2 py-3 w-full"
+        class="flex items-center space-x-2 focus:bg-cream hover:bg-cream cursor-pointer rounded px-2 py-3 w-full sidebar-button"
         aria-expanded={selectedMenu == icon ? "true" : "false"}
         data-dropdown-target={`dropdown-${icon}`}
       >
@@ -69,7 +69,7 @@ const selectedMenu = segments[1];
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const buttons = document.querySelectorAll("button[aria-expanded]");
+    const buttons = document.querySelectorAll(".sidebar-button");
 
     buttons.forEach((button) => {
       button.addEventListener("click", (event) => {

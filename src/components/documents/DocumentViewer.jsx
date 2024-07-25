@@ -80,7 +80,7 @@ const DocumentViewer = ({
   }, []);
 
   const compare = (task, folder) => {
-    if (task.title === folder.trim()) {
+    if (task.title === folder?.trim()) {
       setTaskId(task.id);
 
       const formattedDate = moment(

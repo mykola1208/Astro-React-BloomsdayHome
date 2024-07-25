@@ -140,17 +140,4 @@ const s3UrlForDownload =
       document.getElementById("selectOption").style.display = "block";
     }
   });
-  const button = document.querySelector("#share");
-  const sharePackageDialog = document.querySelector("#share-package-dialog");
-  button.addEventListener("click", () => {
-    sharePackageDialog.setAttribute("open", "true");
-    const sharePackageButton = document.querySelector("#share-package-button");
-    const successConfirmationDialog = document.querySelector(
-      "#success-confirmation-dialog"
-    );
-    sharePackageButton.addEventListener("click", () => {
-      sharePackageDialog.setAttribute("open", "false");
-      successConfirmationDialog.setAttribute("open", "true");
-    });
-  });
 </script>

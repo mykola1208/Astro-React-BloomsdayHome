@@ -45,7 +45,7 @@ const user = await Astro.locals.currentUser();
             data-id={`accordion-item-${itemIndex}`}
           >
             <button
-              class={`flex items-center space-x-2 focus:bg-cream cursor-pointer px-2 py-3 w-full ${itemIndex == 0 && "rounded-t-lg"} ${itemIndex == accordionItems.length - 1 && "rounded-b-lg"}`}
+              class={`flex items-center space-x-2 focus:bg-cream cursor-pointer px-2 py-3 w-full documents-button ${itemIndex == 0 && "rounded-t-lg"} ${itemIndex == accordionItems.length - 1 && "rounded-b-lg"}`}
               aria-controls={`accordion${randomId}`}
               aria-expanded={isExpanded ? "true" : "false"}
             >
@@ -63,7 +63,7 @@ const user = await Astro.locals.currentUser();
               <ul>
                 {items?.map((item) => (
                   <li
-                    class={`py-3 pl-8 bg-white border-t border-sage hover:underline hover:underline-offset-2 cursor-pointer  ${item.document == undefined ? "text-sage " : "text-darkgreen"}`}
+                    class={`py-3 pl-8 bg-white border-t border-sage hover:underline hover:underline-offset-2 cursor-pointer documents-li  ${item.document == undefined ? "text-sage " : "text-darkgreen"}`}
                     id={`item-${index++}`}
                     data-id={`item-${index - 1}`}
                   >
@@ -86,9 +86,8 @@ const user = await Astro.locals.currentUser();
 <script>
   import { kind } from "../../store";
 
-  const accordion = document.getElementById("document-accordion");
-  const buttons = accordion.querySelectorAll("button");
-  const lis = accordion.querySelectorAll("li");
+  const buttons = document.querySelectorAll(".documents-button");
+  const lis = document.querySelectorAll(".documents-li");
 
   buttons[0].classList.add("rounded-t-lg");
   lis[lis.length - 1].classList.add("rounded-b-lg");
@@ -158,8 +157,12 @@ const user = await Astro.locals.currentUser();
         li.classList.add("active");
         // Ensure the parent accordion item is expanded
         const parentAccordionItem = li.closest(".accordion-item");
-        const parentButton = parentAccordionItem.querySelector("button[aria-expanded]");
-        const parentBody = document.querySelector(`#${parentButton.getAttribute("aria-controls")}`);
+        const parentButton = parentAccordionItem.querySelector(
+          "button[aria-expanded]"
+        );
+        const parentBody = document.querySelector(
+          `#${parentButton.getAttribute("aria-controls")}`
+        );
         parentButton.setAttribute("aria-expanded", "true");
         parentBody.removeAttribute("hidden");
       }
