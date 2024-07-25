@@ -83,20 +83,21 @@ const handleFindItems = (header) => {
             <div class="flex flex-col basis-3/4 pl-9">
               <div class="flex justify-between items-center font-medium">
                 {
-                  tasks[requestParamIds[id]]?.tasks != undefined &&
-                  incompleteTasksCount > 0 ? (
-                    <div class="flex justify-between items-center content-center">
-                      <p class="text-lg not-italic font-medium leading-6">
-                        You have{" "}
-                        <span class="font-bold">
-                          {incompleteTasksCount} tasks
-                        </span>{" "}
-                        to complete.
-                      </p>
-                    </div>
-                  ) : (
-                    <div />
-                  )
+                  tasks != undefined &&
+                    (tasks[requestParamIds[id]]?.tasks != undefined &&
+                    incompleteTasksCount > 0 ? (
+                      <div class="flex justify-between items-center content-center">
+                        <p class="text-lg not-italic font-medium leading-6">
+                          You have{" "}
+                          <span class="font-bold">
+                            {incompleteTasksCount} tasks
+                          </span>{" "}
+                          to complete.
+                        </p>
+                      </div>
+                    ) : (
+                      <div />
+                    ))
                 }
                 <div class="flex gap-3">
                   <a
@@ -114,7 +115,8 @@ const handleFindItems = (header) => {
               </div>
               <div class="grid-cols-4 grid gap-3.5 mt-5">
                 {
-                  tasks[requestParamIds[id]]?.tasks != undefined &&
+                  tasks != undefined &&
+                    tasks[requestParamIds[id]]?.tasks != undefined &&
                     tasks[requestParamIds[id]].tasks.map(
                       ({ headerIcon, header, checkList }) => (
                         <div>

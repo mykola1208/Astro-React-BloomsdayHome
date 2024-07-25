@@ -34,7 +34,7 @@ const task_categories = [
 let taskStageWorkingOn = 'get-prepared';
 
 for (const category of task_categories) {
-  if (consolidatedObject[category]?.not_started != 0) {
+  if (consolidatedObject!= undefined && consolidatedObject[category]?.not_started != 0) {
     taskStageWorkingOn = category.replace(/_/g, '-');
     break;
   }

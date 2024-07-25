@@ -231,9 +231,9 @@ const TaskCard = ({
                 </div>
               )}
             </div>
-            <div className="flex mt-5 gap-7">
-              <div className="flex gap-5">
-                <button onClick={() => handlePreview(task.title)}>
+            <div className="flex mt-5 justify-between">
+              <div className="flex grow justify-between mr-4">
+                <button>
                   <ColoredSVG
                     src="/icons/view.svg"
                     color={`${clsx(
@@ -286,22 +286,6 @@ const TaskCard = ({
                 </button>
                 <button>
                   <ColoredSVG
-                    src="/icons/share.svg"
-                    color={`${clsx(
-                      task.state == "not_started" && "#9FBCAD",
-                      task.state == "in_progress" &&
-                        task?.documents_tasks?.length > 0 &&
-                        "#1C4835",
-                      task.state == "in_progress" &&
-                        task?.documents_tasks?.length == 0 &&
-                        "#9FBCAD",
-                      task.state == "completed" && "#1C4835",
-                      task.state == "hidden" && "#C1C7CD"
-                    )}`}
-                  />
-                </button>
-                <button>
-                  <ColoredSVG
                     src="/icons/trash.svg"
                     color={`${clsx(
                       task.state == "not_started" && "#9FBCAD",
@@ -317,7 +301,7 @@ const TaskCard = ({
                   />
                 </button>
               </div>
-              <div className="group relative whitespace-nowrap">
+              <div className="group relative mr-3">
                 <button
                   disabled={task.state == "hidden"}
                   className="flex items-center gap-1"
