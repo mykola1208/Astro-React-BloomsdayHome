@@ -11,23 +11,23 @@ import {
 import ShowAddress from "../../components/ShowAddress.astro";
 import Stepper from "../../components/Stepper.astro";
 import { getTasks } from "../api/getTasks";
-import { getDocumentsForCategory } from "../api/getTasksDocuments";
+import {
+  getDocumentsForCategory,
+  fetchDocumentsForCategory,
+} from "../api/getTasksDocuments";
 
 const graphqlEndpoint = import.meta.env.PUBLIC_HASURA_BASE_URL;
 const token = await Astro.locals.auth().getToken({ template: "hasura" });
 const { id } = Astro.params;
 
-const [tasks, incompleteTasksCount] = await getTasks(
+const [structuredTasks, incompleteTasksCount] = await getTasks(
   graphqlEndpoint,
   token,
   id
 );
 
-const accordionItems = await getDocumentsForCategory(
-  graphqlEndpoint,
-  token,
-  id
-);
+const response = await fetchDocumentsForCategory(graphqlEndpoint, token, id);
+const accordionItems = await getDocumentsForCategory(response, id);
 
 const handleGetKeyByHeader = (header) => {
   for (const [key, value] of Object.entries(taskCategories)) {
@@ -40,7 +40,9 @@ const handleGetKeyByHeader = (header) => {
 
 const handleFindItems = (header) => {
   const key = handleGetKeyByHeader(header);
-  const items = accordionItems?.find((document) => document?.title == key)?.items;
+  const items = accordionItems?.find(
+    (document) => document?.title == key
+  )?.items;
   return items;
 };
 ---
@@ -83,8 +85,8 @@ const handleFindItems = (header) => {
             <div class="flex flex-col basis-3/4 pl-9">
               <div class="flex justify-between items-center font-medium">
                 {
-                  tasks != undefined &&
-                    (tasks[requestParamIds[id]]?.tasks != undefined &&
+                  structuredTasks != undefined &&
+                    (structuredTasks[requestParamIds[id]]?.tasks != undefined &&
                     incompleteTasksCount > 0 ? (
                       <div class="flex justify-between items-center content-center">
                         <p class="text-lg not-italic font-medium leading-6">
@@ -115,9 +117,9 @@ const handleFindItems = (header) => {
               </div>
               <div class="grid-cols-4 grid gap-3.5 mt-5">
                 {
-                  tasks != undefined &&
-                    tasks[requestParamIds[id]]?.tasks != undefined &&
-                    tasks[requestParamIds[id]].tasks.map(
+                  structuredTasks != undefined &&
+                    structuredTasks[requestParamIds[id]]?.tasks != undefined &&
+                    structuredTasks[requestParamIds[id]].tasks.map(
                       ({ headerIcon, header, checkList }) => (
                         <div>
                           <Task
