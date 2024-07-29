@@ -238,13 +238,14 @@ const TaskCard = ({
                     src="/icons/view.svg"
                     color={`${clsx(
                       task.state == "not_started" && "#9FBCAD",
-                      task.state == "in_progress" &&
+                      (task.state == "in_progress" ||
+                        task.state == "completed") &&
                         task?.documents_tasks?.length > 0 &&
                         "#1C4835",
-                      task.state == "in_progress" &&
+                      (task.state == "in_progress" ||
+                        task.state == "completed") &&
                         task?.documents_tasks?.length == 0 &&
                         "#9FBCAD",
-                      task.state == "completed" && "#1C4835",
                       task.state == "hidden" && "#C1C7CD"
                     )}`}
                   />
@@ -273,13 +274,14 @@ const TaskCard = ({
                     src="/icons/download.svg"
                     color={`${clsx(
                       task.state == "not_started" && "#9FBCAD",
-                      task.state == "in_progress" &&
+                      (task.state == "in_progress" ||
+                        task.state == "completed") &&
                         task?.documents_tasks?.length > 0 &&
                         "#1C4835",
-                      task.state == "in_progress" &&
+                      (task.state == "in_progress" ||
+                        task.state == "completed") &&
                         task?.documents_tasks?.length == 0 &&
                         "#9FBCAD",
-                      task.state == "completed" && "#1C4835",
                       task.state == "hidden" && "#C1C7CD"
                     )}`}
                   />
@@ -289,13 +291,14 @@ const TaskCard = ({
                     src="/icons/trash.svg"
                     color={`${clsx(
                       task.state == "not_started" && "#9FBCAD",
-                      task.state == "in_progress" &&
+                      (task.state == "in_progress" ||
+                        task.state == "completed") &&
                         task?.documents_tasks?.length > 0 &&
                         "#1C4835",
-                      task.state == "in_progress" &&
+                      (task.state == "in_progress" ||
+                        task.state == "completed") &&
                         task?.documents_tasks?.length == 0 &&
                         "#9FBCAD",
-                      task.state == "completed" && "#1C4835",
                       task.state == "hidden" && "#C1C7CD"
                     )}`}
                   />
