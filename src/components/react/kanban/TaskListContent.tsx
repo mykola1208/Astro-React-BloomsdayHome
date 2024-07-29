@@ -87,7 +87,7 @@ const TaskListContent = ({ currentUser, id }) => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="relative flex gap-4">
+      <div className="relative grid grid-cols-4 gap-4">
         {statuses.map((status) => (
           <TaskColumn
             id={id}

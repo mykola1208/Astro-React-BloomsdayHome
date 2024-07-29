@@ -31,7 +31,7 @@ const task_categories = [
   "moving_in",
 ];
 
-let taskStageWorkingOn = 'get-prepared';
+let taskStageWorkingOn = "get-prepared";
 
 for (const category of task_categories) {
   if (consolidatedObject!= undefined && consolidatedObject[category]?.not_started != 0) {
@@ -43,7 +43,10 @@ for (const category of task_categories) {
 const homeURL = `/progress-tracker/${taskStageWorkingOn}`;
 ---
 
-<div class="min-h-screen h-[100%] bg-putty py-6 px-4 w-65">
+<div
+  class="bg-putty py-6 px-4 w-65 flex flex-col justify-between"
+  id="sidebar"
+>
   <Astronav>
     <MenuItems class="flex">
       <ul class="flex flex-col w-full">
@@ -62,4 +65,24 @@ const homeURL = `/progress-tracker/${taskStageWorkingOn}`;
       </ul>
     </MenuItems>
   </Astronav>
+  <div class="text-darkgreen flex flex-col justify-between gap-8">
+    <div class="flex flex-col gap-2">
+      <p class="text-base font-bold">Need support?</p>
+      <p class="text-sm font-medium">
+        Email our customer support team to submit product feedback or to request
+        help
+      </p>
+      <a
+        href="mailto:dolly@bloomsdayhome.com?subject=Product%20Feedback%20/%20Product%20Help"
+      >
+        <button class="border rounded-lg border-darkgreen p-2 mr-20"
+          >Email Support</button
+        >
+      </a>
+    </div>
+    <div class="flex gap-3">
+      <a href="https://bloomsdayhome.com/privacy/" target="_blank" class="underline text-xs">Privacy</a>
+      <a href="https://bloomsdayhome.com/terms/" target="_blank" class="underline text-xs">Terms</a>
+    </div>
+  </div>
 </div>

@@ -64,6 +64,10 @@ html {
   font-family: "NeueMontreal";
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .hidden {
   display: none;
 }

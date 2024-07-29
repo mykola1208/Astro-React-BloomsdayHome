@@ -23,12 +23,34 @@ const { title } = Astro.props;
     </head>
     <body>
       <main>
-        <Header mode="regular" />
+        <div id="header">
+          <Header mode="regular" />
+        </div>
         <div class="flex flex-row">
           <div><Sidebar /></div>
-          <div class="grow"><slot /></div>
+          <div id="content" class="overflow-y-scroll"><slot /></div>
         </div>
       </main>
     </body>
   </html>
+  <script>
+    function setContent() {
+      const header = document.getElementById("header");
+      const sidebar = document.getElementById("sidebar");
+      const content = document.getElementById("content");
+
+      const headerHeight = header.offsetHeight;
+      const sidebarWidth = sidebar.offsetWidth;
+
+      const contentHeight = window.innerHeight - headerHeight;
+      const contentWidth = window.innerWidth - sidebarWidth;
+
+      sidebar.style.height = `${contentHeight}px`;
+      content.style.maxHeight = `${contentHeight}px`;
+      content.style.minWidth = `${contentWidth}px`;
+    }
+
+    setContent();
+    window.addEventListener("resize", setContent);
+  </script>
 </ClerkLayout>

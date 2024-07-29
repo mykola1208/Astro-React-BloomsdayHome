@@ -36,23 +36,23 @@ const selectedMenu = segments[1];
         </span>
         <Icon
           name="chevron"
-          id="sidebar-chevron"
+          id={`sidebar-chevron-${icon}`}
           width={24}
           height={24}
           class="shrink-0 transition-transform duration-300"
         />
       </button>
       <ul
-        class={`${selectedMenu == icon ? "block" : "hidden"}`}
+        class={`${selectedMenu === icon ? "block" : "hidden"}`}
         id={`dropdown-${icon}`}
         role="listbox"
       >
-        {items.map((item) => {
+        {items.map((item, index) => {
           const isActive =
             segments[2] === item.href.split("/")[2] &&
             segments[1] === item.href.split("/")[1];
           return (
-            <li class={`py-2 pr-2 pl-10 ${isActive ? "underline" : ""}`}>
+            <li class={`py-2 pr-2 pl-10 ${isActive ? "underline" : ""}`} key={`item-${icon}-${index}`}>
               <a
                 href={item.href}
                 class={`text-darkgreen text-sm leading-none font-medium block hover:underline hover:underline-offset-1 ${isActive ? "underline" : ""}`}
@@ -73,7 +73,6 @@ const selectedMenu = segments[1];
 
     buttons.forEach((button) => {
       button.addEventListener("click", (event) => {
-        const button = event.currentTarget as HTMLButtonElement;
         const dropdownId = button.getAttribute("data-dropdown-target");
         const dropdown = document.getElementById(dropdownId);
         const isExpanded = button.getAttribute("aria-expanded") === "true";
@@ -81,7 +80,7 @@ const selectedMenu = segments[1];
         button.setAttribute("aria-expanded", (!isExpanded).toString());
         dropdown.classList.toggle("hidden", isExpanded);
         button
-          .querySelector("#sidebar-chevron")
+          .querySelector(`#sidebar-chevron-${dropdownId.split('-')[1]}`)
           .classList.toggle("rotate-180", !isExpanded);
       });
     });

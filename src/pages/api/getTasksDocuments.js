@@ -50,7 +50,7 @@ export async function getDocumentsForCategory(tasks, id) {
   let response = tasks;
   const sections = {};
 
-  response.data.tasks.forEach((item) => {
+  response?.data?.tasks?.forEach((item) => {
     const { title, task_category } = item;
 
     if (!sections[task_category]) {

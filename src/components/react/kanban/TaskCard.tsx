@@ -125,7 +125,7 @@ const TaskCard = ({
         >
           <div
             className={clsx(
-              "min-w-full bg-white border-l-4 shadow-inner pt-3 pr-2 pb-4 pl-4",
+              "bg-white border-l-4 shadow-inner pt-3 pr-2 pb-4 pl-4",
               task.state == "not_started" && "border-l-alert",
               task.state == "in_progress" && "border-l-warning",
               task.state == "completed" && "border-l-completed",
