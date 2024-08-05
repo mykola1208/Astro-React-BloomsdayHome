@@ -18,7 +18,7 @@ const Dialog: React.FC<PropsWithChildren<DialogProps>> = ({
   return (
     <div>
       <div
-        className="relative z-10 rounded-xl"
+        className="relative rounded-xl"
         aria-labelledby="modal-title"
         role="dialog"
         aria-modal="true"

@@ -185,7 +185,7 @@ const TaskCard = ({
                 )}
               </div>
             </div>
-            <div className="relative mt-5">
+            <div className=" mt-5">
               <button
                 className={clsx(
                   `ml-10 py-3 px-4 rounded-lg`,
